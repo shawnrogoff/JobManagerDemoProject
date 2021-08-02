@@ -1,0 +1,70 @@
+:root{
+    --primary-color: #1d5888;
+    --secondary-color: #FFEA7A;
+    --dark-color: #292929;
+    --light-gray: #d4d4d4;
+    --dark-gray: #a9a9a9;
+    --white-color: #dfe9f3;
+  }
+  
+  /* === Google Fonts === */
+  .logoFont{
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  /* === Button Styling === */
+  .btnPrimaryBackground{
+      background-color: var(--primary-color);
+  }
+  .btnSecondaryBackground{
+      background-color: var(--secondary-color);
+  }
+  
+  main>.container {
+      padding: 60px 15px 0;
+  }
+  
+  body{
+    color: var(--dark-color);
+  }
+  
+  nav{
+    background-color: var(--dark-color);
+  }
+  
+  footer{
+    background-color: var(--dark-color);
+    padding-right: 1rem;
+  }
+  
+  footer .social>a{
+    color: var(--white-color);
+    opacity: 0.75;
+  }
+  
+  footer .social>a:hover{
+    opacity: 0.9;
+    color: var(--secondary-color);
+  }
+  
+  h1,h2,h3,h4,h5,h6{
+    color: var(--primary-color);
+  }
+  
+  .checklist >li i{
+    color: var(--secondary-color);
+  }
+  
+  code[class*="language-"],
+  pre[class*="language-"]{
+      white-space: pre-wrap;
+      word-break: break-all;
+      word-wrap: break-word;
+      font-size: 1.5rem;
+  }
+  
+  .invisible{
+    display: none;
+  }
