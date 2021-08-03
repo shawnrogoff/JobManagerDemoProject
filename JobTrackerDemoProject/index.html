@@ -37,7 +37,7 @@
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button> -->
-                <!-- <div class="collapse navbar-collapse" id="navbarCollapse">
+                <!-- <div class="collapse navbar-collapse" id="navbarCollapse"> -->
                     <!-- Add invisible class to ul element to hide navbar -->
                     <ul class="navbar-nav me-auto mb-2 mb-md-0 invisible">
                         <li class="nav-item">
@@ -63,7 +63,7 @@
         </nav>
     </section>
     <main class="flex-shrink-0">
-        <section id="landingPage" class="invisible">
+        <section id="landingPage" class="">
             <div class="container" style="margin-top: 100px;">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center">                        
@@ -110,15 +110,50 @@
                 </div>
             </div>
         </section>
-        <section id="loginPage" class="invisible" style="margin-top: 56px;">
-            
+        <section id="loginPage" class="invisible" style="margin-top: 0px;">
+          <div class="row mt-5 mb-3">
+              <div class="form-signin bg-light">
+                <form class="text-center ">
+                    <img class="mb-4" src="/JobTrackerDemoProject/img/SquarePlaceholderImage.png" alt="" width="72">
+                    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+        
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" value="remember-me"> Remember me
+                        </label>
+                    </div>
+                    <button id="btnSubmitLogin" class="w-100 btn btn-lg btn-primary text-light btnPrimaryBackground" type="button">Sign in</button>
+                    <div class="row row-cols-1 row-cols-md-3">
+                      <div class="col">
+                      </div>
+                      <div class="col w-100">
+                        <button id="btnSubmitAdminDemoLogin" class="w-100 btn btn-lg btn-outline-primary mt-2 mb-2" type="button">Admin Demo Login</button>
+                        <button id="btnSubmitEmployeeDemoLogin" class="w-100 btn btn-lg btn-outline-primary" type="button">Employee Demo Login</button>
+                      </div>
+                      <div class="col">
+                      </div>
+                    </div>
+                    <p class="mt-3 text-muted">Shawn Rogoff</p>
+                    <p class="mb-2 text-muted">&copy; 2021</p>
+                </form>
+            </div>
+          </div>
         </section>
-        <section id="jobsPage" class="" style="margin-top: 100px;">
+        <section id="jobsPage" class="invisible" style="margin-top: 100px;">
             <!-- Buttons -->
             <div class="row" style="margin-top: 56px;">
                 <div class="col d-flex align-content-center justify-content-center">
-                    <button id="showJobsBtn" type="button" class="btn btn-dark btn-lg m-1">Jobs</button>
-                    <button id="showCustomersBtn" type="button" class="btn btn-outline-dark btn-lg m-1">Customers</button>
+                    <button id="showJobsBtn2" type="button" class="btn btn-dark btn-lg m-1">Jobs</button>
+                    <button id="showCustomersBtn2" type="button" class="btn btn-outline-dark btn-lg m-1">Customers</button>
                 </div>
             </div>
             <!-- Jobs Table -->
@@ -313,6 +348,206 @@
                 </table>
               </div>
         </section>
+        <section id="customersPage" class="invisible" style="margin-top: 100px;">
+          <!-- Buttons -->
+          <div class="row" style="margin-top: 56px;">
+              <div class="col d-flex align-content-center justify-content-center">
+                  <button id="showJobsBtn" type="button" class="btn btn-outline-dark btn-lg m-1">Jobs</button>
+                  <button id="showCustomersBtn" type="button" class="btn btn-dark btn-lg m-1">Customers</button>
+              </div>
+          </div>
+          <!-- Customer Table -->
+          <div class="container max-width: 70% mb-2" style="padding-top: 5%; overflow:auto;">
+              <table id="customersTable" class="table table-dark table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Job ID</th>
+                    <th scope="col">Store</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Envelope #</th>
+                    <th scope="col">Job Type</th>
+                    <th scope="col">Date Received</th>
+                    <th scope="col">Estimated Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">10048</th>
+                    <td>Brooks Fine Jewelry</td>
+                    <td>Steve Smith</td>
+                    <td>3135</td>
+                    <td>Repair</td>
+                    <td>2021-08-23</td>
+                    <td>$99</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">JobID</th>
+                    <td>StoreName</td>
+                    <td>CustomerName</td>
+                    <td>Env#</td>
+                    <td>JobType</td>
+                    <td>DateCompleted</td>
+                    <td>FinalPrice</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">JobID</th>
+                    <td>StoreName</td>
+                    <td>CustomerName</td>
+                    <td>Env#</td>
+                    <td>JobType</td>
+                    <td>DateCompleted</td>
+                    <td>FinalPrice</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">JobID</th>
+                    <td>StoreName</td>
+                    <td>CustomerName</td>
+                    <td>Env#</td>
+                    <td>JobType</td>
+                    <td>DateCompleted</td>
+                    <td>FinalPrice</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">JobID</th>
+                    <td>StoreName</td>
+                    <td>CustomerName</td>
+                    <td>Env#</td>
+                    <td>JobType</td>
+                    <td>DateCompleted</td>
+                    <td>FinalPrice</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">JobID</th>
+                    <td>StoreName</td>
+                    <td>CustomerName</td>
+                    <td>Env#</td>
+                    <td>JobType</td>
+                    <td>DateCompleted</td>
+                    <td>FinalPrice</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">JobID</th>
+                    <td>StoreName</td>
+                    <td>CustomerName</td>
+                    <td>Env#</td>
+                    <td>JobType</td>
+                    <td>DateCompleted</td>
+                    <td>FinalPrice</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">JobID</th>
+                    <td>StoreName</td>
+                    <td>CustomerName</td>
+                    <td>Env#</td>
+                    <td>JobType</td>
+                    <td>DateCompleted</td>
+                    <td>FinalPrice</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">JobID</th>
+                    <td>StoreName</td>
+                    <td>CustomerName</td>
+                    <td>Env#</td>
+                    <td>JobType</td>
+                    <td>DateCompleted</td>
+                    <td>FinalPrice</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">JobID</th>
+                    <td>StoreName</td>
+                    <td>CustomerName</td>
+                    <td>Env#</td>
+                    <td>JobType</td>
+                    <td>DateCompleted</td>
+                    <td>FinalPrice</td>
+                  </tr>
+                  <tr>
+                      <th scope="row">10048</th>
+                      <td>Brooks Fine Jewelry</td>
+                      <td>Steve Smith</td>
+                      <td>1233</td>
+                      <td>Custom</td>
+                      <td>2021-08-10</td>
+                      <td>$93</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">JobID</th>
+                      <td>StoreName</td>
+                      <td>CustomerName</td>
+                      <td>Env#</td>
+                      <td>JobType</td>
+                      <td>DateCompleted</td>
+                      <td>FinalPrice</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">JobID</th>
+                      <td>StoreName</td>
+                      <td>CustomerName</td>
+                      <td>Env#</td>
+                      <td>JobType</td>
+                      <td>DateCompleted</td>
+                      <td>FinalPrice</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">JobID</th>
+                      <td>StoreName</td>
+                      <td>CustomerName</td>
+                      <td>Env#</td>
+                      <td>JobType</td>
+                      <td>DateCompleted</td>
+                      <td>FinalPrice</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">JobID</th>
+                      <td>StoreName</td>
+                      <td>CustomerName</td>
+                      <td>Env#</td>
+                      <td>JobType</td>
+                      <td>DateCompleted</td>
+                      <td>FinalPrice</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">JobID</th>
+                      <td>StoreName</td>
+                      <td>CustomerName</td>
+                      <td>Env#</td>
+                      <td>JobType</td>
+                      <td>DateCompleted</td>
+                      <td>FinalPrice</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">JobID</th>
+                      <td>StoreName</td>
+                      <td>CustomerName</td>
+                      <td>Env#</td>
+                      <td>JobType</td>
+                      <td>DateCompleted</td>
+                      <td>FinalPrice</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">JobID</th>
+                      <td>StoreName</td>
+                      <td>CustomerName</td>
+                      <td>Env#</td>
+                      <td>JobType</td>
+                      <td>DateCompleted</td>
+                      <td>FinalPrice</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th scope="col">Job ID</th>
+                    <th scope="col">Store</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Envelope #</th>
+                    <th scope="col">Job Type</th>
+                    <th scope="col">Date Received</th>
+                    <th scope="col">Estimated Price</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+      </section>
         
     </main>
 
@@ -351,10 +586,21 @@
         $("#inProgressJobsTable").DataTable();
       });
     </script>
+    <script>
+      $(document).ready(function () {
+        $("#customersTable").DataTable();
+      });
+    </script>
     <!-- Event Listeners for buttons on page -->
     <script>
         document.getElementById("btnOpenLoginPage").addEventListener("click", OpenLoginPage);
-        document.getElementById("btnOpenAboutSection").addEventListener("click", OpenAboutPage);
+        document.getElementById("btnSubmitLogin").addEventListener("click", OpenJobsPage);
+        document.getElementById("btnSubmitAdminDemoLogin").addEventListener("click", OpenJobsPage);
+        document.getElementById("btnSubmitEmployeeDemoLogin").addEventListener("click", OpenJobsPage);
+        document.getElementById("showJobsBtn").addEventListener("click", OpenJobsPage);
+        document.getElementById("showJobsBtn2").addEventListener("click", OpenJobsPage);
+        document.getElementById("showCustomersBtn").addEventListener("click", OpenCustomersPage);
+        document.getElementById("showCustomersBtn2").addEventListener("click", OpenCustomersPage);
     </script>
 </body>
 
