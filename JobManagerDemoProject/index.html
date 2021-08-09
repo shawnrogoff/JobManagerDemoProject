@@ -48,7 +48,7 @@
         </nav>
     </section>
     <main class="flex-shrink-0">
-        <section id="landingPage" class="">
+        <section id="landingPage" class="invisible">
             <div class="container" style="margin-top: 100px;">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center">                        
@@ -477,10 +477,72 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                          Insert text describing function and goals of the application.
+                        <form action="#">
+                          <div class="row mb-1">
+                              <div class="col">
+                                  <label class="form-label">Job Id:</label>
+                                  <input type="text" name="firstName" class="form-control" placeholder="Job Id"
+                                      aria-label="Job Id" required disabled>
+                              </div>
+                              <div class="col">
+                                  <label class="form-label">Customer:</label>
+                                  <input type="text" name="lastName" class="form-control" placeholder="Customer Name"
+                                      aria-label="Customer Name" required disabled>
+                              </div>
+                          </div>
+                          <div class="row mb-1">
+                            <div class="col">
+                              <label class="form-label">Job Type:</label>
+                              <input type="text" name="jobtype" class="form-control" placeholder="Job Type"
+                                  aria-label="Job Type" disabled>
+                            </div>  
+                            <div class="col">
+                                  <label class="form-label">Status:</label>
+                                  <input type="text" name="status" class="form-control" placeholder="Status"
+                                      aria-label="Status" required disabled>
+                              </div>
+                          </div>
+                          <div class="row mb-1 row-cols-1 row-cols-md-3">
+                            <div class="col">
+                                <label class="form-label">Received:</label>
+                                <input type="date" name="received" class="form-control" placeholder="Date Received"
+                                    aria-label="Date Received" required disabled>
+                            </div>
+                            <div class="col">
+                                <label class="form-label">Completed:</label>
+                                <input type="date" name="completed" class="form-control" placeholder="Date Completed"
+                                    aria-label="Date Completed" required disabled>
+                            </div>
+                            <div class="col">
+                              <label class="form-label">Delivered:</label>
+                              <input type="date" name="delivered" class="form-control" placeholder="Date Delivered"
+                                  aria-label="Date Delivered" required disabled>
+                            </div>
+                          </div>
+                          <div class="row mb-1">
+                            <div class="col">
+                              <label class="form-label">Job Details:</label>
+                              <textarea class="form-control" id="jobDetails-AddJob" rows="3" required disabled>Enter Job Details</textarea>
+                            </div>
+                          </div>
+                          <div class="row mb-1">
+                            <div class="col">
+                                <label class="form-label">Estimate:</label>
+                                <input type="number" name="estimate" class="form-control" placeholder="Estimate"
+                                    aria-label="Estimate" required disabled>
+                            </div>
+                            <div class="col">
+                              <label class="form-label">Price:</label>
+                              <input type="number" name="price" class="form-control" placeholder="Price"
+                                  aria-label="Price" required disabled>
+                            </div>
+                          </div>
+                        </form>
                       </div>
+                      <!-- === Buttons Here === -->
                       <div class="modal-footer">
-                          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jobEditModal">Edit</button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                       </div>
                   </div>
               </div>
@@ -490,18 +552,98 @@
           <!-- Customer Details Modal -->
           <div class="modal fade" id="jobEditModal" tabindex="-1" aria-labelledby="jobEditModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <h5 class="modal-title" id="jobEditModalLabel">Edit Job</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                          Insert text describing function and goals of the application.
-                      </div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="jobEditModalLabel">Edit Job</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#">
+                          <div class="row mb-1">
+                              <div class="col">
+                                  <label class="form-label">Job Id:</label>
+                                  <input type="text" name="firstName" class="form-control" placeholder="Job Id"
+                                      aria-label="Job Id" required disabled>
+                              </div>
+                              <div class="col">
+                                  <label class="form-label">Customer:</label>
+                                  <input type="text" name="lastName" class="form-control" placeholder="Customer Name"
+                                      aria-label="Customer Name" required disabled>
+                              </div>
+                          </div>
+                          <div class="row mb-1">
+                            <div class="col">
+                              <label class="form-label">Job Type:</label>
+                              <select class="form-select" aria-label="Job Type">
+                                <option selected>Job Type</option>
+                                <option>Repair</option>
+                                <option>Custom</option>
+                                <option>Other</option>
+                              </select>
+                            </div>  
+                            <div class="col">
+                                  <label class="form-label">Status:</label>
+                                  <select class="form-select" aria-label="Job Type">
+                                    <option selected>Status</option>
+                                    <optgroup label="Repairs & Other">
+                                      <option>In-Progress</option>
+                                      <option>Completed</option>
+                                      <option>Delivered</option>
+                                    </optgroup>
+                                    <optgroup label="Customs">
+                                      <option>Quote</option>
+                                      <option>CAD</option>
+                                      <option>Approval</option>
+                                      <option>Printing</option>
+                                      <option>Casting</option>
+                                      <option>Setting</option>
+                                    </optgroup>
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="row mb-1 row-cols-1 row-cols-md-3">
+                            <div class="col">
+                                <label class="form-label">Received:</label>
+                                <input type="date" name="received" class="form-control" placeholder="Date Received"
+                                    aria-label="Date Received" required >
+                            </div>
+                            <div class="col">
+                                <label class="form-label">Completed:</label>
+                                <input type="date" name="completed" class="form-control" placeholder="Date Completed"
+                                    aria-label="Date Completed" required >
+                            </div>
+                            <div class="col">
+                              <label class="form-label">Delivered:</label>
+                              <input type="date" name="delivered" class="form-control" placeholder="Date Delivered"
+                                  aria-label="Date Delivered" required >
+                            </div>
+                          </div>
+                          <div class="row mb-1">
+                            <div class="col">
+                              <label class="form-label">Job Details:</label>
+                              <textarea class="form-control" id="jobDetails-AddJob" rows="3" required >Enter Job Details</textarea>
+                            </div>
+                          </div>
+                          <div class="row mb-1">
+                            <div class="col">
+                                <label class="form-label">Estimate:</label>
+                                <input type="number" name="estimate" class="form-control" placeholder="Estimate"
+                                    aria-label="Estimate" required >
+                            </div>
+                            <div class="col">
+                              <label class="form-label">Price:</label>
+                              <input type="number" name="price" class="form-control" placeholder="Price"
+                                  aria-label="Price" required >
+                            </div>
+                          </div>
+                        </form>
+                    </div>
+                      <!-- === Buttons Here === -->
                       <div class="modal-footer">
-                          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jobEditModal">Edit</button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                       </div>
-                  </div>
+                </div>
               </div>
           </div>
         </section>
@@ -611,7 +753,7 @@
             </div>
           </div>
         </section>
-        <section id="jobsPage" class="invisible" style="margin-top: 100px;">
+        <section id="jobsPage" class="" style="margin-top: 100px;">
             <!-- Buttons -->
             <div class="container">
                 <div class="row row-cols-1 row-cols-md-3">
@@ -628,11 +770,10 @@
 
                     </div>
                     <div class="d-flex col justify-content-end">
-                      <button type="button" class="btn btn-dark px-4 m-2 " data-bs-toggle="modal" data-bs-target="#addJobModal">
+                      <button type="button" class="btn btn-dark btn-large px-4 m-2 " data-bs-toggle="modal" data-bs-target="#addJobModal">
                         Add Job
                       </button>
                     </div>
-
                 </div>
             </div>
             <!-- Jobs Table -->
@@ -663,219 +804,7 @@
                         </div>
                       </td>
                     </tr>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    
-                    
-                    
+
                   </tbody>
                   <tfoot>
                     <tr>
@@ -889,11 +818,26 @@
                 </table>
               </div>
         </section>
-        <section id="customersPage" class="invisible" style="margin-top: 100px;">
+        <section id="customersPage" class="invisible  " style="margin-top: 100px;">
           <!-- Buttons -->
-          
+          <div class="container">
+            <div class="row row-cols-1 row-cols-md-3">
+                <div class="col">
+                    
+                </div>
+                <div class="col">
+
+                </div>
+                <div class="d-flex col justify-content-end">
+                  <button type="button" class="btn btn-dark btn-lg px-4 m-2 " data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                    Add Customer
+                  </button>
+                </div>
+
+            </div>
+          </div>
           <!-- Customer Table -->
-          <div class="container max-width: 70% mt-4 text-center" style="padding-top: 5%; overflow:auto;">
+          <div class="container max-width: 70% mt-4 text-center" style="height:auto; overflow:auto;">
               <table id="customersTable" class="table table-dark table-striped">
                 <thead>
                   <tr>
