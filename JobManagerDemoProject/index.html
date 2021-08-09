@@ -31,34 +31,19 @@
 <body class="d-flex flex-column h-100">
     <section id="navbarSection">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand logoFont"><img src="/JobManagerDemoProject/img/ShawnRogoffMark2Light.png" class="d-inline-block align-text-top mx-2" width="30" height="24"> Job Manager</a>
-                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button> -->
-                <!-- <div class="collapse navbar-collapse" id="navbarCollapse"> -->
-                    <!-- Add invisible class to ul element to hide navbar -->
-                    <ul class="navbar-nav me-auto mb-2 mb-md-0 invisible">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" aria-current="page" href="app.html">The App</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="code.html">The Code</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" target="_blank" href="https://github.com/shawnrogoff/JobTracker">Git Repo</a>
-                            <!-- put github link in the above href -->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" target="_blank" href="https://shawnrogoffportfolio.netlify.app/">About</a>
-                            <!-- put portfolio link in the above href -->
-                        </li>
-                    </ul>
-                  </div>
+            <div class="container">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <a class="navbar-brand logoFont"><img src="/JobManagerDemoProject/img/ShawnRogoffMark2Light.png" class="d-inline-block align-text-top mx-2" width="30" height="24"> Job Manager</a>
+              <div class="collapse navbar-collapse justify-content-md-end" id="navbarTogglerDemo01">
+                <div class="d-flex m-2 m-md-0">
+                      <button id="showJobsBtn" type="button" class="btn btn-outline-light btn-lg ms-1 me-2">Jobs</button>
+                      <button id="showCustomersBtn" type="button" class="btn btn-light btn-lg me-2">Customers</button>
+                      <button id="accountBtn" title="Account" type="button" class="btn btn-outline-light btn-lg me-2"><i class="fas fa-user"></i></button>
+                      <button id="signOutBtn" title="Sign Out" type="button" class="btn btn-outline-light btn-lg me-2"><i class="fas fa-sign-out"></i></button>
+                </div>
+              </div>
             </div>
         </nav>
     </section>
@@ -114,9 +99,7 @@
                         <button type="button" class="btn btn-outline-primary btn-lg px-4 mb-2 " data-bs-toggle="modal" data-bs-target="#jobEditModal">
                           Edit Job
                         </button>
-                        <button type="button" class="btn btn-outline-primary btn-lg px-4 mb-2 " data-bs-toggle="modal" data-bs-target="#addJobModal">
-                          Add Job
-                        </button>
+                        
                       </div>
                     </div>
                 </div>
@@ -215,10 +198,11 @@
                               </div>
                           </form>
                       </div>
+                      <!-- === Buttons Here === -->
                       <div class="modal-footer">
                         <button type="button" class="btn btn-outline-primary">Credit History</button>
                         <button type="button" class="btn btn-outline-primary">Job History</button>
-                        <button type="button" class="btn btn-primary">Edit</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customerEditModal">Edit</button>
                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                       </div>
                   </div>
@@ -521,7 +505,7 @@
               </div>
           </div>
         </section>
-        <section id="addCustomerSection" class="">           
+        <section id="addJobSection" class="">           
           <!-- Customer Details Modal -->
           <div class="modal fade" id="addJobModal" tabindex="-1" aria-labelledby="addJobModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
@@ -548,7 +532,7 @@
                                   </div>
                               </div>
                               <hr>
-                              <div class="row mb-1">
+                              <div class="row row-cols-1 row-cols-md-3 mb-1">
                                 <div class="col">
                                   <label class="form-label">Job Type</label>
                                   <select class="form-select" aria-label="Job Type">
@@ -629,199 +613,277 @@
         </section>
         <section id="jobsPage" class="invisible" style="margin-top: 100px;">
             <!-- Buttons -->
-            <div class="row" style="margin-top: 56px;">
-                <div class="col d-flex align-content-center justify-content-center">
-                    <button id="showJobsBtn2" type="button" class="btn btn-dark btn-lg m-1">Jobs</button>
-                    <button id="showCustomersBtn2" type="button" class="btn btn-outline-dark btn-lg m-1">Customers</button>
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-3">
+                    <div class="col">
+                        <label class="form-label">Job Status:</label>
+                        <select id="jobStatusSelection" class="form-select" aria-label="Job Status Selection">
+                          <option selected>In-Progress</option>
+                          <option>Completed</option>
+                          <option>Delivered</option>
+                          <option>Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col">
+
+                    </div>
+                    <div class="d-flex col justify-content-end">
+                      <button type="button" class="btn btn-dark px-4 m-2 " data-bs-toggle="modal" data-bs-target="#addJobModal">
+                        Add Job
+                      </button>
+                    </div>
+
                 </div>
             </div>
             <!-- Jobs Table -->
-            <div class="container max-width: 70% mb-2" style="padding-top: 5%; overflow:auto;">
-                <table id="inProgressJobsTable" class="table table-dark table-striped">
+            <div class="container max-width: 70% mb-2 mt-4 text-center" style="height:auto; overflow:auto;">
+                <table id="jobsTable" class="table table-dark table-striped">
                   <thead>
                     <tr>
                       <th scope="col">Job ID</th>
-                      <th scope="col">Store</th>
                       <th scope="col">Customer</th>
                       <th scope="col">Envelope #</th>
-                      <th scope="col">Job Type</th>
-                      <th scope="col">Date Received</th>
-                      <th scope="col">Estimated Price</th>
+                      <th scope="col">Age</th>
+                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <th scope="row">10048</th>
-                      <td>Brooks Fine Jewelry</td>
                       <td>Zachariah Chase</td>
                       <td>3473</td>
-                      <td>Repair</td>
-                      <td>2021-08-23</td>
-                      <td>$66</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#jobDetailsModal"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#jobEditModal"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
                     </tr>
                     <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
+                      <th scope="row">10048</th>
+                      <td>Zachariah Chase</td>
+                      <td>3473</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
                     </tr>
                     <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
+                      <th scope="row">10048</th>
+                      <td>Zachariah Chase</td>
+                      <td>3473</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
                     </tr>
                     <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
+                      <th scope="row">10048</th>
+                      <td>Zachariah Chase</td>
+                      <td>3473</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
                     </tr>
                     <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
+                      <th scope="row">10048</th>
+                      <td>Zachariah Chase</td>
+                      <td>3473</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
                     </tr>
                     <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
+                      <th scope="row">10048</th>
+                      <td>Zachariah Chase</td>
+                      <td>3473</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
                     </tr>
                     <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
+                      <th scope="row">10048</th>
+                      <td>Zachariah Chase</td>
+                      <td>3473</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
                     </tr>
                     <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
+                      <th scope="row">10048</th>
+                      <td>Zachariah Chase</td>
+                      <td>3473</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
                     </tr>
                     <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
+                      <th scope="row">10048</th>
+                      <td>Zachariah Chase</td>
+                      <td>3473</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
                     </tr>
                     <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
+                      <th scope="row">10048</th>
+                      <td>Zachariah Chase</td>
+                      <td>3473</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
                     </tr>
                     <tr>
-                        <th scope="row">10048</th>
-                        <td>Brooks Fine Jewelry</td>
-                        <td>Steve Smith</td>
-                        <td>1233</td>
-                        <td>Custom</td>
-                        <td>2021-08-10</td>
-                        <td>$93</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">JobID</th>
-                        <td>StoreName</td>
-                        <td>CustomerName</td>
-                        <td>Env#</td>
-                        <td>JobType</td>
-                        <td>DateCompleted</td>
-                        <td>FinalPrice</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">JobID</th>
-                        <td>StoreName</td>
-                        <td>CustomerName</td>
-                        <td>Env#</td>
-                        <td>JobType</td>
-                        <td>DateCompleted</td>
-                        <td>FinalPrice</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">JobID</th>
-                        <td>StoreName</td>
-                        <td>CustomerName</td>
-                        <td>Env#</td>
-                        <td>JobType</td>
-                        <td>DateCompleted</td>
-                        <td>FinalPrice</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">JobID</th>
-                        <td>StoreName</td>
-                        <td>CustomerName</td>
-                        <td>Env#</td>
-                        <td>JobType</td>
-                        <td>DateCompleted</td>
-                        <td>FinalPrice</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">JobID</th>
-                        <td>StoreName</td>
-                        <td>CustomerName</td>
-                        <td>Env#</td>
-                        <td>JobType</td>
-                        <td>DateCompleted</td>
-                        <td>FinalPrice</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">JobID</th>
-                        <td>StoreName</td>
-                        <td>CustomerName</td>
-                        <td>Env#</td>
-                        <td>JobType</td>
-                        <td>DateCompleted</td>
-                        <td>FinalPrice</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">JobID</th>
-                        <td>StoreName</td>
-                        <td>CustomerName</td>
-                        <td>Env#</td>
-                        <td>JobType</td>
-                        <td>DateCompleted</td>
-                        <td>FinalPrice</td>
-                      </tr>
+                      <th scope="row">10048</th>
+                      <td>Zachariah Chase</td>
+                      <td>3473</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">10048</th>
+                      <td>Zachariah Chase</td>
+                      <td>3473</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">10048</th>
+                      <td>Zachariah Chase</td>
+                      <td>3473</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">10048</th>
+                      <td>Zachariah Chase</td>
+                      <td>3473</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">10048</th>
+                      <td>Zachariah Chase</td>
+                      <td>3473</td>
+                      <td>7 days</td>
+                      <td>
+                        <div class="btn-group">
+                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-info-circle"></i></button>
+                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-edit"></i></i></button>
+                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-check-square"></i></button>
+                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-dark btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                      </td>
+                    </tr>
+                    
+                    
+                    
                   </tbody>
                   <tfoot>
                     <tr>
                       <th scope="col">Job ID</th>
-                      <th scope="col">Store</th>
                       <th scope="col">Customer</th>
                       <th scope="col">Envelope #</th>
-                      <th scope="col">Job Type</th>
-                      <th scope="col">Date Received</th>
-                      <th scope="col">Estimated Price</th>
+                      <th scope="col">Age</th>
+                      <th scope="col"></th>
                     </tr>
                   </tfoot>
                 </table>
@@ -829,199 +891,38 @@
         </section>
         <section id="customersPage" class="invisible" style="margin-top: 100px;">
           <!-- Buttons -->
-          <div class="row" style="margin-top: 56px;">
-              <div class="col d-flex align-content-center justify-content-center">
-                  <button id="showJobsBtn" type="button" class="btn btn-outline-dark btn-lg m-1">Jobs</button>
-                  <button id="showCustomersBtn" type="button" class="btn btn-dark btn-lg m-1">Customers</button>
-              </div>
-          </div>
+          
           <!-- Customer Table -->
-          <div class="container max-width: 70% mb-2" style="padding-top: 5%; overflow:auto;">
+          <div class="container max-width: 70% mt-4 text-center" style="padding-top: 5%; overflow:auto;">
               <table id="customersTable" class="table table-dark table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">Job ID</th>
-                    <th scope="col">Store</th>
                     <th scope="col">Customer</th>
-                    <th scope="col">Envelope #</th>
-                    <th scope="col">Job Type</th>
-                    <th scope="col">Date Received</th>
-                    <th scope="col">Estimated Price</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Address</th>
+                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">10048</th>
-                    <td>Brooks Fine Jewelry</td>
-                    <td>Steve Smith</td>
-                    <td>3135</td>
-                    <td>Repair</td>
-                    <td>2021-08-23</td>
-                    <td>$99</td>
+                    <td scope="row">Steve Smith</td>
+                    <td>501-327-1234</td>
+                    <td>1234 Main Street</td>
+                    <td>
+                      <div class="btn-group">
+                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
+                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
+                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
+                        </div>
+                    </td>
                   </tr>
-                  <tr>
-                    <th scope="row">JobID</th>
-                    <td>StoreName</td>
-                    <td>CustomerName</td>
-                    <td>Env#</td>
-                    <td>JobType</td>
-                    <td>DateCompleted</td>
-                    <td>FinalPrice</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">JobID</th>
-                    <td>StoreName</td>
-                    <td>CustomerName</td>
-                    <td>Env#</td>
-                    <td>JobType</td>
-                    <td>DateCompleted</td>
-                    <td>FinalPrice</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">JobID</th>
-                    <td>StoreName</td>
-                    <td>CustomerName</td>
-                    <td>Env#</td>
-                    <td>JobType</td>
-                    <td>DateCompleted</td>
-                    <td>FinalPrice</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">JobID</th>
-                    <td>StoreName</td>
-                    <td>CustomerName</td>
-                    <td>Env#</td>
-                    <td>JobType</td>
-                    <td>DateCompleted</td>
-                    <td>FinalPrice</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">JobID</th>
-                    <td>StoreName</td>
-                    <td>CustomerName</td>
-                    <td>Env#</td>
-                    <td>JobType</td>
-                    <td>DateCompleted</td>
-                    <td>FinalPrice</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">JobID</th>
-                    <td>StoreName</td>
-                    <td>CustomerName</td>
-                    <td>Env#</td>
-                    <td>JobType</td>
-                    <td>DateCompleted</td>
-                    <td>FinalPrice</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">JobID</th>
-                    <td>StoreName</td>
-                    <td>CustomerName</td>
-                    <td>Env#</td>
-                    <td>JobType</td>
-                    <td>DateCompleted</td>
-                    <td>FinalPrice</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">JobID</th>
-                    <td>StoreName</td>
-                    <td>CustomerName</td>
-                    <td>Env#</td>
-                    <td>JobType</td>
-                    <td>DateCompleted</td>
-                    <td>FinalPrice</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">JobID</th>
-                    <td>StoreName</td>
-                    <td>CustomerName</td>
-                    <td>Env#</td>
-                    <td>JobType</td>
-                    <td>DateCompleted</td>
-                    <td>FinalPrice</td>
-                  </tr>
-                  <tr>
-                      <th scope="row">10048</th>
-                      <td>Brooks Fine Jewelry</td>
-                      <td>Steve Smith</td>
-                      <td>1233</td>
-                      <td>Custom</td>
-                      <td>2021-08-10</td>
-                      <td>$93</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">JobID</th>
-                      <td>StoreName</td>
-                      <td>CustomerName</td>
-                      <td>Env#</td>
-                      <td>JobType</td>
-                      <td>DateCompleted</td>
-                      <td>FinalPrice</td>
-                    </tr>
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th scope="col">Job ID</th>
-                    <th scope="col">Store</th>
                     <th scope="col">Customer</th>
-                    <th scope="col">Envelope #</th>
-                    <th scope="col">Job Type</th>
-                    <th scope="col">Date Received</th>
-                    <th scope="col">Estimated Price</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Address</th>
+                    <th scope="col"></th>
                   </tr>
                 </tfoot>
               </table>
@@ -1031,7 +932,7 @@
     </main>
 
     <footer class="footer mt-auto py-3 bg-dark">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row row-cols-1 row-cols-lg-3 gy-2">
                 <div class="col order-last order-lg-first text-light">
                     <div><span class="text-muted">&copy; 2021</span> Shawn Rogoff | shawnrogoff@gmail.com</div>
@@ -1062,7 +963,7 @@
     ></script>
     <script>
       $(document).ready(function () {
-        $("#inProgressJobsTable").DataTable();
+        $("#jobsTable").DataTable();
       });
     </script>
     <script>
@@ -1077,9 +978,7 @@
         document.getElementById("btnSubmitAdminDemoLogin").addEventListener("click", OpenJobsPage);
         document.getElementById("btnSubmitEmployeeDemoLogin").addEventListener("click", OpenJobsPage);
         document.getElementById("showJobsBtn").addEventListener("click", OpenJobsPage);
-        document.getElementById("showJobsBtn2").addEventListener("click", OpenJobsPage);
         document.getElementById("showCustomersBtn").addEventListener("click", OpenCustomersPage);
-        document.getElementById("showCustomersBtn2").addEventListener("click", OpenCustomersPage);
     </script>
 </body>
 
