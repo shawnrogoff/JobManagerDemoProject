@@ -41,3 +41,6 @@ C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProjectAPI\o
 C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProjectAPI\obj\Debug\net5.0\ref\JobTrackerDemoProjectAPI.dll
 C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProjectAPI\obj\Debug\net5.0\JobTrackerDemoProjectAPI.pdb
 C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProjectAPI\obj\Debug\net5.0\JobTrackerDemoProjectAPI.genruntimeconfig.cache
+C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProjectAPI\bin\Debug\net5.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProjectAPI\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProjectAPI\bin\Debug\net5.0\Newtonsoft.Json.dll
