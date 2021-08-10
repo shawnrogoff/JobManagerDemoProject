@@ -14,7 +14,7 @@ function OpenJobsPage(){
 
 function OpenCustomersPage(){
     // Load customers table
-    // getCustomers();
+    getCustomers();
 
     document.getElementById("jobsPage").classList.add("invisible");
     document.getElementById("customersPage").classList.remove("invisible");

@@ -33,7 +33,7 @@ namespace JobTrackerDemoProjectAPI
                 options.AddPolicy(
                     "CorsPolicy",
                     builder => builder
-                        .WithOrigins("https://localhost:3001","https://localhost:5001")
+                        .WithOrigins("https://localhost:3001")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials()
