@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\S Money\\Documents\\code\\JobTrackerDemoProject\\JobTrackerDemoProject.csproj": {}
+    "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProject\\JobTrackerDemoProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\S Money\\Documents\\code\\JobTrackerDemoProject\\JobTrackerDemoProject.csproj": {
+    "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProject\\JobTrackerDemoProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\S Money\\Documents\\code\\JobTrackerDemoProject\\JobTrackerDemoProject.csproj",
+        "projectUniqueName": "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProject\\JobTrackerDemoProject.csproj",
         "projectName": "JobTrackerDemoProject",
-        "projectPath": "C:\\Users\\S Money\\Documents\\code\\JobTrackerDemoProject\\JobTrackerDemoProject.csproj",
+        "projectPath": "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProject\\JobTrackerDemoProject.csproj",
         "packagesPath": "C:\\Users\\S Money\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\S Money\\Documents\\code\\JobTrackerDemoProject\\obj\\",
+        "outputPath": "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -43,6 +43,12 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "bootstrap": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

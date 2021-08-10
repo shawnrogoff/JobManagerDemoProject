@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "d39HrVqMSOpHkNWIO0kwXHVHB3+BsyXxV3Rfpp2PurtLVvT1VTvQsKYk8HmxVyLga0bZP+SLAm3rIHxtnGDFaA==",
+  "dgSpecHash": "/EH2eLUyNgFigVSnusJ07iuHtRmcs0X6Md53PZtmB8CSkDbhdks3EtaplLStMEQ7Gw/3hyOpfXNvIN2znpxp/w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\S Money\\Documents\\code\\JobTrackerDemoProject\\JobTrackerDemoProject.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProject\\JobTrackerDemoProject.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\S Money\\.nuget\\packages\\bootstrap\\5.0.2\\bootstrap.5.0.2.nupkg.sha512"
+  ],
   "logs": []
 }
