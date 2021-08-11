@@ -1,7 +1,7 @@
 // Hide Login Page && Show Jobs Page
 function OpenJobsPage(){
     // Load jobs table
-    // getJobs();
+    getJobs();
 
     document.getElementById("customersPage").classList.add("invisible");
     document.getElementById("jobsPage").classList.remove("invisible");
@@ -72,6 +72,8 @@ function refreshCustomerTable(customers) {
         "<th scope='col'>Phone</th>" +
         "<th scope='col'>Address</th>" +
         "<th scope='col'></th>" +
+        "<th scope='col'></th>" +
+        "<th scope='col'></th>" +
         "</tr>" +
         "</thead>" +
         "<tbody>";
@@ -79,16 +81,12 @@ function refreshCustomerTable(customers) {
     for (var i = 0; i < customers.length; i++) {
         customer = customers[i];
         html = html + "<tr>" +
-            "<th scope='row' data-field='customerid'>" + customer.firstName + " " + customer.lastName + "</th>" +
-            "<td data-field='firstname'>" + customer.phone + "</td>" +
-            "<td data-field='lastname'>" + customer.address1 + "</td>" +
-            "<td>" +
-            "<div class='btn-group'>" +
-                "<button id='customerDetailsBtn' title='Details' type='button' data-action='details' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerDetailsModal'><i class='fas fa-info-circle'></i></button>" +
-                "<button id='jobEditBtn' title='Edit' type='button' data-action='edit' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerEditModal'><i class='fas fa-edit'></i></i></button>" +
-                "<button id='jobDeleteBtn' title='Delete' type='button' data-action='delete' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-minus-square'></i></button>" +
-            "</div>" +
-            "</td>" +
+            "<th scope='row' data-field='customer'>" + customer.firstName + " " + customer.lastName + "</th>" +
+            "<td data-field='phone'>" + customer.phone + "</td>" +
+            "<td data-field='address1'>" + customer.address1 + "</td>" +
+            "<td data-field='details'><button id='customerDetailsBtn' title='Details' type='button' data-action='details' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerDetailsModal'><i class='fas fa-info-circle'></i></button></td>" +
+            "<td data-field='edit'><button id='jobEditBtn' title='Edit' type='button' data-action='edit' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerEditModal'><i class='fas fa-edit'></i></i></button></td>" +
+            "<td data-field='delete'><button id='jobDeleteBtn' title='Delete' type='button' data-action='delete' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-minus-square'></i></button></td>" +
             "</tr>";
     }
 
@@ -99,6 +97,8 @@ function refreshCustomerTable(customers) {
         "<th scope='col'>Phone</th>" +
         "<th scope='col'>Address</th>" +
         "<th scope='col'></th>" +
+        "<th scope='col'></th>" +
+        "<th scope='col'></th>" +
         "</tr>" +
         "</tfoot>" +
         "</table>";
@@ -108,7 +108,7 @@ function refreshCustomerTable(customers) {
     dynamic.innerHTML = html;
 
     //Add a click event listener to all buttons in the table.
-    var buttons = document.querySelectorAll("#table1 .btn");
+    var buttons = document.querySelectorAll("#customersTable .btn");
 
     for (var i = 0; i < buttons.length; i++) {
         var button = buttons[i];
@@ -116,38 +116,39 @@ function refreshCustomerTable(customers) {
     }
 }
 
-function handleCustomerTableButtonClick(e) {
-    var customerId = e.target.dataset.customerid;
-    var action = e.target.dataset.action;
+// function handleCustomerTableButtonClick(e) {
+//     var customerId = e.target.dataset.customerid;
+//     var action = e.target.dataset.action;
 
-    if (action === "delete") {
-        deleteCustomer(customerId);
-    }
+//     if (action === "delete") {
+//         deleteCustomer(customerId);
+//     }
 
-    if (action === "edit") {
-        //alert("You want to " + action + " customer " + customerId);
+    // if (action === "edit") {
+    //     //alert("You want to " + action + " customer " + customerId);
 
-        var customerRow = e.target.parentNode.parentNode;
-        var customerRowFields = customerRow.children;
+    //     var customerRow = e.target.parentNode.parentNode;
+    //     var customerRowFields = customerRow.children;
 
-        for (var i = 0; i < customerRowFields.length; i++) {
-            var customerField = customerRowFields[i];
-            var fieldName = customerField.dataset.field;
+    //     for (var i = 0; i < customerRowFields.length; i++) {
+    //         var customerField = customerRowFields[i];
+    //         var fieldName = customerField.dataset.field;
 
-            if (fieldName === "customerid") {
-                document.getElementById("customerId2").value = customerField.innerText;
-            }
+    //         if (fieldName === "customerid") {
+    //             document.getElementById("customerId2").value = customerField.innerText;
+    //         }
 
-            if (fieldName === "firstname") {
-                document.getElementById("firstName2").value = customerField.innerText;
-            }
+    //         if (fieldName === "firstname") {
+    //             document.getElementById("firstName2").value = customerField.innerText;
+    //         }
 
-            if (fieldName === "lastname") {
-                document.getElementById("lastName2").value = customerField.innerText;
-            }
-        }
-    }
-}
+    //         if (fieldName === "lastname") {
+    //             document.getElementById("lastName2").value = customerField.innerText;
+    //         }
+    //     }
+    // }
+//     e.preventDefault();
+// }
 
 function insertCustomer(e) {
     var firstName = document.getElementById("addCustomerFirstName");
@@ -174,9 +175,9 @@ function insertCustomer(e) {
         "city": city.value,
         "state": stateInput.options[stateInput.selectedIndex].innerText,
         "zipcode": zipcode.value,
-        "status": status.value,
-        "comments": comments.value,
-        "creditBalance": 0
+        "status": status,
+        "comments": comments,
+        "creditBalance": creditBalance
     };
 
     firstName.value = "";
@@ -186,7 +187,7 @@ function insertCustomer(e) {
     address1.value = "";
     address2.value = "";
     city.value = "";
-    state.selectedIndex = "";
+    stateInput.selectedIndex = 0;
     zipcode.value = "";
     status.value = "";
     comments.value = "";
@@ -255,5 +256,114 @@ function deleteCustomer(customerId) {
                 alert("Server Error: " + xhr.statusText);
             }
         }
+    }
+}
+
+// === Job Code === //
+
+function getJobs() {
+    var baseURL = "https://localhost:5001/Jobs/GetJobs";
+    var queryString = "";
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = doAfterGetJobs;
+
+    xhr.open("GET", baseURL + queryString, true);
+    xhr.send();
+
+    function doAfterGetJobs() {
+
+        if (xhr.readyState === 4) { //done
+            if (xhr.status === 200) { //ok
+                //alert(xhr.responseText);
+
+                var response = JSON.parse(xhr.responseText);
+
+                if (response.result === "success") {
+                    var jobs = response.jobs;
+                    refreshJobTable(jobs);
+                } else {
+                    alert("API Error: " + response.message);
+                }
+
+            } else {
+                alert("Server Error: " + xhr.statusText);
+            }
+        }
+    }
+}
+
+function refreshJobTable(jobs) {
+    var html;
+    var dynamic;
+    var job;
+    // var jobDateReceived;
+    // var jobAge;
+    // var currentDate;
+
+    //Build an html table of the customers.
+    html = "<table id='jobsTable' class='table table-dark table-striped mb-2'>" +
+        "<thead>" +
+        "<tr>" +
+        "<th scope='col'>Job ID</th>" +
+        "<th scope='col'>Customer</th>" +
+        "<th scope='col'>Envelope #</th>" +
+        "<th scope='col'>Age</th>" +
+        "<th scope='col'></th>" +
+        "<th scope='col'></th>" +
+        "<th scope='col'></th>" +
+        "<th scope='col'></th>" +
+        "<th scope='col'></th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody>";
+                  
+    for (var i = 0; i < jobs.length; i++) {
+        job = jobs[i];
+
+        // jobDateReceived = Datetime.Parse(job.received);
+        // currentDate = DateTime.Now.ToString("yyyy/MM/dd");
+        // jobAge = currentDate - jobDateReceived;
+
+        html = html + "<tr>" +
+            "<th scope='row' data-field='jobId'>" + job.jobId + "</th>" +
+            "<td data-field='customer'>" + job.customer + "</td>" +
+            "<td data-field='envelope'>" + job.envelopeNumber + "</td>" +
+            "<td data-field='jobAge'>" + "3 days" + "</td>" +
+            "<td data-field='details'><button title='Details' type='button' data-action='details' data-jobId=" + job.jobid + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info-circle'></i></button></td>" +
+            "<td data-field='edit'><button title='Edit' type='button' data-action='edit' data-customerid=" + job.jobid + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobEditModal'><i class='fas fa-edit'></i></button></td>" +
+            "<td data-field='delete'><button title='Delete' type='button' data-action='delete' data-customerid=" + job.jobid + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerEditModal'><i class='fas fa-minus-square'></i></i></button></td>" +
+            "<td data-field='markComplete'><button title='Mark Complete' type='button' data-action='complete' data-customerid=" + job.jobid + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-check-square'></i></button></td>" +
+            "<td data-field='markDelivered'><button title='Mark Delivered' type='button' data-action='deliver' data-customerid=" + job.jobid + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-paper-plane'></i></button></td>" +
+            "</tr>";
+    }
+
+    html = html + "</tbody>" +
+        "<tfoot>" +
+        "<tr>" +
+        "<th scope='col'>Job ID</th>" +
+        "<th scope='col'>Customer</th>" +
+        "<th scope='col'>Envelope #</th>" +
+        "<th scope='col'>Age</th>" +
+        "<th scope='col'></th>" +
+        "<th scope='col'></th>" +
+        "<th scope='col'></th>" +
+        "<th scope='col'></th>" +
+        "<th scope='col'></th>" +
+        "</tr>" +
+        "</tfoot>" +
+        "</table>";
+
+    //Inject the new table into the DOM.
+    dynamic = document.getElementById("dynamic2");
+    dynamic.innerHTML = html;
+
+    //Add a click event listener to all buttons in the table.
+    var buttons = document.querySelectorAll("#jobsTable .btn");
+
+    for (var i = 0; i < buttons.length; i++) {
+        var button = buttons[i];
+        button.addEventListener("click", handleCustomerTableButtonClick);
     }
 }

@@ -62,14 +62,14 @@ namespace JobTrackerDemoProjectAPI.Controllers
                 int customerId = job.CustomerId;
                 string jobType = job.JobType;
                 string status = job.Status;
-                DateTime received = job.Received;
-                DateTime completed = job.Completed;
-                DateTime delivered = job.Delivered;
+                string received = job.Received;
+                string completed = job.Completed;
+                string delivered = job.Delivered;
                 string details = job.Details;
                 decimal estimate = job.Estimate;
                 decimal finalPrice = job.FinalPrice;
                 string comments = job.Comments;
-                string image = job.Image;           
+                int envelopeNumber = job.EnvelopeNumber;           
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {  
@@ -119,7 +119,7 @@ namespace JobTrackerDemoProjectAPI.Controllers
             return response;
         }
         // Change this back to a Post later
-        [HttpGet]
+        [HttpPost]
         [Route("/Jobs/UpdateJob")]
         public Response UpdateJob([FromBody] Job job)
         {

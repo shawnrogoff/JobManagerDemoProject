@@ -645,7 +645,8 @@
                 <div class="row row-cols-1 row-cols-md-3">
                     <div class="col">
                         <select id="jobStatusSelection" class="form-select m-2" aria-label="Job Status Selection">
-                          <option selected>In-Progress</option>
+                          <option selected>Add Filter</option>
+                          <option>In-Progress</option>
                           <option>Completed</option>
                           <option>Delivered</option>
                           <option>Inactive</option>
@@ -662,48 +663,11 @@
                 </div>
             </div>
             <!-- Jobs Table -->
-            <div class="container max-width: 70% mb-2 mt-4 text-center" style="height:auto; overflow:auto;">
-                <table id="jobsTable" class="table table-dark table-striped mb-2">
-                  <thead>
-                    <tr>
-                      <th scope="col">Job ID</th>
-                      <th scope="col">Customer</th>
-                      <th scope="col">Envelope #</th>
-                      <th scope="col">Age</th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">10048</th>
-                      <td>Zachariah Chase</td>
-                      <td>3473</td>
-                      <td>7 days</td>
-                      <td>
-                        <div class="btn-group">
-                          <button id="jobDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#jobDetailsModal"><i class="fas fa-info-circle"></i></button>
-                          <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#jobEditModal"><i class="fas fa-edit"></i></i></button>
-                          <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                          <button id="jobMarkCompleteBtn" title="Mark Complete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-check-square"></i></button>
-                          <button id="jobMarkDeliveredBtn" title="Mark Delivered" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th scope="col">Job ID</th>
-                      <th scope="col">Customer</th>
-                      <th scope="col">Envelope #</th>
-                      <th scope="col">Age</th>
-                      <th scope="col"></th>
-                    </tr>
-                  </tfoot>
-                </table>
+            <div id="dynamic2" class="container max-width: 70% mb-2 mt-4 text-center" style="height:auto; overflow:auto;">
+                <!-- dynamic table generated here -->
               </div>
         </section>
-        <section id="customersPage" class="invisible  " style="margin-top: 100px;">
+        <section id="customersPage" class="" style="margin-top: 100px;">
           <!-- Buttons -->
           <div class="container">
             <div class="row row-cols-1 row-cols-md-3">
