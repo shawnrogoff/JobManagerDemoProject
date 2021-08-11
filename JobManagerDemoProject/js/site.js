@@ -298,9 +298,6 @@ function refreshJobTable(jobs) {
     var html;
     var dynamic;
     var job;
-    // var jobDateReceived;
-    // var jobAge;
-    // var currentDate;
 
     //Build an html table of the customers.
     html = "<table id='jobsTable' class='table table-dark table-striped mb-2'>" +
@@ -322,15 +319,13 @@ function refreshJobTable(jobs) {
     for (var i = 0; i < jobs.length; i++) {
         job = jobs[i];
 
-        // jobDateReceived = Datetime.Parse(job.received);
-        // currentDate = DateTime.Now.ToString("yyyy/MM/dd");
-        // jobAge = currentDate - jobDateReceived;
+        
 
         html = html + "<tr>" +
             "<th scope='row' data-field='jobId'>" + job.jobId + "</th>" +
             "<td data-field='customer'>" + job.customer + "</td>" +
             "<td data-field='envelope'>" + job.envelopeNumber + "</td>" +
-            "<td data-field='jobAge'>" + "3 days" + "</td>" +
+            "<td data-field='jobAge'>" + job.age + " days" + "</td>" +
             "<td data-field='details'><button title='Details' type='button' data-action='details' data-jobId=" + job.jobid + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info-circle'></i></button></td>" +
             "<td data-field='edit'><button title='Edit' type='button' data-action='edit' data-customerid=" + job.jobid + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobEditModal'><i class='fas fa-edit'></i></button></td>" +
             "<td data-field='delete'><button title='Delete' type='button' data-action='delete' data-customerid=" + job.jobid + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerEditModal'><i class='fas fa-minus-square'></i></i></button></td>" +
@@ -366,4 +361,80 @@ function refreshJobTable(jobs) {
         var button = buttons[i];
         button.addEventListener("click", handleCustomerTableButtonClick);
     }
+}
+
+function insertCustomer(e) {
+    var firstName = document.getElementById("addCustomerFirstName");
+    var lastName = document.getElementById("addCustomerLastName");
+    var phone = document.getElementById("addCustomerPhone");
+    var email = document.getElementById("addCustomerEmail");
+    var address1 = document.getElementById("addCustomerAddress1");
+    var address2 = document.getElementById("addCustomerAddress2");
+    var city = document.getElementById("addCustomerCity");
+    var stateInput = document.getElementById("addCustomerStateSelection");
+    var zipcode = document.getElementById("addCustomerZipcode");
+    var status = "active";
+    var comments = "none";
+    var creditBalance = 0;
+    
+    customer = {
+        "customerId": 0,
+        "firstName": firstName.value,
+        "lastName": lastName.value,
+        "phone": phone.value,
+        "email": email.value,
+        "address1": address1.value,
+        "address2": address2.value,
+        "city": city.value,
+        "state": stateInput.options[stateInput.selectedIndex].innerText,
+        "zipcode": zipcode.value,
+        "status": status,
+        "comments": comments,
+        "creditBalance": creditBalance
+    };
+
+    firstName.value = "";
+    lastName.value = "";
+    phone.value = "";
+    email.value = "";
+    address1.value = "";
+    address2.value = "";
+    city.value = "";
+    stateInput.selectedIndex = 0;
+    zipcode.value = "";
+    status.value = "";
+    comments.value = "";
+    creditBalance.value = 0;
+
+    postBody = JSON.stringify(customer);
+
+    var baseURL = "https://localhost:5001/Customers/InsertCustomer";
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = doAfterInsertCustomer;
+    xhr.open("POST", baseURL, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(postBody);
+
+    function doAfterInsertCustomer() {
+
+        if (xhr.readyState === 4) { //done
+            if (xhr.status === 200) { //ok
+                //alert(xhr.responseText);
+
+                var response = JSON.parse(xhr.responseText);
+
+                if (response.result === "success") {
+                    var customers = response.customers;
+                    refreshCustomerTable(customers);
+                } else {
+                    alert("API Error: " + response.message);
+                }
+
+            } else {
+                alert("Server Error: " + xhr.statusText);
+            }
+        }
+    }
+    e.preventDefault();
 }

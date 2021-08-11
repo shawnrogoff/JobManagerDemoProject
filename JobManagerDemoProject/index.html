@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="/JobManagerDemoProject/css/datatable.css">
 </head>
 
-<body class="d-flex flex-column h-100">
+<body onload="getJobs()" class="d-flex flex-column h-100">
     <section id="navbarSection">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container">
@@ -38,8 +38,8 @@
               <a class="navbar-brand logoFont"><img src="/img/ShawnRogoffMark2Light.png" class="d-inline-block align-text-top mx-2" width="30" height="24"> Job Manager</a>
               <div class="collapse navbar-collapse justify-content-md-end" id="navbarTogglerDemo01">
                 <div class="d-flex m-2 m-md-0">
-                      <button id="showJobsBtn" type="button" class="btn btn-outline-light btn-lg ms-1 me-2">Jobs</button>
-                      <button id="showCustomersBtn" type="button" class="btn btn-light btn-lg me-2">Customers</button>
+                      <button id="showJobsBtn" type="button" class="btn btn-light btn-lg ms-1 me-2">Jobs</button>
+                      <button id="showCustomersBtn" type="button" class="btn btn-outline-light btn-lg me-2">Customers</button>
                       <button id="accountBtn" title="Account" type="button" class="btn btn-outline-light btn-lg me-2"><i class="fas fa-user"></i></button>
                       <button id="signOutBtn" title="Sign Out" type="button" class="btn btn-outline-light btn-lg me-2"><i class="fas fa-sign-out"></i></button>
                 </div>
@@ -734,6 +734,7 @@
     </script>
     <!-- Event Listeners for buttons on page -->
     <script>
+
         document.getElementById("showJobsBtn").addEventListener("click", OpenJobsPage);
         document.getElementById("showCustomersBtn").addEventListener("click", OpenCustomersPage);
         document.getElementById("addNewCustomerBtn").addEventListener("click", insertCustomer);

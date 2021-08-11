@@ -23,6 +23,7 @@ namespace JobTrackerDemoProjectAPI
         public string Comments { get; set; }
         public int EnvelopeNumber { get; set; }
         public string Customer { get;set; }
+        public int Age { get;set; }
 
         // Select
         public static List<Job> GetJobs(SqlConnection con)
@@ -53,6 +54,11 @@ namespace JobTrackerDemoProjectAPI
                 job.Comments = rdr["comments"].ToString();
                 job.EnvelopeNumber = Convert.ToInt32(rdr["envelope_number"]);
                 job.Customer = rdr["customer"].ToString();
+
+                DateTime jobDateReceived = DateTime.Parse(job.Received);
+                DateTime currentDate = DateTime.Now;
+                int jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                job.Age = jobAge;
 
                 jobs.Add(job);
             }
