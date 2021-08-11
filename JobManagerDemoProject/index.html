@@ -147,48 +147,48 @@
                               <div class="row mb-1">
                                   <div class="col">
                                       <label class="form-label">First Name</label>
-                                      <input type="text" name="firstName" class="form-control" placeholder="First name"
+                                      <input id="addCustomerFirstName" type="text" name="firstName" class="form-control" placeholder="First name"
                                           aria-label="First name" required>
                                   </div>
                                   <div class="col">
                                       <label class="form-label">Last Name</label>
-                                      <input type="text" name="lastName" class="form-control" placeholder="Last name"
+                                      <input id="addCustomerLastName" type="text" name="lastName" class="form-control" placeholder="Last name"
                                           aria-label="Last name" required>
                                   </div>
                               </div>
                               <div class="row mb-1">
                                 <div class="col">
                                   <label class="form-label">Phone</label>
-                                  <input type="text" name="phone" class="form-control" placeholder="Phone"
+                                  <input id="addCustomerPhone" type="text" name="phone" class="form-control" placeholder="Phone"
                                       aria-label="Phone">
                                 </div>  
                                 <div class="col">
                                       <label class="form-label">Email</label>
-                                      <input type="email" name="email" class="form-control" placeholder="Email"
+                                      <input id="addCustomerEmail" type="email" name="email" class="form-control" placeholder="Email"
                                           aria-label="Email" required>
                                   </div>
                               </div>
                               <div class="row mb-1">
                                 <div class="col">
                                     <label class="form-label">Address</label>
-                                    <input type="text" name="address-primary" class="form-control" placeholder="Address"
+                                    <input id="addCustomerAddress1" type="text" name="address-primary" class="form-control" placeholder="Address"
                                         aria-label="Address primary" required>
                                 </div>
                                 <div class="col">
                                     <label class="form-label">Apartment/Suite/Etc.</label>
-                                    <input type="text" name="address-secondary" class="form-control" placeholder="Address"
+                                    <input id="addCustomerAddress2" type="text" name="address-secondary" class="form-control" placeholder="Address"
                                         aria-label="Address secondary" required>
                                 </div>
                               </div>
                               <div class="row mb-1">
                                 <div class="col">
                                     <label class="form-label">City</label>
-                                    <input type="text" name="city" class="form-control" placeholder="City"
+                                    <input id="addCustomerCity" type="text" name="city" class="form-control" placeholder="City"
                                         aria-label="City" required>
                                 </div>
                                 <div class="col">
                                   <label class="form-label">State</label>
-                                  <select id="stateSelection" class="form-select" aria-label="State Selection">
+                                  <select  id="addCustomerStateSelection" class="form-select" aria-label="State Selection">
                                       <option selected>Select State</option>
                                       <option>Alabama</option>
                                       <option>Alaska</option>
@@ -244,7 +244,7 @@
                                 </div>
                                 <div class="col">
                                   <label class="form-label">Zipcode</label>
-                                  <input id="zipcode" type="text" name="zipcode" class="form-control" placeholder="Zipcode"
+                                  <input id="addCustomerZipcode" type="text" name="zipcode" class="form-control" placeholder="Zipcode"
                                       aria-label="Zipcode" required>
                                 </div>
                               </div>
@@ -252,7 +252,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add New Customer</button>
+                        <button id="addNewCustomerBtn" type="submit" class="btn btn-primary">Add New Customer</button>
                       </div>
                   </div>
               </div>
@@ -723,279 +723,8 @@
           </div>
           <!-- Customer Table -->
           <div id="dynamic1" class="container max-width: 70% mt-4 text-center" style="height:auto; overflow:auto;">
-              <table id="customersTable" class="table table-dark table-striped mt-3 mb-2">
-                <thead>
-                  <tr>
-                    <th scope="col">Customer</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Address</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td scope="row">Steve Smith</td>
-                    <td>501-327-1234</td>
-                    <td>1234 Main Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Steve Smith</td>
-                    <td>501-327-1234</td>
-                    <td>1234 Main Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Steve Smith</td>
-                    <td>501-327-1234</td>
-                    <td>1234 Main Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Steve Smith</td>
-                    <td>501-327-1234</td>
-                    <td>1234 Main Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Steve Smith</td>
-                    <td>501-327-1234</td>
-                    <td>1234 Main Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Steve Smith</td>
-                    <td>501-327-1234</td>
-                    <td>1234 Main Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Steve Smith</td>
-                    <td>501-327-1234</td>
-                    <td>1234 Main Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Steve Smith</td>
-                    <td>501-327-1234</td>
-                    <td>1234 Main Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Steve Smith</td>
-                    <td>501-327-1234</td>
-                    <td>1234 Main Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Steve Smith</td>
-                    <td>501-327-1234</td>
-                    <td>1234 Main Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Jane Doe</td>
-                    <td>501-327-5678</td>
-                    <td>67 Front Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Jane Doe</td>
-                    <td>501-327-5678</td>
-                    <td>67 Front Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Jane Doe</td>
-                    <td>501-327-5678</td>
-                    <td>67 Front Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Jane Doe</td>
-                    <td>501-327-5678</td>
-                    <td>67 Front Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Jane Doe</td>
-                    <td>501-327-5678</td>
-                    <td>67 Front Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Jane Doe</td>
-                    <td>501-327-5678</td>
-                    <td>67 Front Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Jane Doe</td>
-                    <td>501-327-5678</td>
-                    <td>67 Front Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Jane Doe</td>
-                    <td>501-327-5678</td>
-                    <td>67 Front Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Jane Doe</td>
-                    <td>501-327-5678</td>
-                    <td>67 Front Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">Jane Doe</td>
-                    <td>501-327-5678</td>
-                    <td>67 Front Street</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">William Crabtree</td>
-                    <td>479-499-3333</td>
-                    <td>697 Yellow Road</td>
-                    <td>
-                      <div class="btn-group">
-                        <button id="customerDetailsBtn" title="Details" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerDetailsModal"><i class="fas fa-info-circle"></i></button>
-                        <button id="jobEditBtn" title="Edit" type="button" class="btn btn-outline-light btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#customerEditModal"><i class="fas fa-edit"></i></i></button>
-                        <button id="jobDeleteBtn" title="Delete" type="button" class="btn btn-outline-light btn-sm mx-1"><i class="fas fa-minus-square"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th scope="col">Customer</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Address</th>
-                    <th scope="col"></th>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
+              <!-- dynamic table generated here -->
+          </div>
       </section>
     </main>
 
@@ -1043,7 +772,7 @@
     <script>
         document.getElementById("showJobsBtn").addEventListener("click", OpenJobsPage);
         document.getElementById("showCustomersBtn").addEventListener("click", OpenCustomersPage);
-
+        document.getElementById("addNewCustomerBtn").addEventListener("click", insertCustomer);
     </script>
 </body>
 

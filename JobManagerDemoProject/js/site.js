@@ -116,35 +116,144 @@ function refreshCustomerTable(customers) {
     }
 }
 
-// function handleCustomerTableButtonClick(e) {
-//     var customerId = e.target.dataset.customerid;
-//     var action = e.target.dataset.action;
+function handleCustomerTableButtonClick(e) {
+    var customerId = e.target.dataset.customerid;
+    var action = e.target.dataset.action;
 
-//     if (action === "delete") {
-//         deleteCustomer(customerId);
-//     }
+    if (action === "delete") {
+        deleteCustomer(customerId);
+    }
 
-//     if (action === "edit") {
-//         //alert("You want to " + action + " customer " + customerId);
+    if (action === "edit") {
+        //alert("You want to " + action + " customer " + customerId);
 
-//         var customerRow = e.target.parentNode.parentNode;
-//         var customerRowFields = customerRow.children;
+        var customerRow = e.target.parentNode.parentNode;
+        var customerRowFields = customerRow.children;
 
-//         for (var i = 0; i < customerRowFields.length; i++) {
-//             var customerField = customerRowFields[i];
-//             var fieldName = customerField.dataset.field;
+        for (var i = 0; i < customerRowFields.length; i++) {
+            var customerField = customerRowFields[i];
+            var fieldName = customerField.dataset.field;
 
-//             if (fieldName === "customerid") {
-//                 document.getElementById("customerId2").value = customerField.innerText;
-//             }
+            if (fieldName === "customerid") {
+                document.getElementById("customerId2").value = customerField.innerText;
+            }
 
-//             if (fieldName === "firstname") {
-//                 document.getElementById("firstName2").value = customerField.innerText;
-//             }
+            if (fieldName === "firstname") {
+                document.getElementById("firstName2").value = customerField.innerText;
+            }
 
-//             if (fieldName === "lastname") {
-//                 document.getElementById("lastName2").value = customerField.innerText;
-//             }
-//         }
-//     }
-// }
+            if (fieldName === "lastname") {
+                document.getElementById("lastName2").value = customerField.innerText;
+            }
+        }
+    }
+}
+
+function insertCustomer(e) {
+    var firstName = document.getElementById("addCustomerFirstName");
+    var lastName = document.getElementById("addCustomerLastName");
+    var phone = document.getElementById("addCustomerPhone");
+    var email = document.getElementById("addCustomerEmail");
+    var address1 = document.getElementById("addCustomerAddress1");
+    var address2 = document.getElementById("addCustomerAddress2");
+    var city = document.getElementById("addCustomerCity");
+    var stateInput = document.getElementById("addCustomerStateSelection");
+    var zipcode = document.getElementById("addCustomerZipcode");
+    var status = "active";
+    var comments = "none";
+    var creditBalance = 0;
+    
+    customer = {
+        "customerId": 0,
+        "firstName": firstName.value,
+        "lastName": lastName.value,
+        "phone": phone.value,
+        "email": email.value,
+        "address1": address1.value,
+        "address2": address2.value,
+        "city": city.value,
+        "state": stateInput.options[stateInput.selectedIndex].innerText,
+        "zipcode": zipcode.value,
+        "status": status.value,
+        "comments": comments.value,
+        "creditBalance": 0
+    };
+
+    firstName.value = "";
+    lastName.value = "";
+    phone.value = "";
+    email.value = "";
+    address1.value = "";
+    address2.value = "";
+    city.value = "";
+    state.selectedIndex = "";
+    zipcode.value = "";
+    status.value = "";
+    comments.value = "";
+    creditBalance.value = 0;
+
+    postBody = JSON.stringify(customer);
+
+    var baseURL = "https://localhost:5001/Customers/InsertCustomer";
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = doAfterInsertCustomer;
+    xhr.open("POST", baseURL, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(postBody);
+
+    function doAfterInsertCustomer() {
+
+        if (xhr.readyState === 4) { //done
+            if (xhr.status === 200) { //ok
+                //alert(xhr.responseText);
+
+                var response = JSON.parse(xhr.responseText);
+
+                if (response.result === "success") {
+                    var customers = response.customers;
+                    refreshCustomerTable(customers);
+                } else {
+                    alert("API Error: " + response.message);
+                }
+
+            } else {
+                alert("Server Error: " + xhr.statusText);
+            }
+        }
+    }
+    e.preventDefault();
+}
+
+function deleteCustomer(customerId) {
+    var baseURL = "https://localhost:5001/Customers/DeleteCustomer";
+    var queryString = "?customerId=" + customerId;
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = doAfterDeleteCustomers;
+
+    xhr.open("GET", baseURL + queryString, true);
+    xhr.send();
+
+    function doAfterDeleteCustomers() {
+
+        if (xhr.readyState === 4) { //done
+            if (xhr.status === 200) { //ok
+                //alert(xhr.responseText);
+
+                var response = JSON.parse(xhr.responseText);
+
+                if (response.result === "success") {
+                    var customers = response.customers;
+                    refreshCustomerTable(customers);
+                } else {
+                    alert("API Error: " + response.message);
+                }
+
+            } else {
+                alert("Server Error: " + xhr.statusText);
+            }
+        }
+    }
+}

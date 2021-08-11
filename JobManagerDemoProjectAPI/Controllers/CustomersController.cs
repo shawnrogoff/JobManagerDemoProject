@@ -49,7 +49,7 @@ namespace JobTrackerDemoProjectAPI.Controllers
         }
 
         // Change this back to httpPost later
-        [HttpGet]
+        [HttpPost]
         [Route("/Customers/InsertCustomer")]
         public Response InsertCustomer([FromBody] Customer customer)
         {            

@@ -33,13 +33,12 @@ namespace JobTrackerDemoProjectAPI
                 options.AddPolicy(
                     "CorsPolicy",
                     builder => builder
-                        .WithOrigins("https://localhost:3001")
+                        .WithOrigins("https://localhost:3001", "http://192.168.0.19:5500")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials()
                 );
             });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
