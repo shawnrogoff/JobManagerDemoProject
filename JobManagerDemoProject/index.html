@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="/JobManagerDemoProject/css/datatable.css">
 </head>
 
-<body onload="getJobs()" class="d-flex flex-column h-100">
+<body getJobs() class="d-flex flex-column h-100">
     <section id="navbarSection">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container">
@@ -675,7 +675,9 @@
                     
                 </div>
                 <div class="col">
-
+                  <button id="test1" data-name="shawn" type="button" class="btn btn-dark btn-lg px-4 m-2 ">
+                    test
+                  </button>
                 </div>
                 <div class="d-flex col justify-content-end">
                   <button type="button" class="btn btn-dark btn-lg px-4 m-2 " data-bs-toggle="modal" data-bs-target="#addCustomerModal">
@@ -734,10 +736,7 @@
     </script>
     <!-- Event Listeners for buttons on page -->
     <script>
-
-        document.getElementById("showJobsBtn").addEventListener("click", OpenJobsPage);
-        document.getElementById("showCustomersBtn").addEventListener("click", OpenCustomersPage);
-        document.getElementById("addNewCustomerBtn").addEventListener("click", insertCustomer);
+        
     </script>
 </body>
 
