@@ -25,7 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
     <!-- JQuery DataTables -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-    <link rel="stylesheet" href="/JobManagerDemoProject/css/datatable.css">
+    <link rel="stylesheet" href="css/datatable.css">
 </head>
 
 <body getJobs() class="d-flex flex-column h-100">
@@ -55,6 +55,7 @@
                   <div class="modal-content">
                       <div class="modal-header">
                           <h5 class="modal-title" id="customerDetailsModalLabel">Customer Details</h5>
+                          <input id="customerDetailsCustomerId" style="display:none;" type="text" name="customerId" class="form-control" aria-label="CustomerId" required disabled>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
@@ -62,60 +63,60 @@
                               <div class="row mb-1">
                                   <div class="col">
                                       <label class="form-label">First Name</label>
-                                      <input type="text" name="firstName" class="form-control" placeholder="First name"
+                                      <input id="customerDetailsFirstName" type="text" name="firstName" class="form-control" placeholder="First name"
                                           aria-label="First name" required disabled>
                                   </div>
                                   <div class="col">
                                       <label class="form-label">Last Name</label>
-                                      <input type="text" name="lastName" class="form-control" placeholder="Last name"
+                                      <input id="customerDetailsLastName" type="text" name="lastName" class="form-control" placeholder="Last name"
                                           aria-label="Last name" required disabled>
                                   </div>
                               </div>
                               <div class="row mb-1">
                                 <div class="col">
                                   <label class="form-label">Phone</label>
-                                  <input type="text" name="phone" class="form-control" placeholder="Phone"
+                                  <input id="customerDetailsPhone" type="text" name="phone" class="form-control" placeholder="Phone"
                                       aria-label="Phone" disabled>
                                 </div>  
                                 <div class="col">
                                       <label class="form-label">Email</label>
-                                      <input type="email" name="email" class="form-control" placeholder="Email"
+                                      <input id="customerDetailsEmail" type="email" name="email" class="form-control" placeholder="Email"
                                           aria-label="Email" required disabled>
                                   </div>
                               </div>
                               <div class="row mb-1">
                                 <div class="col">
                                     <label class="form-label">Address</label>
-                                    <input type="text" name="address-primary" class="form-control" placeholder="Address"
+                                    <input id="customerDetailsAddress1" type="text" name="address-primary" class="form-control" placeholder="Address"
                                         aria-label="Address primary" required disabled>
                                 </div>
                                 <div class="col">
                                     <label class="form-label">Apartment/Suite/Etc.</label>
-                                    <input type="text" name="address-secondary" class="form-control" placeholder="Address"
+                                    <input id="customerDetailsAddress2" type="text" name="address-secondary" class="form-control" placeholder="Address"
                                         aria-label="Address secondary" required disabled>
                                 </div>
                               </div>
                               <div class="row mb-1">
                                 <div class="col">
                                     <label class="form-label">City</label>
-                                    <input type="text" name="city" class="form-control" placeholder="City"
+                                    <input id="customerDetailsCity" type="text" name="city" class="form-control" placeholder="City"
                                         aria-label="City" required disabled>
                                 </div>
                                 <div class="col">
                                     <label class="form-label">State</label>
-                                    <input type="text" name="state" class="form-control" placeholder="State"
+                                    <input id="customerDetailsState" type="text" name="state" class="form-control" placeholder="State"
                                         aria-label="State" required disabled>
                                 </div>
                                 <div class="col">
                                   <label class="form-label">Zipcode</label>
-                                  <input type="text" name="zipcode" class="form-control" placeholder="Zipcode"
+                                  <input id="customerDetailsZipcode" type="text" name="zipcode" class="form-control" placeholder="Zipcode"
                                       aria-label="Zipcode" required disabled>
                                 </div>
                               </div>
                               <div class="row mb-1">
                                 <div class="col">
                                     <label class="form-label">Store Credit Balance</label>
-                                    <input type="text" name="creditBalance" class="form-control" placeholder="Balance"
+                                    <input id="customerDetailsCreditBalance" type="text" name="creditBalance" class="form-control" placeholder="Balance"
                                         aria-label="Store credit balance" required disabled>
                                 </div>
                                 <div class="col"></div>
@@ -126,7 +127,7 @@
                       <div class="modal-footer">
                         <button type="button" class="btn btn-outline-primary">Credit History</button>
                         <button type="button" class="btn btn-outline-primary">Job History</button>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customerEditModal">Edit</button>
+                        <!-- <button id="openEditModalFromCustomerDetails" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customerEditModal">Edit</button> -->
                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                       </div>
                   </div>
@@ -252,7 +253,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                        <button id="addNewCustomerBtn" type="submit" class="btn btn-primary">Add New Customer</button>
+                        <button id="addNewCustomerBtn" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Add New Customer</button>
                       </div>
                   </div>
               </div>
@@ -265,6 +266,7 @@
                   <div class="modal-content">
                       <div class="modal-header">
                           <h5 class="modal-title" id="customerEditModalLabel">Edit Customer</h5>
+                          <input id="editCustomerCustomerId" style="display:none;" type="text" name="customerId" class="form-control" aria-label="CustomerId" required disabled>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
@@ -385,7 +387,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Update Customer</button>
+                        <button id="updateCustomerBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal">Update Customer</button>
                       </div>
                   </div>
               </div>
@@ -724,17 +726,13 @@
     ></script>
     <script>
       $(document).ready(function () {
-        $("#jobsTable").DataTable();
+        $("#jobTable").DataTable();
       });
     </script>
     <script>
       $(document).ready(function () {
-        $("#customersTable").DataTable();
+        $("#customerTable").DataTable();
       });
-    </script>
-    <!-- Event Listeners for buttons on page -->
-    <script>
-        
     </script>
 </body>
 

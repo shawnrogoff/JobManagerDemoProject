@@ -48,6 +48,32 @@ namespace JobTrackerDemoProjectAPI.Controllers
             return response;
         }
 
+        [HttpGet]
+        [Route("/Customers/GetCustomerByCustomerId")]
+        public Response GetCustomerByCustomerId(int customerId)
+        {
+            Response response = new Response();
+            List<Customer> customers = new List<Customer>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    customers = Customer.GetCustomerByCustomerId(con, customerId);
+                }
+                response.result = "success";
+                response.message = $"{customers.Count()} rows selected.";
+                response.customers = customers;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
         // Change this back to httpPost later
         [HttpPost]
         [Route("/Customers/InsertCustomer")]
@@ -120,13 +146,28 @@ namespace JobTrackerDemoProjectAPI.Controllers
             return response;
         }
         // Change this back to a Post later
-        [HttpGet]
+        
+        [HttpPost]
         [Route("/Customers/UpdateCustomer")]
         public Response UpdateCustomer([FromBody] Customer customer)
         {
             Response response = new Response();
             int rowsUpdated = 0;
             List<Customer> customers = new List<Customer>();
+
+            int customerId = customer.CustomerId;
+            string firstName = customer.FirstName;
+            string lastName = customer.LastName;
+            string phone = customer.Phone;
+            string email = customer.Email;
+            string address1 = customer.Address1;
+            string address2 = customer.Address2;
+            string city = customer.City;
+            string state = customer.State;
+            string zipcode = customer.Zipcode;
+            string status = customer.Status;
+            string comments = customer.Comments;
+            decimal creditBalance = customer.CreditBalance;
 
             try
             {

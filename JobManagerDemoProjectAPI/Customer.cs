@@ -60,6 +60,44 @@ namespace JobTrackerDemoProjectAPI
             return customers;
         }
 
+        public static List<Customer> GetCustomerByCustomerId(SqlConnection con, int customerId)
+        {
+            // Create a list of customer objects
+            List<Customer> customers = new List<Customer>();
+
+            SqlCommand cmd = new SqlCommand("SELECT customerId, first_name, last_name, phone, email, address1, address2, city, state, zipcode, status, comments, credit_balance FROM customer WHERE customerId = @CustomerId", con);
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            cmd.Parameters.Add("@CustomerId", System.Data.SqlDbType.Int);
+            cmd.Parameters["@CustomerId"].Value = customerId;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                // Create a new customer object to store properties inside
+                Customer customer = new Customer();
+
+                customer.CustomerId = Convert.ToInt32(rdr["customerId"]);
+                customer.FirstName = rdr["first_name"].ToString();
+                customer.LastName = rdr["last_name"].ToString();
+                customer.Phone = rdr["phone"].ToString();
+                customer.Email = rdr["email"].ToString();
+                customer.Address1 = rdr["address1"].ToString();
+                customer.Address2 = rdr["address2"].ToString();
+                customer.City = rdr["city"].ToString();
+                customer.State = rdr["state"].ToString();
+                customer.Zipcode = rdr["zipcode"].ToString();
+                customer.Status = rdr["status"].ToString();
+                customer.Comments = rdr["comments"].ToString();
+                customer.CreditBalance = Convert.ToDecimal(rdr["credit_balance"]);
+
+                customers.Add(customer);
+            }
+
+            return customers;
+        }
+
         // Insert
         public static int InsertCustomer(SqlConnection con, Customer customer)
         {

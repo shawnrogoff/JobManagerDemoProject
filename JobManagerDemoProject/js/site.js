@@ -130,10 +130,11 @@
         }
 
         if (action === "edit") {
-            alert("You want to " + action + " customer " + customerId);
+            getCustomerByCustomerIdForEdit(customerId);
+        }
 
-            
-            
+        if (action === "details") {
+            getCustomerByCustomerIdForDetails(customerId);
         }
         e.preventDefault();
     }
@@ -246,6 +247,190 @@
             }
         }
     }
+
+    function getCustomerByCustomerIdForDetails(customerId){
+        var baseURL = "https://localhost:5001/Customers/GetCustomerByCustomerId";
+        var queryString = "?customerId=" + customerId;
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = doAfterGetCustomers;
+
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+
+        function doAfterGetCustomers() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var customers = response.customers;
+                        populateCustomerDetailsModal(customers);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+
+    function populateCustomerDetailsModal(customers){
+        var customer;
+
+        for (var i = 0; i < customers.length; i++) {
+            customer = customers[i];
+
+            document.getElementById("customerDetailsCustomerId").value = customer.customerId;
+            document.getElementById("customerDetailsFirstName").value = customer.firstName;
+            document.getElementById("customerDetailsLastName").value = customer.lastName;
+            document.getElementById("customerDetailsPhone").value = customer.phone;
+            document.getElementById("customerDetailsEmail").value = customer.email;
+            document.getElementById("customerDetailsAddress1").value = customer.address1;
+            document.getElementById("customerDetailsAddress2").value = customer.address2;
+            document.getElementById("customerDetailsCity").value = customer.city;
+            document.getElementById("customerDetailsState").value = customer.state;
+            document.getElementById("customerDetailsZipcode").value = customer.zipcode;
+            document.getElementById("customerDetailsCreditBalance").value = customer.creditBalance;
+        }
+    }
+
+    function getCustomerByCustomerIdForEdit(customerId){
+        var baseURL = "https://localhost:5001/Customers/GetCustomerByCustomerId";
+        var queryString = "?customerId=" + customerId;
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = doAfterGetCustomers;
+
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+
+        function doAfterGetCustomers() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var customers = response.customers;
+                        populateCustomerEditModal(customers);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+
+    function populateCustomerEditModal(customers){
+        var customer;
+
+        for (var i = 0; i < customers.length; i++) {
+            customer = customers[i];
+
+            document.getElementById("editCustomerCustomerId").value = customer.customerId;
+            document.getElementById("editCustomerFirstName").value = customer.firstName;
+            document.getElementById("editCustomerLastName").value = customer.lastName;
+            document.getElementById("editCustomerPhone").value = customer.phone;
+            document.getElementById("editCustomerEmail").value = customer.email;
+            document.getElementById("editCustomerAddress1").value = customer.address1;
+            document.getElementById("editCustomerAddress2").value = customer.address2;
+            document.getElementById("editCustomerCity").value = customer.city;
+            document.getElementById("editCustomerState").value = customer.state;
+            document.getElementById("editCustomerZipcode").value = customer.zipcode;
+            document.getElementById("editCustomerCreditBalance").value = customer.creditBalance;
+        }
+    }
+
+    function updateCustomer(e){
+        var customerId = document.getElementById("editCustomerCustomerId");
+        var firstName = document.getElementById("editCustomerFirstName");
+        var lastName = document.getElementById("editCustomerLastName");
+        var phone = document.getElementById("editCustomerPhone");
+        var email = document.getElementById("editCustomerEmail");
+        var address1 = document.getElementById("editCustomerAddress1");
+        var address2 = document.getElementById("editCustomerAddress2");
+        var city = document.getElementById("editCustomerCity");
+        var stateInput = document.getElementById("editCustomerState");
+        var zipcode = document.getElementById("editCustomerZipcode");
+        var status = "active";
+        var comments = "none";
+        var creditBalance = document.getElementById("editCustomerCreditBalance");
+        
+        customer = {
+            "customerId": Number(customerId.value),
+            "firstName": firstName.value,
+            "lastName": lastName.value,
+            "phone": phone.value,
+            "email": email.value,
+            "address1": address1.value,
+            "address2": address2.value,
+            "city": city.value,
+            "state": stateInput.options[stateInput.selectedIndex].innerText,
+            "zipcode": zipcode.value,
+            "status": status,
+            "comments": comments,
+            "creditBalance": Number(creditBalance.value)
+        };
+
+        firstName.value = "";
+        lastName.value = "";
+        phone.value = "";
+        email.value = "";
+        address1.value = "";
+        address2.value = "";
+        city.value = "";
+        stateInput.selectedIndex = 0;
+        zipcode.value = "";
+        status.value = "";
+        comments.value = "";
+        creditBalance.value = 0;
+
+        postBody = JSON.stringify(customer);
+
+        var baseURL = "https://localhost:5001/Customers/UpdateCustomer";
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = doAfterUpdateCustomer;
+        xhr.open("POST", baseURL, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(postBody);
+
+        function doAfterUpdateCustomer() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var customers = response.customers;
+                        refreshCustomerTable(customers);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+        e.preventDefault();
+    }
+    
 
     // === Job Code === //
 
@@ -481,6 +666,7 @@
     document.getElementById("showJobsBtn").addEventListener("click", OpenJobsPage);
     document.getElementById("showCustomersBtn").addEventListener("click", OpenCustomersPage);
     document.getElementById("addNewCustomerBtn").addEventListener("click", insertCustomer);
+    document.getElementById("updateCustomerBtn").addEventListener("click", updateCustomer);
 
     pageLoad();
-}());
+}()); 
