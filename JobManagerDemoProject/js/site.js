@@ -89,10 +89,9 @@
                 "<th scope='row' data-field='customer'>" + customer.firstName + " " + customer.lastName + "</th>" +
                 "<td data-field='phone'>" + customer.phone + "</td>" +
                 "<td data-field='address1'>" + customer.address1 + "</td>" +
-                "<td data-field='delete'><button type='button' id='testbuttonid' data-action='delete' data-customerid=" + customer.customerId + " class='btn btn-sm btn-outline-secondary'>Delete</button></td>" +
-                // "<td data-field='details'><button id='customerDetailsBtn' title='Details' type='button' data-action='details' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerDetailsModal'><i class='fas fa-info-circle'></i></button></td>" +
-                // "<td data-field='edit'><button id='jobEditBtn' title='Edit' type='button' data-action='edit' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerEditModal'><i class='fas fa-edit'></i></button></td>" +
-                "<td data-field='delete'><button id='jobDeleteBtn' title='Delete' type='button' data-action='delete' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-edit'></i></button></td>" +
+                "<td data-field='details'><button id='customerDetailsBtn' title='Details' type='button' data-action='details' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerDetailsModal'><i class='fas fa-info-circle'></i></button></td>" +
+                "<td data-field='edit'><button id='jobEditBtn' title='Edit' type='button' data-action='edit' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerEditModal'><i class='fas fa-edit'></i></button></td>" +
+                "<td data-field='delete'><button id='jobDeleteBtn' title='Delete' type='button' data-action='delete' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-minus-square'></i></button></td>" +
                 "</tr>";
         }
 
@@ -131,27 +130,10 @@
         }
 
         if (action === "edit") {
-            //alert("You want to " + action + " customer " + customerId);
+            alert("You want to " + action + " customer " + customerId);
 
-            var customerRow = e.target.parentNode.parentNode;
-            var customerRowFields = customerRow.children;
-
-            for (var i = 0; i < customerRowFields.length; i++) {
-                var customerField = customerRowFields[i];
-                var fieldName = customerField.dataset.field;
-
-                if (fieldName === "customerid") {
-                    document.getElementById("customerId2").value = customerField.innerText;
-                }
-
-                if (fieldName === "firstname") {
-                    document.getElementById("firstName2").value = customerField.innerText;
-                }
-
-                if (fieldName === "lastname") {
-                    document.getElementById("lastName2").value = customerField.innerText;
-                }
-            }
+            
+            
         }
         e.preventDefault();
     }
@@ -328,15 +310,15 @@
             
 
             html = html + "<tr>" +
-                "<th scope='row' data-field='jobId'>" + job.jobId + "</th>" +
+                "<th scope='row' data-field='jobid'>" + job.jobId + "</th>" +
                 "<td data-field='customer'>" + job.customer + "</td>" +
                 "<td data-field='envelope'>" + job.envelopeNumber + "</td>" +
                 "<td data-field='jobAge'>" + job.age + " days" + "</td>" +
-                "<td data-field='details'><button title='Details' type='button' data-action='details' data-jobId=" + job.jobid + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info-circle'></i></button></td>" +
-                "<td data-field='edit'><button title='Edit' type='button' data-action='edit' data-customerid=" + job.jobid + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobEditModal'><i class='fas fa-edit'></i></button></td>" +
-                "<td data-field='delete'><button title='Delete' type='button' data-action='delete' data-customerid=" + job.jobid + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-minus-square'></i></i></button></td>" +
-                "<td data-field='markComplete'><button title='Mark Complete' type='button' data-action='complete' data-customerid=" + job.jobid + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-check-square'></i></button></td>" +
-                "<td data-field='markDelivered'><button title='Mark Delivered' type='button' data-action='deliver' data-customerid=" + job.jobid + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-paper-plane'></i></button></td>" +
+                "<td data-field='details'><button title='Details' type='button' data-action='details' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info-circle'></i></button></td>" +
+                "<td data-field='edit'><button title='Edit' type='button' data-action='edit' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobEditModal'><i class='fas fa-edit'></i></button></td>" +
+                "<td data-field='delete'><button title='Delete' type='button' data-action='delete' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-minus-square'></i></i></button></td>" +
+                "<td data-field='markComplete'><button title='Mark Complete' type='button' data-action='complete' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-check-square'></i></button></td>" +
+                "<td data-field='markDelivered'><button title='Mark Delivered' type='button' data-action='deliver' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-paper-plane'></i></button></td>" +
                 "</tr>";
         }
 
@@ -365,36 +347,24 @@
 
         for (var i = 0; i < buttons.length; i++) {
             var button = buttons[i];
-            button.addEventListener("click", handleCustomerTableButtonClick);
+            button.addEventListener("click", handleJobTableButtonClick);
         }
     }
 
     function handleJobTableButtonClick(e) {
-        var jobId = e.target.dataset.jobId;
-        var action = e.target.dataset.action;
+        var jobId = e.target.parentNode.dataset.jobid;
+        var action = e.target.parentNode.dataset.action;
 
-        if (action === "delete") {
-            deleteJob(jobId);
+        if (action === "details") {
+            alert("You want to see the " + action + " for job number " + jobId);
         }
 
         if (action === "edit") {
-            //alert("You want to " + action + " employee " + employeeId);
+            alert("You want to " + action + " job " + jobId);
+        }
 
-            var departmentRow = e.target.parentNode.parentNode;
-            var departmentRowFields = departmentRow.children;
-
-            for (var i = 0; i < departmentRowFields.length; i++) {
-                var departmentField = departmentRowFields[i];
-                var fieldName = departmentField.dataset.field;
-
-                if (fieldName === "departmentid") {
-                    document.getElementById("departmentId2").value = departmentField.innerText;
-                }
-
-                if (fieldName === "departmentname") {
-                    document.getElementById("departmentName2").value = departmentField.innerText;
-                }            
-            }
+        if (action === "delete") {
+            deleteJob(jobId);
         }
     }
 

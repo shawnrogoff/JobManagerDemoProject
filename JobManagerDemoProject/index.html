@@ -272,48 +272,48 @@
                               <div class="row mb-1">
                                   <div class="col">
                                       <label class="form-label">First Name</label>
-                                      <input type="text" name="firstName" class="form-control" placeholder="First name"
+                                      <input id="editCustomerFirstName" type="text" name="firstName" class="form-control" placeholder="First name"
                                           aria-label="First name" required>
                                   </div>
                                   <div class="col">
                                       <label class="form-label">Last Name</label>
-                                      <input type="text" name="lastName" class="form-control" placeholder="Last name"
+                                      <input id="editCustomerLastName" type="text" name="lastName" class="form-control" placeholder="Last name"
                                           aria-label="Last name" required>
                                   </div>
                               </div>
                               <div class="row mb-1">
                                 <div class="col">
                                   <label class="form-label">Phone</label>
-                                  <input type="text" name="phone" class="form-control" placeholder="Phone"
+                                  <input id="editCustomerPhone" type="text" name="phone" class="form-control" placeholder="Phone"
                                       aria-label="Phone">
                                 </div>  
                                 <div class="col">
                                       <label class="form-label">Email</label>
-                                      <input type="email" name="email" class="form-control" placeholder="Email"
+                                      <input id="editCustomerEmail" type="email" name="email" class="form-control" placeholder="Email"
                                           aria-label="Email" required>
                                   </div>
                               </div>
                               <div class="row mb-1">
                                 <div class="col">
                                     <label class="form-label">Address</label>
-                                    <input type="text" name="address-primary" class="form-control" placeholder="Address"
+                                    <input id="editCustomerAddress1" type="text" name="address-primary" class="form-control" placeholder="Address"
                                         aria-label="Address primary" required>
                                 </div>
                                 <div class="col">
                                     <label class="form-label">Apartment/Suite/Etc.</label>
-                                    <input type="text" name="address-secondary" class="form-control" placeholder="Address"
+                                    <input id="editCustomerAddress2" type="text" name="address-secondary" class="form-control" placeholder="Address"
                                         aria-label="Address secondary" required>
                                 </div>
                               </div>
                               <div class="row mb-1">
                                 <div class="col">
                                     <label class="form-label">City</label>
-                                    <input type="text" name="city" class="form-control" placeholder="City"
+                                    <input id="editCustomerCity" type="text" name="city" class="form-control" placeholder="City"
                                         aria-label="City" required>
                                 </div>
                                 <div class="col">
                                     <label class="form-label">State</label>
-                                    <select id="stateSelection" class="form-select" aria-label="State Selection">
+                                    <select id="editCustomerState"  class="form-select" aria-label="State Selection">
                                       <option selected>Select State</option>
                                       <option>Alabama</option>
                                       <option>Alaska</option>
@@ -369,14 +369,14 @@
                                 </div>
                                 <div class="col">
                                   <label class="form-label">Zipcode</label>
-                                  <input type="text" name="zipcode" class="form-control" placeholder="Zipcode"
+                                  <input id="editCustomerZipcode" type="text" name="zipcode" class="form-control" placeholder="Zipcode"
                                       aria-label="Zipcode" required>
                                 </div>
                               </div>
                               <div class="row mb-1">
                                 <div class="col">
                                     <label class="form-label">Store Credit Balance</label>
-                                    <input type="text" name="creditBalance" class="form-control" placeholder="Balance"
+                                    <input id="editCustomerCreditBalance" type="text" name="creditBalance" class="form-control" placeholder="Balance"
                                         aria-label="Store credit balance" required disabled>
                                 </div>
                                 <div class="col"></div>
@@ -486,19 +486,19 @@
                           <div class="row mb-1">
                               <div class="col">
                                   <label class="form-label">Job Id:</label>
-                                  <input type="text" name="firstName" class="form-control" placeholder="Job Id"
+                                  <input id="editJobFirstName" type="text" name="firstName" class="form-control" placeholder="Job Id"
                                       aria-label="Job Id" required disabled>
                               </div>
                               <div class="col">
                                   <label class="form-label">Customer:</label>
-                                  <input type="text" name="lastName" class="form-control" placeholder="Customer Name"
+                                  <input id="editJobLastName" type="text" name="lastName" class="form-control" placeholder="Customer Name"
                                       aria-label="Customer Name" required disabled>
                               </div>
                           </div>
                           <div class="row mb-1">
                             <div class="col">
                               <label class="form-label">Job Type:</label>
-                              <select class="form-select" aria-label="Job Type">
+                              <select id="editJobJobType" class="form-select" aria-label="Job Type">
                                 <option selected>Job Type</option>
                                 <option>Repair</option>
                                 <option>Custom</option>
@@ -507,7 +507,7 @@
                             </div>  
                             <div class="col">
                                   <label class="form-label">Status:</label>
-                                  <select class="form-select" aria-label="Job Type">
+                                  <select id="editJobStatus" class="form-select" aria-label="Job Type">
                                     <option selected>Status</option>
                                     <optgroup label="Repairs & Other">
                                       <option>In-Progress</option>
@@ -528,7 +528,7 @@
                           <div class="row mb-1 row-cols-1 row-cols-md-3">
                             <div class="col">
                                 <label class="form-label">Received:</label>
-                                <input type="date" name="received" class="form-control" placeholder="Date Received"
+                                <input id="editJobReceived" type="date" name="received" class="form-control" placeholder="Date Received"
                                     aria-label="Date Received" required >
                             </div>
                             <div class="col">
@@ -675,9 +675,7 @@
                     
                 </div>
                 <div class="col">
-                  <button id="test1" data-name="shawn" type="button" class="btn btn-dark btn-lg px-4 m-2 ">
-                    test
-                  </button>
+
                 </div>
                 <div class="d-flex col justify-content-end">
                   <button type="button" class="btn btn-dark btn-lg px-4 m-2 " data-bs-toggle="modal" data-bs-target="#addCustomerModal">
