@@ -48,6 +48,60 @@ namespace JobTrackerDemoProjectAPI.Controllers
             return response;
         }
 
+        [HttpGet]
+        [Route("/Jobs/GetJobsByCustomerId")]
+
+        public Response GetJobsByCustomerId(int customerId)
+        {
+            Response response = new Response();
+            List<Job> jobs = new List<Job>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    jobs = Job.GetJobsByCustomerId(con, customerId);
+                }
+                response.result = "success";
+                response.message = $"{jobs.Count()} rows selected.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("/Jobs/GetJobByJobId")]
+
+        public Response GetJobByJobId(int jobId)
+        {
+            Response response = new Response();
+            List<Job> jobs = new List<Job>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    jobs = Job.GetJobsByCustomerId(con, jobId);
+                }
+                response.result = "success";
+                response.message = $"{jobs.Count()} rows selected.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
         // Change this back to httpPost later
         [HttpGet]
         [Route("/Jobs/InsertJob")]

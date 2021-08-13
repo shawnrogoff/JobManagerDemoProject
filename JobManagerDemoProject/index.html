@@ -53,7 +53,7 @@
           <div class="modal fade" id="customerDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
-                      <div class="modal-header">
+                      <div class="modal-header row-cols-1 row-cols-md-3">
                           <h5 class="modal-title" id="customerDetailsModalLabel">Customer Details</h5>
                           <input id="customerDetailsCustomerId" style="display:none;" type="text" name="customerId" class="form-control" aria-label="CustomerId" required disabled>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -126,7 +126,7 @@
                       <!-- === Buttons Here === -->
                       <div class="modal-footer">
                         <button type="button" class="btn btn-outline-primary">Credit History</button>
-                        <button type="button" class="btn btn-outline-primary">Job History</button>
+                        <button id="jobHistoryBtn" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#showJobHistoryModal">Job History</button>
                         <!-- <button id="openEditModalFromCustomerDetails" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customerEditModal">Edit</button> -->
                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                       </div>
@@ -395,7 +395,7 @@
         </section>
         <section id="jobDetailsSection" class="">           
           <!-- Customer Edit Modal -->
-          <div class="modal fade" id="jobDetailsModal" tabindex="-1" aria-labelledby="jobDetailsModalLabel" aria-hidden="true">
+          <div class="modal fade" id="jobDetailsModal" tabindex="-1" style="z-index: 9999;" aria-labelledby="jobDetailsModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                       <div class="modal-header">
@@ -407,59 +407,59 @@
                           <div class="row mb-1">
                               <div class="col">
                                   <label class="form-label">Job Id:</label>
-                                  <input type="text" name="firstName" class="form-control" placeholder="Job Id"
+                                  <input id="jobDetailsJobId" type="text" name="jobId" class="form-control" placeholder="Job Id"
                                       aria-label="Job Id" required disabled>
                               </div>
                               <div class="col">
                                   <label class="form-label">Customer:</label>
-                                  <input type="text" name="lastName" class="form-control" placeholder="Customer Name"
+                                  <input id="jobDetailsCustomer" type="text" name="customer" class="form-control" placeholder="Customer Name"
                                       aria-label="Customer Name" required disabled>
                               </div>
                           </div>
                           <div class="row mb-1">
-                            <div class="col">
-                              <label class="form-label">Job Type:</label>
-                              <input type="text" name="jobtype" class="form-control" placeholder="Job Type"
-                                  aria-label="Job Type" disabled>
-                            </div>  
-                            <div class="col">
+                              <div class="col">
+                                <label class="form-label">Job Type:</label>
+                                <input id="jobDetailsJobType" type="text" name="jobtype" class="form-control" placeholder="Job Type"
+                                    aria-label="Job Type" disabled>
+                              </div>  
+                              <div class="col">
                                   <label class="form-label">Status:</label>
-                                  <input type="text" name="status" class="form-control" placeholder="Status"
+                                  <input id="jobDetailsStatus" type="text" name="status" class="form-control" placeholder="Status"
                                       aria-label="Status" required disabled>
                               </div>
                           </div>
                           <div class="row mb-1 row-cols-1 row-cols-md-3">
-                            <div class="col">
-                                <label class="form-label">Received:</label>
-                                <input type="date" name="received" class="form-control" placeholder="Date Received"
-                                    aria-label="Date Received" required disabled>
-                            </div>
-                            <div class="col">
-                                <label class="form-label">Completed:</label>
-                                <input type="date" name="completed" class="form-control" placeholder="Date Completed"
-                                    aria-label="Date Completed" required disabled>
-                            </div>
-                            <div class="col">
-                              <label class="form-label">Delivered:</label>
-                              <input type="date" name="delivered" class="form-control" placeholder="Date Delivered"
-                                  aria-label="Date Delivered" required disabled>
-                            </div>
+                              <div class="col">
+                                  <label class="form-label">Received:</label>
+                                  <input id="jobDetailsReceived" type="date" name="received" class="form-control" placeholder="Date Received"
+                                      aria-label="Date Received" required disabled>
+                              </div>
+                              <div class="col">
+                                  <label class="form-label">Completed:</label>
+                                  <input id="jobDetailsCompleted" type="date" name="completed" class="form-control" placeholder="Date Completed"
+                                      aria-label="Date Completed" required disabled>
+                              </div>
+                              <div class="col">
+                                <label class="form-label">Delivered:</label>
+                                <input id="jobDetailsDelivered" type="date" name="delivered" class="form-control" placeholder="Date Delivered"
+                                    aria-label="Date Delivered" required disabled>
+                              </div>
                           </div>
                           <div class="row mb-1">
                             <div class="col">
                               <label class="form-label">Job Details:</label>
-                              <textarea class="form-control" id="jobDetails-AddJob" rows="3" required disabled>Enter Job Details</textarea>
+                              <textarea class="form-control" id="jobDetailsDetails" rows="3" required disabled>Enter Job Details</textarea>
                             </div>
                           </div>
                           <div class="row mb-1">
                             <div class="col">
                                 <label class="form-label">Estimate:</label>
-                                <input type="number" name="estimate" class="form-control" placeholder="Estimate"
+                                <input id="jobDetailsEstimate" type="number" name="estimate" class="form-control" placeholder="Estimate"
                                     aria-label="Estimate" required disabled>
                             </div>
                             <div class="col">
                               <label class="form-label">Price:</label>
-                              <input type="number" name="price" class="form-control" placeholder="Price"
+                              <input id="jobDetailsPrice" type="number" name="price" class="form-control" placeholder="Price"
                                   aria-label="Price" required disabled>
                             </div>
                           </div>
@@ -628,8 +628,22 @@
                                 </div>
                               </div>
                               <div class="row m-1">
-                                <label class="form-label" for="customFile">Add An Image</label>
-                                <input type="file" class="form-control" id="imageFile-AddJob"/>
+                                  <div class="col">
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" value="" id="textNotificationCheck">
+                                          <label class="form-check-label" for="textNotificationCheck">
+                                          Text Notification
+                                          </label>
+                                      </div>
+                                  </div>
+                                  <div class="col">
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" value="" id="emailNotificationCheck">
+                                          <label class="form-check-label" for="emailNotificationCheck">
+                                          Email Notification
+                                          </label>
+                                      </div>
+                                  </div>
                               </div>
                           </form>
                       </div>
@@ -640,6 +654,33 @@
                   </div>
               </div>
           </div>
+        </section>
+        <section id="showJobHistory" class="">
+            <div class="modal fade" id="showJobHistoryModal" tabindex="-1" aria-labelledby="showJobHistoryModal" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="col">
+                                <h5 class="modal-title">Job History</h5>
+                            </div>
+                            <div class="d-flex col justify-content-center">
+                                <h5 id="showJobHistoryCustomerName">Sample</h5>
+                            </div>
+                            <div class="d-flex col justify-content-end">
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div id="dynamicJobHistoryTable">
+                              <!-- Insert Dynamic Table Here -->
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <section id="jobsPage" class="" style="margin-top: 100px;">
             <!-- Buttons -->
@@ -667,9 +708,10 @@
             <!-- Jobs Table -->
             <div id="dynamic2" class="container max-width: 70% mb-2 mt-4 text-center" style="height:auto; overflow:auto;">
                 <!-- dynamic table generated here -->
+                <table id="jobTable"></table>
               </div>
         </section>
-        <section id="customersPage" class="" style="margin-top: 100px;">
+        <section id="customersPage" class="invisible" style="margin-top: 100px;">
           <!-- Buttons -->
           <div class="container">
             <div class="row row-cols-1 row-cols-md-3">
@@ -690,6 +732,7 @@
           <!-- Customer Table -->
           <div id="dynamic1" class="container max-width: 70% mt-4 text-center" style="height:auto; overflow:auto;">
               <!-- dynamic table generated here -->
+              <!-- <table id="customerTable"></table> -->
           </div>
       </section>
     </main>
@@ -722,8 +765,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script
       type="text/javascript"
-      src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"
-    ></script>
+      src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js">
+    </script>
     <script>
       $(document).ready(function () {
         $("#jobTable").DataTable();

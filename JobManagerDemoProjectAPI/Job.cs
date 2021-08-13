@@ -24,6 +24,8 @@ namespace JobTrackerDemoProjectAPI
         public int EnvelopeNumber { get; set; }
         public string Customer { get;set; }
         public int Age { get;set; }
+        public int TextNotifications { get; set; }
+        public int EmailNotifications { get; set; }
 
         // Select
         public static List<Job> GetJobs(SqlConnection con)
@@ -54,6 +56,94 @@ namespace JobTrackerDemoProjectAPI
                 job.Comments = rdr["comments"].ToString();
                 job.EnvelopeNumber = Convert.ToInt32(rdr["envelope_number"]);
                 job.Customer = rdr["customer"].ToString();
+
+                DateTime jobDateReceived = DateTime.Parse(job.Received);
+                DateTime currentDate = DateTime.Now;
+                int jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                job.Age = jobAge;
+
+                jobs.Add(job);
+            }
+
+            return jobs;
+        }
+
+        public static List<Job> GetJobsByCustomerId(SqlConnection con, int customerId)
+        {
+            // Create a list of job objects
+            List<Job> jobs = new List<Job>();
+
+            SqlCommand cmd = new SqlCommand("SELECT jobId,customerId,job_type,status,received,completed,delivered,details,estimate,final_price,comments,envelope_number, text_notifications, email_notifications FROM job WHERE customerId = @CustomerId;", con);
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            cmd.Parameters.Add("@CustomerId", System.Data.SqlDbType.Int);
+            cmd.Parameters["@CustomerId"].Value = customerId;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                // Create a new job object to store properties inside
+                Job job = new Job();
+
+                job.JobId = Convert.ToInt32(rdr["jobId"]);
+                job.CustomerId = Convert.ToInt32(rdr["customerId"]);
+                job.JobType = rdr["job_type"].ToString();
+                job.Status = rdr["status"].ToString();
+                job.Received = rdr["received"].ToString();
+                job.Completed = rdr["completed"].ToString();
+                job.Delivered = rdr["delivered"].ToString();
+                job.Details = rdr["details"].ToString();
+                job.Estimate = Convert.ToDecimal(rdr["estimate"]);
+                job.FinalPrice = rdr["final_price"].ToString() == "" ? 0 : Convert.ToDecimal(rdr["final_price"]);
+                job.Comments = rdr["comments"].ToString();
+                job.EnvelopeNumber = Convert.ToInt32(rdr["envelope_number"]);
+                job.TextNotifications = Convert.ToInt32(rdr["text_notifications"]);
+                job.EmailNotifications = Convert.ToInt32(rdr["email_notifications"]);
+
+                DateTime jobDateReceived = DateTime.Parse(job.Received);
+                DateTime currentDate = DateTime.Now;
+                int jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                job.Age = jobAge;
+
+                jobs.Add(job);
+            }
+
+            return jobs;
+        }
+
+        public static List<Job> GetJobByJobId(SqlConnection con, int jobId)
+        {
+            // Create a list of job objects
+            List<Job> jobs = new List<Job>();
+
+            SqlCommand cmd = new SqlCommand("SELECT jobId,customerId,job_type,status,received,completed,delivered,details,estimate,final_price,comments,envelope_number, text_notifications, email_notifications FROM job WHERE jobId = @JobId;", con);
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            cmd.Parameters.Add("@JobId", System.Data.SqlDbType.Int);
+            cmd.Parameters["@JobId"].Value = jobId;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                // Create a new job object to store properties inside
+                Job job = new Job();
+
+                job.JobId = Convert.ToInt32(rdr["jobId"]);
+                job.CustomerId = Convert.ToInt32(rdr["customerId"]);
+                job.JobType = rdr["job_type"].ToString();
+                job.Status = rdr["status"].ToString();
+                job.Received = rdr["received"].ToString();
+                job.Completed = rdr["completed"].ToString();
+                job.Delivered = rdr["delivered"].ToString();
+                job.Details = rdr["details"].ToString();
+                job.Estimate = Convert.ToDecimal(rdr["estimate"]);
+                job.FinalPrice = rdr["final_price"].ToString() == "" ? 0 : Convert.ToDecimal(rdr["final_price"]);
+                job.Comments = rdr["comments"].ToString();
+                job.EnvelopeNumber = Convert.ToInt32(rdr["envelope_number"]);
+                job.TextNotifications = Convert.ToInt32(rdr["text_notifications"]);
+                job.EmailNotifications = Convert.ToInt32(rdr["email_notifications"]);
 
                 DateTime jobDateReceived = DateTime.Parse(job.Received);
                 DateTime currentDate = DateTime.Now;

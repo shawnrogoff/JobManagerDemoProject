@@ -1,6 +1,8 @@
 (function JobManagerJS() {
+    
     function pageLoad(){
         getJobs();
+        OpenJobsPage;
     }
 
     // Hide Login Page && Show Jobs Page
@@ -119,6 +121,7 @@
             var button = buttons[i];
             button.addEventListener("click", handleCustomerTableButtonClick);
         }
+
     }
 
     function handleCustomerTableButtonClick(e) {
@@ -430,6 +433,114 @@
         }
         e.preventDefault();
     }
+
+    function getJobHistory(){
+        var customerId = document.getElementById("customerDetailsCustomerId").value;
+        document.getElementById("showJobHistoryCustomerName").innerHTML = customerId;
+
+        getJobsByCustomerId(customerId);
+    }
+
+    function getJobsByCustomerId(customerId){
+        var baseURL = "https://localhost:5001/Jobs/GetJobsByCustomerId";
+        var queryString = "?customerId=" + customerId;
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = doAfterGetCustomers;
+
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+
+        function doAfterGetCustomers() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var jobs = response.jobs;
+                        populateJobHistoryModal(jobs);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+
+    function populateJobHistoryModal(jobs){
+        var html;
+        var dynamic;
+        var job;
+
+        //Build an html table of the customers.
+        html = "<table id='jobHistoryTable' class='table table-dark table-striped mb-2'>" +
+            "<thead>" +
+            "<tr>" +
+            "<th scope='col'>Job ID</th>" +
+            "<th scope='col'>Job Type</th>" +
+            "<th scope='col'>Envelope #</th>" +
+            "<th scope='col'>Status</th>" +
+            "<th scope='col'>Details</th>" +
+            "<th scope='col'></th>" +
+            "</tr>" +
+            "</thead>" +
+            "<tbody>";
+                    
+        for (var i = 0; i < jobs.length; i++) {
+            job = jobs[i];
+
+            html = html + "<tr>" +
+                "<th scope='row' data-field='jobid'>" + job.jobId + "</th>" +
+                "<td data-field='jobType'>" + job.jobType + "</td>" +
+                "<td data-field='envelope'>" + job.envelopeNumber + "</td>" +
+                "<td data-field='status'>" + job.status + "</td>" +
+                "<td data-field='jobdetails'>" + job.details  + "</td>" +
+                "<td data-field='details'><button title='Details' type='button' data-action='details' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info-circle'></i></button></td>" +
+                "</tr>";
+        }
+
+        html = html + "</tbody>" +
+            "<tfoot>" +
+            "<tr>" +
+            "<th scope='col'>Job ID</th>" +
+            "<th scope='col'>Job Type</th>" +
+            "<th scope='col'>Envelope #</th>" +
+            "<th scope='col'>Status</th>" +
+            "<th scope='col'>Details</th>" +
+            "<th scope='col'></th>" +
+            "</tr>" +
+            "</tfoot>" +
+            "</table>";
+
+        //Inject the new table into the DOM.
+        dynamic = document.getElementById("dynamicJobHistoryTable");
+        dynamic.innerHTML = html;
+
+        //Add a click event listener to all buttons in the table.
+        var buttons = document.querySelectorAll("#dynamicJobHistoryTable .btn");
+
+        for (var i = 0; i < buttons.length; i++) {
+            var button = buttons[i];
+            button.addEventListener("click", handleJobHistoryTableButtonClick);
+        }
+    }
+
+    function handleJobHistoryTableButtonClick(e){
+        var jobId = e.target.parentNode.dataset.customerid;
+        var action = e.target.parentNode.dataset.action;
+
+        if (action === "details") {
+            getJobByJobIdForDetails(jobId);
+        }
+        e.preventDefault();
+    }
     
 
     // === Job Code === //
@@ -541,15 +652,23 @@
         var action = e.target.parentNode.dataset.action;
 
         if (action === "details") {
-            alert("You want to see the " + action + " for job number " + jobId);
+            populateJobDetailsModal(jobId);
         }
 
         if (action === "edit") {
-            alert("You want to " + action + " job " + jobId);
+            populateJobEditModal(jobId);
         }
 
         if (action === "delete") {
             deleteJob(jobId);
+        }
+
+        if (action === "complete") {
+            markJobComplete(jobId);
+        }
+
+        if (action === "deliver") {
+            markJobDelivered(jobId);
         }
     }
 
@@ -663,10 +782,73 @@
         }
     }
 
+    function getJobByJobIdForDetails(jobId) {
+        var baseURL = "https://localhost:5001/Jobs/GetJobByJobId";
+        var queryString = "?jobId=" + jobId;
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = doAfterGetJobForDetails;
+
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+
+        function doAfterGetJobForDetails() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var job = response.jobs;
+                        populateJobDetailsModal(job);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+
+    function populateJobDetailsModal(jobs){
+        var job;
+
+        for (var i = 0; i < jobs.length; i++) {
+            job = jobs[i];
+
+            document.getElementById("jobDetailsJobId").value = job.jobId;
+            document.getElementById("jobDetailsCustomer").value = job.customer;
+            document.getElementById("jobDetailsJobType").value = job.jobType;
+            document.getElementById("jobDetailsStatus").value = job.status;
+            document.getElementById("jobDetailsReceived").value = job.received;
+            document.getElementById("jobDetailsCompleted").value = job.completed;
+            document.getElementById("jobDetailsDelivered").value = job.delivered;
+            document.getElementById("jobDetailsDetails").value = job.details;
+            document.getElementById("jobDetailsEstimate").value = job.estimate;
+            document.getElementById("jobDetailsPrice").value = job.finalPrice;
+        }
+    }
+
+    function markJobComplete(jobId){
+        alert(`Placeholder! Update job ${jobId} job.Status to 'complete!'`);
+    }
+
+    function markJobDelivered(jobId){
+        alert(`Placeholder! Update job ${jobId} job.Status to 'delivered!'`);
+    }
+
     document.getElementById("showJobsBtn").addEventListener("click", OpenJobsPage);
     document.getElementById("showCustomersBtn").addEventListener("click", OpenCustomersPage);
     document.getElementById("addNewCustomerBtn").addEventListener("click", insertCustomer);
     document.getElementById("updateCustomerBtn").addEventListener("click", updateCustomer);
+    document.getElementById("jobHistoryBtn").addEventListener("click", getJobHistory);
 
     pageLoad();
+
+
 }()); 
