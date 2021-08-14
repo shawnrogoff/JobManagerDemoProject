@@ -50,7 +50,7 @@
     <main class="flex-shrink-0">
         <section id="customerDetailsSection" class="">           
           <!-- Customer Details Modal -->
-          <div class="modal fade" id="customerDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="customerDetailsModal" style="z-index: 9997;"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                       <div class="modal-header row-cols-1 row-cols-md-3">
@@ -136,7 +136,7 @@
         </section>
         <section id="addCustomerSection" class="">           
           <!-- Customer Details Modal -->
-          <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerLabel" aria-hidden="true">
+          <div class="modal fade" id="addCustomerModal" style="z-index: 9996;" tabindex="-1" aria-labelledby="addCustomerLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                       <div class="modal-header">
@@ -367,7 +367,7 @@
                                       <option>West Virginia</option>
                                       <option>Wisconsin</option>
                                       <option>Wyoming</option>
-                                  </select>
+                                    </select>
                                 </div>
                                 <div class="col">
                                   <label class="form-label">Zipcode</label>
@@ -394,8 +394,8 @@
           </div>
         </section>
         <section id="jobDetailsSection" class="">           
-          <!-- Customer Edit Modal -->
-          <div class="modal fade" id="jobDetailsModal" tabindex="-1" style="z-index: 9999;" aria-labelledby="jobDetailsModalLabel" aria-hidden="true">
+          <!-- Job Details Modal -->
+          <div class="modal fade" id="jobDetailsModal" tabindex="-1" style="z-index: 9998;" aria-labelledby="jobDetailsModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                       <div class="modal-header">
@@ -431,17 +431,17 @@
                           <div class="row mb-1 row-cols-1 row-cols-md-3">
                               <div class="col">
                                   <label class="form-label">Received:</label>
-                                  <input id="jobDetailsReceived" type="date" name="received" class="form-control" placeholder="Date Received"
+                                  <input id="jobDetailsReceived" type="text" name="received" class="form-control" placeholder="Date Received"
                                       aria-label="Date Received" required disabled>
                               </div>
                               <div class="col">
                                   <label class="form-label">Completed:</label>
-                                  <input id="jobDetailsCompleted" type="date" name="completed" class="form-control" placeholder="Date Completed"
+                                  <input id="jobDetailsCompleted" type="text" name="completed" class="form-control" placeholder="Date Completed"
                                       aria-label="Date Completed" required disabled>
                               </div>
                               <div class="col">
                                 <label class="form-label">Delivered:</label>
-                                <input id="jobDetailsDelivered" type="date" name="delivered" class="form-control" placeholder="Date Delivered"
+                                <input id="jobDetailsDelivered" type="text" name="delivered" class="form-control" placeholder="Date Delivered"
                                     aria-label="Date Delivered" required disabled>
                               </div>
                           </div>
@@ -467,7 +467,7 @@
                       </div>
                       <!-- === Buttons Here === -->
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jobEditModal">Edit</button>
+                        <button id="jobDetailsEditJobBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jobEditModal">Edit</button>
                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                       </div>
                   </div>
@@ -475,8 +475,8 @@
           </div>
         </section>
         <section id="editJobSection" class="">           
-          <!-- Customer Details Modal -->
-          <div class="modal fade" id="jobEditModal" tabindex="-1" aria-labelledby="jobEditModalLabel" aria-hidden="true">
+          <!-- Edit Job Modal -->
+          <div class="modal fade" id="jobEditModal" style="z-index: 9999;" tabindex="-1" aria-labelledby="jobEditModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -488,19 +488,19 @@
                           <div class="row mb-1">
                               <div class="col">
                                   <label class="form-label">Job Id:</label>
-                                  <input id="editJobFirstName" type="text" name="firstName" class="form-control" placeholder="Job Id"
+                                  <input id="jobEditJobId" type="text" name="jobId" class="form-control" placeholder="Job Id"
                                       aria-label="Job Id" required disabled>
                               </div>
                               <div class="col">
                                   <label class="form-label">Customer:</label>
-                                  <input id="editJobLastName" type="text" name="lastName" class="form-control" placeholder="Customer Name"
+                                  <input id="jobEditCustomer" type="text" name="customer" class="form-control" placeholder="Customer Name"
                                       aria-label="Customer Name" required disabled>
                               </div>
                           </div>
                           <div class="row mb-1">
                             <div class="col">
                               <label class="form-label">Job Type:</label>
-                              <select id="editJobJobType" class="form-select" aria-label="Job Type">
+                              <select id="jobEditJobType" class="form-select" aria-label="Job Type">
                                 <option selected>Job Type</option>
                                 <option>Repair</option>
                                 <option>Custom</option>
@@ -509,7 +509,7 @@
                             </div>  
                             <div class="col">
                                   <label class="form-label">Status:</label>
-                                  <select id="editJobStatus" class="form-select" aria-label="Job Type">
+                                  <select id="jobEditJobStatus" class="form-select" aria-label="Job Type">
                                     <option selected>Status</option>
                                     <optgroup label="Repairs & Other">
                                       <option>In-Progress</option>
@@ -530,35 +530,35 @@
                           <div class="row mb-1 row-cols-1 row-cols-md-3">
                             <div class="col">
                                 <label class="form-label">Received:</label>
-                                <input id="editJobReceived" type="date" name="received" class="form-control" placeholder="Date Received"
+                                <input id="jobEditJobReceived" type="text" name="received" class="form-control" placeholder="Date Received"
                                     aria-label="Date Received" required >
                             </div>
                             <div class="col">
                                 <label class="form-label">Completed:</label>
-                                <input type="date" name="completed" class="form-control" placeholder="Date Completed"
+                                <input id="jobEditJobCompleted" type="text" name="completed" class="form-control" placeholder="Date Completed"
                                     aria-label="Date Completed" required >
                             </div>
                             <div class="col">
                               <label class="form-label">Delivered:</label>
-                              <input type="date" name="delivered" class="form-control" placeholder="Date Delivered"
+                              <input id="jobEditJobDelivered" type="text" name="delivered" class="form-control" placeholder="Date Delivered"
                                   aria-label="Date Delivered" required >
                             </div>
                           </div>
                           <div class="row mb-1">
                             <div class="col">
                               <label class="form-label">Job Details:</label>
-                              <textarea class="form-control" id="jobDetails-AddJob" rows="3" required >Enter Job Details</textarea>
+                              <textarea class="form-control" id="jobEditJobDetails" rows="3" required >Enter Job Details</textarea>
                             </div>
                           </div>
                           <div class="row mb-1">
                             <div class="col">
                                 <label class="form-label">Estimate:</label>
-                                <input type="number" name="estimate" class="form-control" placeholder="Estimate"
+                                <input id="jobEditJobEstimate" type="number" name="estimate" class="form-control" placeholder="Estimate"
                                     aria-label="Estimate" required >
                             </div>
                             <div class="col">
                               <label class="form-label">Price:</label>
-                              <input type="number" name="price" class="form-control" placeholder="Price"
+                              <input id="jobEditJobPrice" type="number" name="price" class="form-control" placeholder="Price"
                                   aria-label="Price" required >
                             </div>
                           </div>
@@ -566,7 +566,7 @@
                     </div>
                       <!-- === Buttons Here === -->
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jobEditModal">Edit</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jobEditModal">Update</button>
                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                       </div>
                 </div>
@@ -574,7 +574,7 @@
           </div>
         </section>
         <section id="addJobSection" class="">           
-          <!-- Customer Details Modal -->
+          <!-- Add Job Modal -->
           <div class="modal fade" id="addJobModal" tabindex="-1" aria-labelledby="addJobModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
@@ -585,25 +585,25 @@
                       <div class="modal-body">
                           <form action="#">
                               <div class="row mb-1">
-                                <button id="selectCustomer-AddJobModal" type="button" class="btn btn-success text-light" data-bs-dismiss="modal">Select Customer</button>
+                                <button id="selectCustomerAddJobModal" type="button" class="btn btn-success text-light" data-bs-toggle="modal" data-bs-target="#AddJobSelectCustomerModal">Select Customer</button>
                               </div>
                               <div class="row mb-1">
                                   <div class="col">
-                                      <label class="form-label">First Name</label>
-                                      <input type="text" name="firstName" class="form-control" placeholder="First name"
-                                          aria-label="First name" required>
+                                      <label class="form-label">Customer Id</label>
+                                      <input id="addJobCustomerId" type="text" name="customerId" class="form-control" placeholder="Customer Id"
+                                          aria-label="Customer Id" required disabled>
                                   </div>
                                   <div class="col">
-                                      <label class="form-label">Last Name</label>
-                                      <input type="text" name="lastName" class="form-control" placeholder="Last name"
-                                          aria-label="Last name" required>
+                                      <label class="form-label">Customer</label>
+                                      <input id="addJobCustomer" type="text" name="customerName" class="form-control" placeholder="Customer Name"
+                                          aria-label="Customer Name" required disabled>
                                   </div>
                               </div>
                               <hr>
                               <div class="row row-cols-1 row-cols-md-3 mb-1">
                                 <div class="col">
                                   <label class="form-label">Job Type</label>
-                                  <select class="form-select" aria-label="Job Type">
+                                  <select id="addJobJobType"  class="form-select" aria-label="Job Type">
                                     <option selected>Job Type</option>
                                     <option>Repair</option>
                                     <option>Custom</option>
@@ -612,34 +612,36 @@
                                 </div>  
                                 <div class="col">
                                   <label class="form-label">Envelope Number</label>
-                                  <input type="text" name="envelopeNumber" class="form-control" placeholder="Envelope #"
+                                  <input id="addJobEnvelopeNumber" type="text" name="envelopeNumber" class="form-control" placeholder="Envelope #"
                                       aria-label="Envelope number">
                                   </div>
                                   <div class="col">
-                                    <label class="form-label">Quote</label>
-                                    <input type="text" name="quote-AddJob" class="form-control" placeholder="Quote"
-                                        aria-label="Quote">
+                                    <label class="form-label">Estimate</label>
+                                    <input id="addJobEstimate" type="text" name="estimate-AddJob" class="form-control" placeholder="Estimate"
+                                        aria-label="Estimate">
                                   </div>
                               </div>
                               <div class="row mb-1">
                                 <div class="col">
                                     <label class="form-label">Job Details</label>
-                                    <textarea class="form-control" id="jobDetails-AddJob" rows="4"></textarea>
+                                    <textarea id="addJobDetails" class="form-control" id="jobDetails-AddJob" rows="4"></textarea>
                                 </div>
                               </div>
                               <div class="row m-1">
                                   <div class="col">
                                       <div class="form-check">
-                                          <input class="form-check-input" type="checkbox" value="" id="textNotificationCheck">
-                                          <label class="form-check-label" for="textNotificationCheck">
+                                          <input class="form-check-input" value="1" type="checkbox" id="textNotificationCheck">
+                                          <input  type='hidden' value='0' id='textNotificationCheckHidden'>
+                                          <label class="form-check-label" for="addJobTextNotificationCheck">
                                           Text Notification
                                           </label>
                                       </div>
                                   </div>
                                   <div class="col">
                                       <div class="form-check">
-                                          <input class="form-check-input" type="checkbox" value="" id="emailNotificationCheck">
-                                          <label class="form-check-label" for="emailNotificationCheck">
+                                          <input class="form-check-input" value="1" type="checkbox" id="emailNotificationCheck">
+                                          <input  type='hidden' value='0' id='emailNotificationCheckHidden'>
+                                          <label class="form-check-label" for="addJobEmailNotificationCheck">
                                           Email Notification
                                           </label>
                                       </div>
@@ -649,14 +651,41 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add New Job</button>
+                        <button id="addJobButton" data-bs-dismiss="modal" type="submit" class="btn btn-primary">Add New Job</button>
                       </div>
                   </div>
               </div>
           </div>
         </section>
+        <section id="AddJobSelectCustomerSection">
+            <div class="modal fade" id="AddJobSelectCustomerModal" tabindex="-1" aria-labelledby="AddJobSelectCustomerModal" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="col">
+                                <h5 class="modal-title">Select Customer For New Job</h5>
+                            </div>
+                            <div class="d-flex col justify-content-end">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div id="dynamicSelectCustomerForNewJobTable">
+                              <!-- Insert Dynamic Table Here -->
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark btn-lg px-4 m-2 " data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#addCustomerModal">
+                              Add Customer
+                            </button>
+                            <button type="button" class="btn btn-outline-dark btn-lg" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section id="showJobHistory" class="">
-            <div class="modal fade" id="showJobHistoryModal" tabindex="-1" aria-labelledby="showJobHistoryModal" aria-hidden="true">
+            <div class="modal fade" id="showJobHistoryModal" style="z-index: 9997;" tabindex="-1" aria-labelledby="showJobHistoryModal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -708,8 +737,25 @@
             <!-- Jobs Table -->
             <div id="dynamic2" class="container max-width: 70% mb-2 mt-4 text-center" style="height:auto; overflow:auto;">
                 <!-- dynamic table generated here -->
-                <table id="jobTable"></table>
-              </div>
+                <table id="jobTable" class="display">
+                  <thead>
+                      <tr>
+                          <th>Column 1</th>
+                          <th>Column 2</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>Row 1 Data 1</td>
+                          <td>Row 1 Data 2</td>
+                      </tr>
+                      <tr>
+                          <td>Row 2 Data 1</td>
+                          <td>Row 2 Data 2</td>
+                      </tr>
+                  </tbody>
+              </table>
+            </div>
         </section>
         <section id="customersPage" class="invisible" style="margin-top: 100px;">
           <!-- Buttons -->
@@ -732,6 +778,24 @@
           <!-- Customer Table -->
           <div id="dynamic1" class="container max-width: 70% mt-4 text-center" style="height:auto; overflow:auto;">
               <!-- dynamic table generated here -->
+              <table id="customerTable" class="display">
+                <thead>
+                    <tr>
+                        <th>Column 1</th>
+                        <th>Column 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Row 1 Data 1</td>
+                        <td>Row 1 Data 2</td>
+                    </tr>
+                    <tr>
+                        <td>Row 2 Data 1</td>
+                        <td>Row 2 Data 2</td>
+                    </tr>
+                </tbody>
+            </table>
               <!-- <table id="customerTable"></table> -->
           </div>
       </section>
@@ -763,10 +827,9 @@
     
     <script src="/js/site.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js">
-    </script>
+ 
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+ 
     <script>
       $(document).ready(function () {
         $("#jobTable").DataTable();

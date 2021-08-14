@@ -88,7 +88,7 @@ namespace JobTrackerDemoProjectAPI.Controllers
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    jobs = Job.GetJobsByCustomerId(con, jobId);
+                    jobs = Job.GetJobByJobId(con, jobId);
                 }
                 response.result = "success";
                 response.message = $"{jobs.Count()} rows selected.";
@@ -103,7 +103,7 @@ namespace JobTrackerDemoProjectAPI.Controllers
         }
 
         // Change this back to httpPost later
-        [HttpGet]
+        [HttpPost]
         [Route("/Jobs/InsertJob")]
         public Response InsertJob([FromBody] Job job)
         {            
@@ -117,13 +117,15 @@ namespace JobTrackerDemoProjectAPI.Controllers
                 string jobType = job.JobType;
                 string status = job.Status;
                 string received = job.Received;
-                string completed = job.Completed;
-                string delivered = job.Delivered;
+                // string completed = job.Completed;
+                // string delivered = job.Delivered;
                 string details = job.Details;
                 decimal estimate = job.Estimate;
-                decimal finalPrice = job.FinalPrice;
-                string comments = job.Comments;
-                int envelopeNumber = job.EnvelopeNumber;           
+                // decimal finalPrice = job.FinalPrice;
+                // string comments = job.Comments;
+                int envelopeNumber = job.EnvelopeNumber; 
+                int textNotifications = job.TextNotifications;
+                int EmailNotifications = job.EmailNotifications;          
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {  

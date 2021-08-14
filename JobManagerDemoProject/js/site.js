@@ -533,7 +533,7 @@
     }
 
     function handleJobHistoryTableButtonClick(e){
-        var jobId = e.target.parentNode.dataset.customerid;
+        var jobId = e.target.parentNode.dataset.jobid;
         var action = e.target.parentNode.dataset.action;
 
         if (action === "details") {
@@ -652,11 +652,11 @@
         var action = e.target.parentNode.dataset.action;
 
         if (action === "details") {
-            populateJobDetailsModal(jobId);
+            getJobByJobIdForDetails(jobId);
         }
 
         if (action === "edit") {
-            populateJobEditModal(jobId);
+            getJobByJobIdForEdit(jobId);
         }
 
         if (action === "delete") {
@@ -674,69 +674,80 @@
 
     // needs to be converted from customer to job still
     function insertJob(e) {
-        var firstName = document.getElementById("addCustomerFirstName");
-        var lastName = document.getElementById("addCustomerLastName");
-        var phone = document.getElementById("addCustomerPhone");
-        var email = document.getElementById("addCustomerEmail");
-        var address1 = document.getElementById("addCustomerAddress1");
-        var address2 = document.getElementById("addCustomerAddress2");
-        var city = document.getElementById("addCustomerCity");
-        var stateInput = document.getElementById("addCustomerStateSelection");
-        var zipcode = document.getElementById("addCustomerZipcode");
-        var status = "active";
-        var comments = "none";
-        var creditBalance = 0;
+        var customerId = document.getElementById("addJobCustomerId");
+        var jobType = document.getElementById("addJobJobType");
+        // Diverge job status between repairs/other and customs since customs take their own route
+        var jobStatus = "in-progress";
+            if (jobType == "custom"){
+                jobStatus = "quote";
+            }
+        var status = jobStatus;
+        // Use the current date as received date:
+        var todayDate = new Date().toISOString().slice(0, 10);
+        var received = todayDate;
+        // var completed = "";
+        // var delivered = "";
+        var details = document.getElementById("addJobDetails");
+        var estimate = document.getElementById("addJobEstimate");
+        // var finalPrice = document.getElementById("addCustomerAddress2");
+        // var comments = "";
+        var envelopeNumber =  document.getElementById("addJobEnvelopeNumber");      
+
+        var textNotifications = 0;
+        if(document.getElementById("textNotificationCheck").checked) {
+            textNotifications = document.getElementById("textNotificationCheck").value; 
+        }
+
+        var emailNotifications = 0;
+        if(document.getElementById("emailNotificationCheck").checked) {
+            emailNotifications = document.getElementById("emailNotificationCheck").value; 
+        }
         
-        customer = {
-            "customerId": 0,
-            "firstName": firstName.value,
-            "lastName": lastName.value,
-            "phone": phone.value,
-            "email": email.value,
-            "address1": address1.value,
-            "address2": address2.value,
-            "city": city.value,
-            "state": stateInput.options[stateInput.selectedIndex].innerText,
-            "zipcode": zipcode.value,
+        job = {
+            "jobId": 0,
+            "customerId": customerId.value,
+            "jobType": jobType.value,
             "status": status,
-            "comments": comments,
-            "creditBalance": creditBalance
+            "received": received,
+            // "completed": completed.value,
+            // "delivered": delivered.value,
+            "details": details.value,
+            "estimate": estimate.value,
+            // "finalPrice": finalPrice.value,
+            // "comments": comments.value,
+            "envelopeNumber": envelopeNumber.value,
+            "textNotifications": textNotifications,
+            "emailNotifications": emailNotifications
         };
 
-        firstName.value = "";
-        lastName.value = "";
-        phone.value = "";
-        email.value = "";
-        address1.value = "";
-        address2.value = "";
-        city.value = "";
-        stateInput.selectedIndex = 0;
-        zipcode.value = "";
-        status.value = "";
-        comments.value = "";
-        creditBalance.value = 0;
+        customerId.value = "";
+        jobType.selectedIndex = 0;
+        envelopeNumber.value = "";
+        estimate.value = 0;
+        document.getElementById("addJobCustomer").value = "";
+        document.getElementById("textNotificationCheck").value = 0;
+        document.getElementById("emailNotificationCheck").value = 0;
 
-        postBody = JSON.stringify(customer);
+        postBody = JSON.stringify(job);
 
-        var baseURL = "https://localhost:5001/Customers/InsertCustomer";
+        var baseURL = "https://localhost:5001/Jobs/InsertJob";
 
         var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = doAfterInsertCustomer;
+        xhr.onreadystatechange = doAfterInsertJob;
         xhr.open("POST", baseURL, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(postBody);
 
-        function doAfterInsertCustomer() {
+        function doAfterInsertJob() {
 
             if (xhr.readyState === 4) { //done
                 if (xhr.status === 200) { //ok
-                    //alert(xhr.responseText);
 
                     var response = JSON.parse(xhr.responseText);
 
                     if (response.result === "success") {
-                        var customers = response.customers;
-                        refreshCustomerTable(customers);
+                        var jobs = response.jobs;
+                        refreshJobTable(jobs);
                     } else {
                         alert("API Error: " + response.message);
                     }
@@ -831,24 +842,333 @@
             document.getElementById("jobDetailsDetails").value = job.details;
             document.getElementById("jobDetailsEstimate").value = job.estimate;
             document.getElementById("jobDetailsPrice").value = job.finalPrice;
+
+            getJobByJobIdForEdit(job.jobId);
         }
     }
 
+    function getJobByJobIdForEdit(jobId) {
+        var baseURL = "https://localhost:5001/Jobs/GetJobByJobId";
+        var queryString = "?jobId=" + jobId;
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = doAfterGetJobForEdit;
+
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+
+        function doAfterGetJobForEdit() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var job = response.jobs;
+                        populateJobEditModal(job, jobId);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+
+    function populateJobEditModal(jobs, jobId){
+        var job;
+
+        for (var i = 0; i < jobs.length; i++) {
+            job = jobs[i];
+
+            document.getElementById("jobEditJobId").value = jobId;
+            document.getElementById("jobEditCustomer").value = job.customer;
+                // Handle the job type
+                var jobTypeIndex = 0;
+                switch (job.jobType) {
+                    case 'repair':
+                        jobTypeIndex = 1;
+                        break;
+                    case 'custom':
+                        jobTypeIndex = 2;
+                        break;
+                    case 'other':
+                        jobTypeIndex = 3;
+                        break;
+                    default:
+                        break;
+                }
+            document.getElementById("jobEditJobType").selectedIndex = jobTypeIndex;
+                // Handle the job status
+                var jobStatusIndex = 0;
+                switch (job.status) {
+                    case 'In-progress':
+                        jobStatusIndex = 1;
+                        break;
+                    case 'completed':
+                        jobStatusIndex = 2;
+                        break;
+                    case 'delivered':
+                        jobStatusIndex = 3;
+                        break;
+                    case 'quote':
+                        jobStatusIndex = 4;
+                        break;
+                    case 'cad':
+                        jobStatusIndex = 5;
+                        break;
+                    case 'approval':
+                        jobStatusIndex = 6;
+                        break;
+                    case 'printing':
+                        jobStatusIndex = 7;
+                        break;
+                    case 'casting':
+                        jobStatusIndex = 8;
+                        break;
+                    case 'setting':
+                        jobStatusIndex = 9;
+                        break;  
+                    default:
+                        break;
+                }
+            document.getElementById("jobEditJobStatus").selectedIndex = jobStatusIndex;
+            document.getElementById("jobEditJobReceived").value = job.received;
+            document.getElementById("jobEditJobCompleted").value = job.completed;
+            document.getElementById("jobEditJobDelivered").value = job.delivered;
+            document.getElementById("jobEditJobDetails").value = job.details;
+            document.getElementById("jobEditJobEstimate").value = job.estimate;
+            document.getElementById("jobEditJobPrice").value = job.finalPrice;
+        }
+    }
+
+    function updateJob(e){
+        var customerId = document.getElementById("addJobCustomerId");
+        var jobType = document.getElementById("jobDetailsJobType").value
+        var jobStatus = "in-progress";
+            if (jobType == "custom"){
+                jobStatus = "quote";
+            }
+        var status = jobStatus;
+        // Use the current date as received date:
+        var todayDate = new Date().toISOString().slice(0, 10);
+        var received = todayDate;
+
+        var details = document.getElementById("addJobDetails");
+        var estimate = document.getElementById("addJobEstimate");
+
+        var envelopeNumber =  document.getElementById("addJobEnvelopeNumber");      
+
+        var textNotifications = 0;
+        if(document.getElementById("textNotificationCheck").checked) {
+            textNotifications = document.getElementById("textNotificationCheck").value; 
+        }
+
+        var emailNotifications = 0;
+        if(document.getElementById("emailNotificationCheck").checked) {
+            emailNotifications = document.getElementById("emailNotificationCheck").value; 
+        }
+        
+        job = {
+            "jobId": 0,
+            "customerId": customerId.value,
+            "jobType": jobType.value,
+            "status": status,
+            "received": received,
+            // "completed": completed.value,
+            // "delivered": delivered.value,
+            "details": details.value,
+            "estimate": estimate.value,
+            // "finalPrice": finalPrice.value,
+            // "comments": comments.value,
+            "envelopeNumber": envelopeNumber.value,
+            "textNotifications": textNotifications,
+            "emailNotifications": emailNotifications
+        };
+
+        customerId.value = "";
+        jobType.selectedIndex = 0;
+        envelopeNumber.value = "";
+        estimate.value = 0;
+        document.getElementById("addJobCustomer").value = "";
+        document.getElementById("textNotificationCheck").value = 0;
+        document.getElementById("emailNotificationCheck").value = 0;
+
+        postBody = JSON.stringify(customer);
+
+        var baseURL = "https://localhost:5001/Customers/UpdateCustomer";
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = doAfterUpdateCustomer;
+        xhr.open("POST", baseURL, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(postBody);
+
+        function doAfterUpdateCustomer() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var customers = response.customers;
+                        refreshCustomerTable(customers);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+        e.preventDefault();
+    }
+
     function markJobComplete(jobId){
+        // This is an update job by jobId; set status = 'complete'
         alert(`Placeholder! Update job ${jobId} job.Status to 'complete!'`);
     }
 
     function markJobDelivered(jobId){
+        // This is an update job by jobId; set status = 'delivered'
         alert(`Placeholder! Update job ${jobId} job.Status to 'delivered!'`);
     }
 
+    // These functions help deal with getting a customer selected for the new job being added to db
+    function getCustomersForAddJob() {
+        var baseURL = "https://localhost:5001/Customers/GetCustomers";
+        var queryString = "";
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = doAfterGetCustomers;
+
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+
+        function doAfterGetCustomers() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var customers = response.customers;
+                        refreshCustomerTableForAddJob(customers);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+
+    function refreshCustomerTableForAddJob(customers) {
+        var html;
+        var dynamic;
+        var customer;
+
+        //Build an html table of the customers.
+        html = "<table id='selectCustomerTableForAddJob' class='table table-dark table-striped'>" +
+            "<thead>" +
+            "<tr>" +
+            "<th scope='col'></th>" +
+            "<th scope='col'>CustomerId</th>" +
+            "<th scope='col'>Customer</th>" +
+            "<th scope='col'>Phone</th>" +
+            "<th scope='col'></th>" +
+            "</tr>" +
+            "</thead>" +
+            "<tbody>";
+
+        for (var i = 0; i < customers.length; i++) {
+            customer = customers[i];
+            html = html + "<tr>" +
+                "<td data-field='select'><button id='selectCustomerBtn' title='select' type='button' data-action='select' data-customerid=" + customer.customerId + " data-customerfirstname=" + customer.firstName + " data-customerlastname=" + customer.lastName + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#AddJobSelectCustomerModal'><i class='fas fa-check-square'></i></button></td>" +
+                "<td data-field='customerId'>" + customer.customerId + "</td>" +    
+                "<th scope='row' data-field='customer'>" + customer.firstName + " " + customer.lastName + "</th>" +
+                "<td data-field='phone'>" + customer.phone + "</td>" +
+                "<td data-field='details'><button id='customerDetailsBtn' title='Details' type='button' data-action='details' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerDetailsModal'><i class='fas fa-info-circle'></i></button></td>" +
+                "</tr>";
+        }
+
+        html = html + "</tbody>" +
+            "<tfoot>" +
+            "<tr>" +
+            "<th scope='col'></th>" +
+            "<th scope='col'>CustomerId</th>" +
+            "<th scope='col'>Customer</th>" +
+            "<th scope='col'>Phone</th>" +
+            "<th scope='col'></th>" +
+            "</tr>" +
+            "</tfoot>" +
+            "</table>";
+
+        //Inject the new table into the DOM.
+        dynamic = document.getElementById("dynamicSelectCustomerForNewJobTable");
+        dynamic.innerHTML = html;
+
+        //Add a click event listener to all buttons in the table.
+        var buttons = document.querySelectorAll("#selectCustomerTableForAddJob .btn");
+
+        for (var i = 0; i < buttons.length; i++) {
+            var button = buttons[i];
+            button.addEventListener("click", handleselectCustomerTableForAddJob);
+        }
+
+    }
+
+    function handleselectCustomerTableForAddJob(e) {
+        var customerId = e.target.parentNode.dataset.customerid;
+        var customerFirstName = e.target.parentNode.dataset.customerfirstname;
+        var customerLastName = e.target.parentNode.dataset.customerlastname;
+        var customerFullName = `${customerFirstName} ${customerLastName}`;
+        var action = e.target.parentNode.dataset.action;
+
+        if (action === "select") {
+            populateAddJobModalWithCustomer(customerId, customerFullName);
+        }
+
+        if (action === "details") {
+            getCustomerByCustomerIdForDetails(customerId);
+        }
+        e.preventDefault();
+    }
+
+    function populateAddJobModalWithCustomer(customerId, customer){
+        document.getElementById("addJobCustomerId").value = customerId;
+        document.getElementById("addJobCustomer").value = customer;
+    }
+
+
+
+
+
+
+
+    // Event listeners for button clicks NOT in dynamic tables
     document.getElementById("showJobsBtn").addEventListener("click", OpenJobsPage);
     document.getElementById("showCustomersBtn").addEventListener("click", OpenCustomersPage);
     document.getElementById("addNewCustomerBtn").addEventListener("click", insertCustomer);
     document.getElementById("updateCustomerBtn").addEventListener("click", updateCustomer);
     document.getElementById("jobHistoryBtn").addEventListener("click", getJobHistory);
+    document.getElementById("selectCustomerAddJobModal").addEventListener("click", getCustomersForAddJob);
+    document.getElementById("addJobButton").addEventListener("click", insertJob);
+
+
 
     pageLoad();
-
-
 }()); 
