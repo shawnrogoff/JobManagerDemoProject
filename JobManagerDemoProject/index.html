@@ -463,6 +463,26 @@
                                   aria-label="Price" required disabled>
                             </div>
                           </div>
+                          <div class="row m-1">
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" value="1" type="checkbox" id="jobDetailsTextNotificationCheck" disabled>
+                                    <input  type='hidden' value='0' id='jobDetailsTextNotificationCheckHidden'>
+                                    <label class="form-check-label" for="jobDetailsTextNotificationCheck">
+                                    Text Notification
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" value="1" type="checkbox" id="jobDetailsEmailNotificationCheck" disabled>
+                                    <input  type='hidden' value='0' id='jobDetailsEmailNotificationCheckHidden'>
+                                    <label class="form-check-label" for="jobDetailsEmailNotificationCheck">
+                                    Email Notification
+                                    </label>
+                                </div>
+                            </div>
+                          </div>
                         </form>
                       </div>
                       <!-- === Buttons Here === -->
@@ -502,27 +522,27 @@
                               <label class="form-label">Job Type:</label>
                               <select id="jobEditJobType" class="form-select" aria-label="Job Type">
                                 <option selected>Job Type</option>
-                                <option>Repair</option>
-                                <option>Custom</option>
-                                <option>Other</option>
+                                <option>repair</option>
+                                <option>custom</option>
+                                <option>other</option>
                               </select>
                             </div>  
                             <div class="col">
                                   <label class="form-label">Status:</label>
                                   <select id="jobEditJobStatus" class="form-select" aria-label="Job Type">
-                                    <option selected>Status</option>
+                                    <option>Status</option>
                                     <optgroup label="Repairs & Other">
-                                      <option>In-Progress</option>
-                                      <option>Completed</option>
-                                      <option>Delivered</option>
+                                      <option>in-progress</option>
+                                      <option>completed</option>
+                                      <option>delivered</option>
                                     </optgroup>
                                     <optgroup label="Customs">
-                                      <option>Quote</option>
+                                      <option>quote</option>
                                       <option>CAD</option>
-                                      <option>Approval</option>
-                                      <option>Printing</option>
-                                      <option>Casting</option>
-                                      <option>Setting</option>
+                                      <option>approval</option>
+                                      <option>printing</option>
+                                      <option>casting</option>
+                                      <option>setting</option>
                                     </optgroup>
                                   </select>
                               </div>
@@ -562,11 +582,31 @@
                                   aria-label="Price" required >
                             </div>
                           </div>
+                          <div class="row m-1">
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" value="1" type="checkbox" id="jobEditTextNotificationCheck">
+                                    <input  type='hidden' value='0' id='jobEditTextNotificationCheckHidden'>
+                                    <label class="form-check-label" for="jobEditTextNotificationCheck">
+                                    Text Notification
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" value="1" type="checkbox" id="jobEditEmailNotificationCheck">
+                                    <input  type='hidden' value='0' id='jobEditEmailNotificationCheckHidden'>
+                                    <label class="form-check-label" for="jobEditEmailNotificationCheck">
+                                    Email Notification
+                                    </label>
+                                </div>
+                            </div>
+                          </div>
                         </form>
                     </div>
                       <!-- === Buttons Here === -->
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jobEditModal">Update</button>
+                        <button id="updateJobBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jobEditModal">Update</button>
                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                       </div>
                 </div>
@@ -605,9 +645,9 @@
                                   <label class="form-label">Job Type</label>
                                   <select id="addJobJobType"  class="form-select" aria-label="Job Type">
                                     <option selected>Job Type</option>
-                                    <option>Repair</option>
-                                    <option>Custom</option>
-                                    <option>Other</option>
+                                    <option>repair</option>
+                                    <option>custom</option>
+                                    <option>other</option>
                                   </select>
                                 </div>  
                                 <div class="col">

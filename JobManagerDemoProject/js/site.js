@@ -829,6 +829,9 @@
     function populateJobDetailsModal(jobs){
         var job;
 
+        document.getElementById("jobDetailsTextNotificationCheck").checked = false;
+        document.getElementById("jobDetailsEmailNotificationCheck").checked = false;
+
         for (var i = 0; i < jobs.length; i++) {
             job = jobs[i];
 
@@ -842,6 +845,12 @@
             document.getElementById("jobDetailsDetails").value = job.details;
             document.getElementById("jobDetailsEstimate").value = job.estimate;
             document.getElementById("jobDetailsPrice").value = job.finalPrice;
+            if (job.textNotifications == 1) {
+                document.getElementById("jobDetailsTextNotificationCheck").checked = true;
+            }
+            if (job.emailNotifications == 1) {
+                document.getElementById("jobDetailsEmailNotificationCheck").checked = true;
+            }
 
             getJobByJobIdForEdit(job.jobId);
         }
@@ -880,70 +889,32 @@
         }
     }
 
-    function populateJobEditModal(jobs, jobId){
+    function populateJobEditModal(jobs){
         var job;
+
+        document.getElementById("jobEditTextNotificationCheck").checked = false;
+        document.getElementById("jobEditEmailNotificationCheck").checked = false;
 
         for (var i = 0; i < jobs.length; i++) {
             job = jobs[i];
 
-            document.getElementById("jobEditJobId").value = jobId;
+            document.getElementById("jobEditJobId").value = job.jobId;
             document.getElementById("jobEditCustomer").value = job.customer;
-                // Handle the job type
-                var jobTypeIndex = 0;
-                switch (job.jobType) {
-                    case 'repair':
-                        jobTypeIndex = 1;
-                        break;
-                    case 'custom':
-                        jobTypeIndex = 2;
-                        break;
-                    case 'other':
-                        jobTypeIndex = 3;
-                        break;
-                    default:
-                        break;
-                }
-            document.getElementById("jobEditJobType").selectedIndex = jobTypeIndex;
-                // Handle the job status
-                var jobStatusIndex = 0;
-                switch (job.status) {
-                    case 'In-progress':
-                        jobStatusIndex = 1;
-                        break;
-                    case 'completed':
-                        jobStatusIndex = 2;
-                        break;
-                    case 'delivered':
-                        jobStatusIndex = 3;
-                        break;
-                    case 'quote':
-                        jobStatusIndex = 4;
-                        break;
-                    case 'cad':
-                        jobStatusIndex = 5;
-                        break;
-                    case 'approval':
-                        jobStatusIndex = 6;
-                        break;
-                    case 'printing':
-                        jobStatusIndex = 7;
-                        break;
-                    case 'casting':
-                        jobStatusIndex = 8;
-                        break;
-                    case 'setting':
-                        jobStatusIndex = 9;
-                        break;  
-                    default:
-                        break;
-                }
-            document.getElementById("jobEditJobStatus").selectedIndex = jobStatusIndex;
+            document.getElementById("jobEditJobType").value = job.jobType;
+            document.getElementById("jobEditJobStatus").value = job.status;
             document.getElementById("jobEditJobReceived").value = job.received;
             document.getElementById("jobEditJobCompleted").value = job.completed;
             document.getElementById("jobEditJobDelivered").value = job.delivered;
             document.getElementById("jobEditJobDetails").value = job.details;
             document.getElementById("jobEditJobEstimate").value = job.estimate;
             document.getElementById("jobEditJobPrice").value = job.finalPrice;
+
+            if (job.textNotifications == 1) {
+                document.getElementById("jobEditTextNotificationCheck").checked = true;
+            }
+            if (job.emailNotifications == 1) {
+                document.getElementById("jobEditEmailNotificationCheck").checked = true;
+            }
         }
     }
 
@@ -999,9 +970,9 @@
         document.getElementById("textNotificationCheck").value = 0;
         document.getElementById("emailNotificationCheck").value = 0;
 
-        postBody = JSON.stringify(customer);
+        postBody = JSON.stringify(job);
 
-        var baseURL = "https://localhost:5001/Customers/UpdateCustomer";
+        var baseURL = "https://localhost:5001/Jobs/UpdateJob";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = doAfterUpdateCustomer;
@@ -1018,8 +989,8 @@
                     var response = JSON.parse(xhr.responseText);
 
                     if (response.result === "success") {
-                        var customers = response.customers;
-                        refreshCustomerTable(customers);
+                        var jobs = response.jobs;
+                        refreshJobTable(jobs);
                     } else {
                         alert("API Error: " + response.message);
                     }
@@ -1167,7 +1138,7 @@
     document.getElementById("jobHistoryBtn").addEventListener("click", getJobHistory);
     document.getElementById("selectCustomerAddJobModal").addEventListener("click", getCustomersForAddJob);
     document.getElementById("addJobButton").addEventListener("click", insertJob);
-
+    document.getElementById("updateJobBtn").addEventListener("click", updateJob);
 
 
     pageLoad();
