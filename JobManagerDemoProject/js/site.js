@@ -991,7 +991,7 @@
             "jobId": jobId.value,
             "status": status,
             "completed": completed,
-            "final_price": finalPrice.value
+            "finalprice": finalPrice.value
         };
 
         postBody = JSON.stringify(job);
@@ -1023,9 +1023,7 @@
                     alert("Server Error: " + xhr.statusText);
                 }
             }
-        }
-        e.preventDefault();
-    
+        }   
     }
 
     function markJobDelivered(jobId){

@@ -720,7 +720,7 @@
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button id="MarkJobCompleteBtn" type="button" class="btn btn-primary">Mark Job Complete</button>
+                          <button id="MarkJobCompleteBtn" type="button" data-bs-dismiss="modal" class="btn btn-primary">Mark Job Complete</button>
                       </div>
                   </div>
               </div>
@@ -787,8 +787,8 @@
                 <div class="row row-cols-1 row-cols-md-3">
                     <div class="col">
                         <select id="jobStatusSelection" class="form-select m-2" aria-label="Job Status Selection">
-                          <option selected>Add Filter</option>
-                          <option>In-Progress</option>
+                          <option >All</option>
+                          <option selected>In-Progress</option>
                           <option>Completed</option>
                           <option>Delivered</option>
                           <option>Inactive</option>

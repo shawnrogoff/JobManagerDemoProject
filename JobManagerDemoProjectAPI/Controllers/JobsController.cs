@@ -218,7 +218,7 @@ namespace JobTrackerDemoProjectAPI.Controllers
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    rowsUpdated = Job.UpdateJob(con, job);
+                    rowsUpdated = Job.MarkJobComplete(con, job);
                     jobs = Job.GetJobs(con);
                 }
 

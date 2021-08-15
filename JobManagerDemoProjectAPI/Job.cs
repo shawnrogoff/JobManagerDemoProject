@@ -236,7 +236,7 @@ namespace JobTrackerDemoProjectAPI
             int rowsUpdated = 0;
 
             // SqlCommand cmd = new SqlCommand("UPDATE job SET customerId = @CustomerId, job_type = @JobType, status = @Status, received = @Received, completed = @Completed, delivered = @Delivered, details = @Details, estimate = @Estimate, final_price = @FinalPrice, comments = @Comments, envelope_number = @EnvelopeNumber, text_notifcations = @TextNotifications, email_notifications = @EmailNotifications WHERE jobId = @JobId", con);
-            SqlCommand cmd = new SqlCommand("UPDATE job SET status = @Status, complete = @Complete, final_price = @FinalPrice WHERE jobId = @JobId", con);
+            SqlCommand cmd = new SqlCommand("UPDATE job SET status = @Status, completed = @Completed, final_price = @FinalPrice WHERE jobId = @JobId", con);
             cmd.CommandType = System.Data.CommandType.Text;
 
             cmd.Parameters.Add("@JobId", System.Data.SqlDbType.Int);
