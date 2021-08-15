@@ -813,8 +813,8 @@
                     var response = JSON.parse(xhr.responseText);
 
                     if (response.result === "success") {
-                        var job = response.jobs;
-                        populateJobDetailsModal(job);
+                        var jobs = response.jobs;
+                        populateJobDetailsModal(jobs);
                     } else {
                         alert("API Error: " + response.message);
                     }
@@ -822,6 +822,35 @@
                 } else {
                     alert("Server Error: " + xhr.statusText);
                 }
+            }
+        }
+    }
+
+    function populateJobDetailsModal(jobs){
+        var job;
+
+        document.getElementById("jobEditTextNotificationCheck").checked = false;
+        document.getElementById("jobEditEmailNotificationCheck").checked = false;
+
+        for (var i = 0; i < jobs.length; i++) {
+            job = jobs[i];
+
+            document.getElementById("jobDetailsJobId").value = job.jobId;
+            document.getElementById("jobDetailsCustomer").value = job.customer;
+            document.getElementById("jobDetailsJobType").value = job.jobType;
+            document.getElementById("jobDetailsStatus").value = job.status;
+            document.getElementById("jobDetailsReceived").value = job.received;
+            document.getElementById("jobDetailsCompleted").value = job.completed;
+            document.getElementById("jobDetailsDelivered").value = job.delivered;
+            document.getElementById("jobDetailsDetails").value = job.details;
+            document.getElementById("jobDetailsEstimate").value = job.estimate;
+            document.getElementById("jobDetailsPrice").value = job.finalPrice;
+
+            if (job.textNotifications == 1) {
+                document.getElementById("jobDetailsTextNotificationCheck").checked = true;
+            }
+            if (job.emailNotifications == 1) {
+                document.getElementById("jobDetailsEmailNotificationCheck").checked = true;
             }
         }
     }
