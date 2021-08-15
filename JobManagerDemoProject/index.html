@@ -697,6 +697,36 @@
               </div>
           </div>
         </section>
+        <section id="markJobcomplete" class="">          
+          <!-- Modal -->
+          <div class="modal fade" id="MarkJobCompleteModal" tabindex="-1" aria-labelledby="MarkJobCompleteModal" aria-hidden="true">
+              <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Mark Job Complete</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="col">
+                          <label class="form-label">Job Id:</label>
+                          <input id="markCompleteJobId" type="text" name="jobId" class="form-control" placeholder="Job Id"
+                              aria-label="Job Id" required disabled>
+                      </div>
+                      <div class="col">
+                          <label class="form-label">Final Price:</label>
+                          <input id="markCompleteFinalPrice" type="text" name="final price" class="form-control" placeholder="0"
+                              aria-label="Final Price" required>
+                      </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button id="MarkJobCompleteBtn" type="button" class="btn btn-primary">Mark Job Complete</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+        </section>
         <section id="AddJobSelectCustomerSection">
             <div class="modal fade" id="AddJobSelectCustomerModal" tabindex="-1" aria-labelledby="AddJobSelectCustomerModal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">

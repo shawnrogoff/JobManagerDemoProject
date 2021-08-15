@@ -613,7 +613,7 @@
                 "<td data-field='details'><button title='Details' type='button' data-action='details' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info-circle'></i></button></td>" +
                 "<td data-field='edit'><button title='Edit' type='button' data-action='edit' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobEditModal'><i class='fas fa-edit'></i></button></td>" +
                 "<td data-field='delete'><button title='Delete' type='button' data-action='delete' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-minus-square'></i></i></button></td>" +
-                "<td data-field='markComplete'><button title='Mark Complete' type='button' data-action='complete' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-check-square'></i></button></td>" +
+                "<td data-field='markComplete'><button title='Mark Complete' type='button' data-action='complete' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#MarkJobCompleteModal'><i class='fas fa-check-square'></i></button></td>" +
                 "<td data-field='markDelivered'><button title='Mark Delivered' type='button' data-action='deliver' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-paper-plane'></i></button></td>" +
                 "</tr>";
         }
@@ -664,7 +664,7 @@
         }
 
         if (action === "complete") {
-            markJobComplete(jobId);
+            document.getElementById("markCompleteJobId").value = jobId;
         }
 
         if (action === "deliver") {
@@ -826,36 +826,6 @@
         }
     }
 
-    function populateJobDetailsModal(jobs){
-        var job;
-
-        document.getElementById("jobDetailsTextNotificationCheck").checked = false;
-        document.getElementById("jobDetailsEmailNotificationCheck").checked = false;
-
-        for (var i = 0; i < jobs.length; i++) {
-            job = jobs[i];
-
-            document.getElementById("jobDetailsJobId").value = job.jobId;
-            document.getElementById("jobDetailsCustomer").value = job.customer;
-            document.getElementById("jobDetailsJobType").value = job.jobType;
-            document.getElementById("jobDetailsStatus").value = job.status;
-            document.getElementById("jobDetailsReceived").value = job.received;
-            document.getElementById("jobDetailsCompleted").value = job.completed;
-            document.getElementById("jobDetailsDelivered").value = job.delivered;
-            document.getElementById("jobDetailsDetails").value = job.details;
-            document.getElementById("jobDetailsEstimate").value = job.estimate;
-            document.getElementById("jobDetailsPrice").value = job.finalPrice;
-            if (job.textNotifications == 1) {
-                document.getElementById("jobDetailsTextNotificationCheck").checked = true;
-            }
-            if (job.emailNotifications == 1) {
-                document.getElementById("jobDetailsEmailNotificationCheck").checked = true;
-            }
-
-            getJobByJobIdForEdit(job.jobId);
-        }
-    }
-
     function getJobByJobIdForEdit(jobId) {
         var baseURL = "https://localhost:5001/Jobs/GetJobByJobId";
         var queryString = "?jobId=" + jobId;
@@ -947,27 +917,18 @@
             "emailNotifications": emailNotifications
         };
 
-        
-        // jobId.value = "";
-        // customer.value = "";
-        // jobType.selectedIndex = 0;
-        // status.selectedIndex = 0;
-        // details.value = "";
-        // estimate.value = 0;
-        // document.getElementById("textNotificationCheck").value = 0;
-        // document.getElementById("emailNotificationCheck").value = 0;
-
         postBody = JSON.stringify(job);
 
         var baseURL = "https://localhost:5001/Jobs/UpdateJob";
 
         var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = doAfterUpdateCustomer;
+        xhr.onreadystatechange = doAfterUpdateJob;
         xhr.open("POST", baseURL, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(postBody);
 
-        function doAfterUpdateCustomer() {
+
+        function doAfterUpdateJob() {
 
             if (xhr.readyState === 4) { //done
                 if (xhr.status === 200) { //ok
@@ -991,8 +952,51 @@
     }
 
     function markJobComplete(jobId){
-        // This is an update job by jobId; set status = 'complete'
-        alert(`Placeholder! Update job ${jobId} job.Status to 'complete!'`);
+        var jobId = document.getElementById("markCompleteJobId");
+        var status = "complete";
+        var todayDate = new Date().toISOString().slice(0, 10);
+        var completed = todayDate;
+        var finalPrice = document.getElementById("markCompleteFinalPrice");
+        
+        job = {
+            "jobId": jobId.value,
+            "status": status,
+            "completed": completed,
+            "final_price": finalPrice.value
+        };
+
+        postBody = JSON.stringify(job);
+
+        var baseURL = "https://localhost:5001/Jobs/UpdateJobComplete";
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = doAfterMarkJobComplete;
+        xhr.open("POST", baseURL, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(postBody);
+
+        function doAfterMarkJobComplete() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var jobs = response.jobs;
+                        refreshJobTable(jobs);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+        e.preventDefault();
+    
     }
 
     function markJobDelivered(jobId){
@@ -1126,7 +1130,7 @@
     document.getElementById("selectCustomerAddJobModal").addEventListener("click", getCustomersForAddJob);
     document.getElementById("addJobButton").addEventListener("click", insertJob);
     document.getElementById("updateJobBtn").addEventListener("click", updateJob);
-
+    document.getElementById("MarkJobCompleteBtn").addEventListener("click", markJobComplete);
 
     pageLoad();
 }()); 
