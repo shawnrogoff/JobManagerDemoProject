@@ -196,11 +196,10 @@ namespace JobTrackerDemoProjectAPI
             int rowsUpdated = 0;
 
             // SqlCommand cmd = new SqlCommand("UPDATE job SET customerId = @CustomerId, job_type = @JobType, status = @Status, received = @Received, completed = @Completed, delivered = @Delivered, details = @Details, estimate = @Estimate, final_price = @FinalPrice, comments = @Comments, envelope_number = @EnvelopeNumber, text_notifcations = @TextNotifications, email_notifications = @EmailNotifications WHERE jobId = @JobId", con);
-            SqlCommand cmd = new SqlCommand("UPDATE job SET customerId = @CustomerId, job_type = @JobType, status = @Status, received = @Received, details = @Details, estimate = @Estimate, envelope_number = @EnvelopeNumber, text_notifcations = @TextNotifications, email_notifications = @EmailNotifications WHERE jobId = @JobId", con);
+            SqlCommand cmd = new SqlCommand("UPDATE job SET job_type = @JobType, status = @Status, received = @Received, details = @Details, estimate = @Estimate, text_notifications = @TextNotifications, email_notifications = @EmailNotifications WHERE jobId = @JobId", con);
             cmd.CommandType = System.Data.CommandType.Text;
 
             cmd.Parameters.Add("@JobId", System.Data.SqlDbType.Int);
-            cmd.Parameters.Add("@CustomerId", System.Data.SqlDbType.Int);
             cmd.Parameters.Add("@JobType", System.Data.SqlDbType.VarChar);
             cmd.Parameters.Add("@Status", System.Data.SqlDbType.VarChar);
             cmd.Parameters.Add("@Received", System.Data.SqlDbType.VarChar);
@@ -210,13 +209,11 @@ namespace JobTrackerDemoProjectAPI
             cmd.Parameters.Add("@Estimate", System.Data.SqlDbType.VarChar);
             // cmd.Parameters.Add("@FinalPrice", System.Data.SqlDbType.Decimal);
             // cmd.Parameters.Add("@Comments", System.Data.SqlDbType.VarChar);
-            cmd.Parameters.Add("@EnvelopeNumber", System.Data.SqlDbType.Int);
             cmd.Parameters.Add("@TextNotifications", System.Data.SqlDbType.Bit);
             cmd.Parameters.Add("@EmailNotifications", System.Data.SqlDbType.Bit);
             
             
             cmd.Parameters["@JobId"].Value = job.JobId;
-            cmd.Parameters["@CustomerId"].Value = job.CustomerId;
             cmd.Parameters["@JobType"].Value = job.JobType;
             cmd.Parameters["@Status"].Value = job.Status;
             cmd.Parameters["@Received"].Value = job.Received;
@@ -226,7 +223,6 @@ namespace JobTrackerDemoProjectAPI
             cmd.Parameters["@Estimate"].Value = job.Estimate;
             // cmd.Parameters["@FinalPrice"].Value = job.FinalPrice;
             // cmd.Parameters["@Comments"].Value = job.Comments;
-            cmd.Parameters["@EnvelopeNumber"].Value = job.EnvelopeNumber;
             cmd.Parameters["@TextNotifications"].Value = job.TextNotifications;
             cmd.Parameters["@EmailNotifications"].Value = job.EmailNotifications;
 

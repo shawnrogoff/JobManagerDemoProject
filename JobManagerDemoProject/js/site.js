@@ -919,56 +919,43 @@
     }
 
     function updateJob(e){
-        var customerId = document.getElementById("addJobCustomerId");
-        var jobType = document.getElementById("jobDetailsJobType").value
-        var jobStatus = "in-progress";
-            if (jobType == "custom"){
-                jobStatus = "quote";
-            }
-        var status = jobStatus;
-        // Use the current date as received date:
-        var todayDate = new Date().toISOString().slice(0, 10);
-        var received = todayDate;
-
-        var details = document.getElementById("addJobDetails");
-        var estimate = document.getElementById("addJobEstimate");
-
-        var envelopeNumber =  document.getElementById("addJobEnvelopeNumber");      
+        var jobId = document.getElementById("jobEditJobId");
+        var jobType = document.getElementById("jobEditJobType");
+        var status = document.getElementById("jobEditJobStatus");
+        var received = document.getElementById("jobEditJobReceived");
+        var details = document.getElementById("jobEditJobDetails");
+        var estimate = document.getElementById("jobEditJobEstimate");     
 
         var textNotifications = 0;
-        if(document.getElementById("textNotificationCheck").checked) {
-            textNotifications = document.getElementById("textNotificationCheck").value; 
+        if(document.getElementById("jobEditTextNotificationCheck").checked) {
+            textNotifications = document.getElementById("jobEditTextNotificationCheck").value; 
         }
 
         var emailNotifications = 0;
-        if(document.getElementById("emailNotificationCheck").checked) {
-            emailNotifications = document.getElementById("emailNotificationCheck").value; 
+        if(document.getElementById("jobEditEmailNotificationCheck").checked) {
+            emailNotifications = document.getElementById("jobEditEmailNotificationCheck").value; 
         }
         
         job = {
-            "jobId": 0,
-            "customerId": customerId.value,
+            "jobId": jobId.value,
             "jobType": jobType.value,
-            "status": status,
-            "received": received,
-            // "completed": completed.value,
-            // "delivered": delivered.value,
+            "status": status.value,
+            "received": received.value,
             "details": details.value,
             "estimate": estimate.value,
-            // "finalPrice": finalPrice.value,
-            // "comments": comments.value,
-            "envelopeNumber": envelopeNumber.value,
             "textNotifications": textNotifications,
             "emailNotifications": emailNotifications
         };
 
-        customerId.value = "";
-        jobType.selectedIndex = 0;
-        envelopeNumber.value = "";
-        estimate.value = 0;
-        document.getElementById("addJobCustomer").value = "";
-        document.getElementById("textNotificationCheck").value = 0;
-        document.getElementById("emailNotificationCheck").value = 0;
+        
+        // jobId.value = "";
+        // customer.value = "";
+        // jobType.selectedIndex = 0;
+        // status.selectedIndex = 0;
+        // details.value = "";
+        // estimate.value = 0;
+        // document.getElementById("textNotificationCheck").value = 0;
+        // document.getElementById("emailNotificationCheck").value = 0;
 
         postBody = JSON.stringify(job);
 
