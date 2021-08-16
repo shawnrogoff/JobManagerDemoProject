@@ -614,7 +614,7 @@
                 "<td data-field='edit'><button title='Edit' type='button' data-action='edit' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobEditModal'><i class='fas fa-edit'></i></button></td>" +
                 "<td data-field='delete'><button title='Delete' type='button' data-action='delete' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-minus-square'></i></i></button></td>" +
                 "<td data-field='markComplete'><button title='Mark Complete' type='button' data-action='complete' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#MarkJobCompleteModal'><i class='fas fa-check-square'></i></button></td>" +
-                "<td data-field='markDelivered'><button title='Mark Delivered' type='button' data-action='deliver' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-paper-plane'></i></button></td>" +
+                "<td data-field='markDelivered'><button title='Mark Delivered' type='button' data-action='deliver' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#MarkJobDeliveredModal'><i class='fas fa-paper-plane'></i></button></td>" +
                 "</tr>";
         }
 
@@ -668,7 +668,7 @@
         }
 
         if (action === "deliver") {
-            markJobDelivered(jobId);
+            document.getElementById("markDeliveredJobId").value = jobId;
         }
     }
 
@@ -1027,9 +1027,49 @@
     }
 
     function markJobDelivered(jobId){
-        // This is an update job by jobId; set status = 'delivered'
-        alert(`Placeholder! Update job ${jobId} job.Status to 'delivered!'`);
+        var jobId = document.getElementById("markDeliveredJobId");
+        var status = "delivered";
+        var todayDate = new Date().toISOString().slice(0, 10);
+        var delivered = todayDate;
+        
+        job = {
+            "jobId": jobId.value,
+            "status": status,
+            "delivered": delivered,
+        };
+
+        postBody = JSON.stringify(job);
+
+        var baseURL = "https://localhost:5001/Jobs/UpdateJobDelivered";
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = doAfterMarkJobDelivered;
+        xhr.open("POST", baseURL, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(postBody);
+
+        function doAfterMarkJobDelivered() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var jobs = response.jobs;
+                        refreshJobTable(jobs);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }   
     }
+    
 
     // These functions help deal with getting a customer selected for the new job being added to db
     function getCustomersForAddJob() {
@@ -1144,10 +1184,6 @@
 
 
 
-
-
-
-
     // Event listeners for button clicks NOT in dynamic tables
     document.getElementById("showJobsBtn").addEventListener("click", OpenJobsPage);
     document.getElementById("showCustomersBtn").addEventListener("click", OpenCustomersPage);
@@ -1158,6 +1194,7 @@
     document.getElementById("addJobButton").addEventListener("click", insertJob);
     document.getElementById("updateJobBtn").addEventListener("click", updateJob);
     document.getElementById("MarkJobCompleteBtn").addEventListener("click", markJobComplete);
-
+    document.getElementById("MarkJobDeliveredBtn").addEventListener("click", markJobDelivered);
+    
     pageLoad();
 }()); 

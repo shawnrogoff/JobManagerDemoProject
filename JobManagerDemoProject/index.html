@@ -697,7 +697,7 @@
               </div>
           </div>
         </section>
-        <section id="markJobcomplete" class="">          
+        <section id="markJobComplete" class="">          
           <!-- Modal -->
           <div class="modal fade" id="MarkJobCompleteModal" tabindex="-1" aria-labelledby="MarkJobCompleteModal" aria-hidden="true">
               <div class="modal-dialog modal-sm">
@@ -721,6 +721,31 @@
                       <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                           <button id="MarkJobCompleteBtn" type="button" data-bs-dismiss="modal" class="btn btn-primary">Mark Job Complete</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+        </section>
+        <section id="markJobDelivered" class="">          
+          <!-- Modal -->
+          <div class="modal fade" id="MarkJobDeliveredModal" tabindex="-1" aria-labelledby="MarkJobDeliveredModal" aria-hidden="true">
+              <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Mark Job Delivered</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="col">
+                            <label class="form-label">Job Id:</label>
+                            <input id="markDeliveredJobId" type="text" name="jobId" class="form-control" placeholder="Job Id"
+                                aria-label="Job Id" required disabled>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button id="MarkJobDeliveredBtn" type="button" data-bs-dismiss="modal" class="btn btn-primary">Mark Job Delivered</button>
                       </div>
                   </div>
               </div>
@@ -754,6 +779,7 @@
                 </div>
             </div>
         </section>
+        
         <section id="showJobHistory" class="">
             <div class="modal fade" id="showJobHistoryModal" style="z-index: 9997;" tabindex="-1" aria-labelledby="showJobHistoryModal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">

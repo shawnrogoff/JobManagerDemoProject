@@ -234,6 +234,36 @@ namespace JobTrackerDemoProjectAPI.Controllers
 
             return response;
         }
+
+        [HttpPost]
+        [Route("/Jobs/UpdateJobDelivered")]
+        public Response UpdateJobDelivered([FromBody] Job job)
+        {
+            Response response = new Response();
+            int rowsUpdated = 0;
+            List<Job> jobs = new List<Job>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    rowsUpdated = Job.MarkJobDelivered(con, job);
+                    jobs = Job.GetJobs(con);
+                }
+
+                response.result = "success";
+                response.message = $"{rowsUpdated} rows updated.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "failure";
+                response.message = ex.Message;
+            }
+
+            return response;
+        }
     }
 }
 
