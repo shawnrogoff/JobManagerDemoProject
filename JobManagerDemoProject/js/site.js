@@ -1,14 +1,15 @@
 (function JobManagerJS() {
     
     function pageLoad(){
-        getJobs();
+        getJobsInProgress();
         OpenJobsPage;
     }
 
     // Hide Login Page && Show Jobs Page
     function OpenJobsPage(){
         // Load jobs table
-        getJobs();
+        // getJobs();
+        getJobsBasedOnSelectBox()
 
         document.getElementById("customersPage").classList.add("invisible");
         document.getElementById("jobsPage").classList.remove("invisible");
@@ -578,6 +579,162 @@
         }
     }
 
+    function getJobsInProgress() {
+        var baseURL = "https://localhost:5001/Jobs/GetJobsInProgress";
+        var queryString = "";
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = doAfterGetJobsInProgress;
+
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+
+        function doAfterGetJobsInProgress() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var jobs = response.jobs;
+                        refreshJobTable(jobs);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+
+    function getJobsComplete() {
+        var baseURL = "https://localhost:5001/Jobs/GetJobsComplete";
+        var queryString = "";
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = doAfterGetJobsComplete;
+
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+
+        function doAfterGetJobsComplete() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var jobs = response.jobs;
+                        refreshJobTable(jobs);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+
+    function getJobsDelivered() {
+        var baseURL = "https://localhost:5001/Jobs/GetJobsDelivered";
+        var queryString = "";
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = doAfterGetJobsDelivered;
+
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+
+        function doAfterGetJobsDelivered() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var jobs = response.jobs;
+                        refreshJobTable(jobs);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+
+    function getJobsInactive() {
+        var baseURL = "https://localhost:5001/Jobs/GetJobsInactive";
+        var queryString = "";
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = doAfterGetJobsInactive;
+
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+
+        function doAfterGetJobsInactive() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var jobs = response.jobs;
+                        refreshJobTable(jobs);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+
+    function getJobsBasedOnSelectBox(){
+        var selectBox = document.getElementById("jobStatusSelection");
+        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+        switch (selectedValue){
+            case 'all':
+                getJobs();
+                break;
+            case 'in-progress':
+                getJobsInProgress();
+                break;
+            case 'complete':
+                getJobsComplete();
+                break;
+            case 'delivered':
+                getJobsDelivered();
+                break;
+            case 'inactive':
+                getJobsInactive();
+                break;
+            default:
+                break;
+        }
+    }
+
     function refreshJobTable(jobs) {
         var html;
         var dynamic;
@@ -612,7 +769,7 @@
                 "<td data-field='jobAge'>" + job.age + " days" + "</td>" +
                 "<td data-field='details'><button title='Details' type='button' data-action='details' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info-circle'></i></button></td>" +
                 "<td data-field='edit'><button title='Edit' type='button' data-action='edit' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobEditModal'><i class='fas fa-edit'></i></button></td>" +
-                "<td data-field='delete'><button title='Delete' type='button' data-action='delete' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1'><i class='fas fa-minus-square'></i></i></button></td>" +
+                "<td data-field='remove'><button title='Remove' type='button' data-action='remove' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#removeJobModal'><i class='fas fa-minus-square'></i></i></button></td>" +
                 "<td data-field='markComplete'><button title='Mark Complete' type='button' data-action='complete' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#MarkJobCompleteModal'><i class='fas fa-check-square'></i></button></td>" +
                 "<td data-field='markDelivered'><button title='Mark Delivered' type='button' data-action='deliver' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#MarkJobDeliveredModal'><i class='fas fa-paper-plane'></i></button></td>" +
                 "</tr>";
@@ -653,14 +810,15 @@
 
         if (action === "details") {
             getJobByJobIdForDetails(jobId);
+            getJobByJobIdForEdit(jobId);
         }
 
         if (action === "edit") {
             getJobByJobIdForEdit(jobId);
         }
 
-        if (action === "delete") {
-            deleteJob(jobId);
+        if (action === "remove") {
+            document.getElementById("removeJobJobId").value = jobId;
         }
 
         if (action === "complete") {
@@ -760,18 +918,28 @@
         e.preventDefault();
     }
 
-    function deleteJob(jobId) {
-        var baseURL = "https://localhost:5001/Jobs/DeleteJob";
-        var queryString = "?jobId=" + jobId;
+    function inactivateJob(jobId) {
+        var jobId = document.getElementById("removeJobJobId");
+        var status = "inactive";
+        var details = document.getElementById("removeJobDetails");
+        
+        job = {
+            "jobId": jobId.value,
+            "status": status,
+            "details": details.value
+        };
+
+        postBody = JSON.stringify(job);
+
+        var baseURL = "https://localhost:5001/Jobs/InactivateJob";
 
         var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = doAfterInactivateJob;
+        xhr.open("POST", baseURL, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(postBody);
 
-        xhr.onreadystatechange = doAfterDeleteJob;
-
-        xhr.open("GET", baseURL + queryString, true);
-        xhr.send();
-
-        function doAfterDeleteJob() {
+        function doAfterInactivateJob() {
 
             if (xhr.readyState === 4) { //done
                 if (xhr.status === 200) { //ok
@@ -790,7 +958,7 @@
                     alert("Server Error: " + xhr.statusText);
                 }
             }
-        }
+        } 
     }
 
     function getJobByJobIdForDetails(jobId) {
@@ -967,7 +1135,8 @@
 
                     if (response.result === "success") {
                         var jobs = response.jobs;
-                        refreshJobTable(jobs);
+                        // refreshJobTable(jobs);
+                        getJobsBasedOnSelectBox();
                     } else {
                         alert("API Error: " + response.message);
                     }
@@ -1193,8 +1362,11 @@
     document.getElementById("selectCustomerAddJobModal").addEventListener("click", getCustomersForAddJob);
     document.getElementById("addJobButton").addEventListener("click", insertJob);
     document.getElementById("updateJobBtn").addEventListener("click", updateJob);
+    document.getElementById("jobDetailsEditJobBtn").addEventListener("click", populateJobEditModal);
     document.getElementById("MarkJobCompleteBtn").addEventListener("click", markJobComplete);
     document.getElementById("MarkJobDeliveredBtn").addEventListener("click", markJobDelivered);
-    
+    document.getElementById("jobStatusSelection").addEventListener("change", getJobsBasedOnSelectBox);
+    document.getElementById("removeJobBtn").addEventListener("click", inactivateJob);
+
     pageLoad();
 }()); 

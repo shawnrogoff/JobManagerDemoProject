@@ -49,6 +49,114 @@ namespace JobTrackerDemoProjectAPI.Controllers
         }
 
         [HttpGet]
+        [Route("/Jobs/GetJobsInProgress")]
+
+        public Response GetJobsInProgress()
+        {
+            Response response = new Response();
+            List<Job> jobs = new List<Job>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    jobs = Job.GetJobsInProgress(con);
+                }
+                response.result = "success";
+                response.message = $"{jobs.Count()} rows selected.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("/Jobs/GetJobsComplete")]
+
+        public Response GetJobsComplete()
+        {
+            Response response = new Response();
+            List<Job> jobs = new List<Job>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    jobs = Job.GetJobsComplete(con);
+                }
+                response.result = "success";
+                response.message = $"{jobs.Count()} rows selected.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("/Jobs/GetJobsDelivered")]
+
+        public Response GetJobsDelivered()
+        {
+            Response response = new Response();
+            List<Job> jobs = new List<Job>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    jobs = Job.GetJobsDelivered(con);
+                }
+                response.result = "success";
+                response.message = $"{jobs.Count()} rows selected.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("/Jobs/GetJobsInactive")]
+
+        public Response GetJobsInactive()
+        {
+            Response response = new Response();
+            List<Job> jobs = new List<Job>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    jobs = Job.GetJobsInactive(con);
+                }
+                response.result = "success";
+                response.message = $"{jobs.Count()} rows selected.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+        [HttpGet]
         [Route("/Jobs/GetJobsByCustomerId")]
 
         public Response GetJobsByCustomerId(int customerId)
@@ -144,37 +252,7 @@ namespace JobTrackerDemoProjectAPI.Controllers
             }
             return response;
         }
-
-        [HttpGet]
-        [Route("/Jobs/DeleteJob")]
-        public Response DeleteJob(int jobId)
-        {
-            Response response = new Response();
-            int rowsDeleted = 0;
-            List<Job> jobs = new List<Job>();
-
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    con.Open();
-                    rowsDeleted = Job.DeleteJob(con, jobId);
-                    jobs = Job.GetJobs(con);
-                }
-
-                response.result = "success";
-                response.message = $"{rowsDeleted} rows deleted.";
-                response.jobs = jobs;
-            }
-            catch (Exception ex)
-            {
-                response.result = "failure";
-                response.message = ex.Message;
-            }
-
-            return response;
-        }
-        // Change this back to a Post later
+       
         [HttpPost]
         [Route("/Jobs/UpdateJob")]
         public Response UpdateJob([FromBody] Job job)
@@ -249,6 +327,36 @@ namespace JobTrackerDemoProjectAPI.Controllers
                 {
                     con.Open();
                     rowsUpdated = Job.MarkJobDelivered(con, job);
+                    jobs = Job.GetJobs(con);
+                }
+
+                response.result = "success";
+                response.message = $"{rowsUpdated} rows updated.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "failure";
+                response.message = ex.Message;
+            }
+
+            return response;
+        }
+
+        [HttpPost]
+        [Route("/Jobs/InactivateJob")]
+        public Response UpdateJoInactivateJobbDelivered([FromBody] Job job)
+        {
+            Response response = new Response();
+            int rowsUpdated = 0;
+            List<Job> jobs = new List<Job>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    rowsUpdated = Job.InactivateJob(con, job);
                     jobs = Job.GetJobs(con);
                 }
 
