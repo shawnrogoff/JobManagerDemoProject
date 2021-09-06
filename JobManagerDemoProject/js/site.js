@@ -1697,6 +1697,7 @@
                     var response = JSON.parse(xhr.responseText);
 
                     if (response.result === "success") {
+                        var jobs = response.jobs;
                         getJobsBasedOnSelectBox();
                     } else {
                         alert("API Error: " + response.message);
