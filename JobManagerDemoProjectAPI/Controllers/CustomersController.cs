@@ -49,6 +49,60 @@ namespace JobTrackerDemoProjectAPI.Controllers
         }
 
         [HttpGet]
+        [Route("/Customers/GetActiveCustomers")]
+
+        public Response GetActiveCustomers()
+        {
+            Response response = new Response();
+            List<Customer> customers = new List<Customer>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    customers = Customer.GetActiveCustomers(con);
+                }
+                response.result = "success";
+                response.message = $"{customers.Count()} rows selected.";
+                response.customers = customers;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("/Customers/GetInactiveCustomers")]
+
+        public Response GetInactiveCustomers()
+        {
+            Response response = new Response();
+            List<Customer> customers = new List<Customer>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    customers = Customer.GetInactiveCustomers(con);
+                }
+                response.result = "success";
+                response.message = $"{customers.Count()} rows selected.";
+                response.customers = customers;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+        
+        [HttpGet]
         [Route("/Customers/GetCustomerByCustomerId")]
         public Response GetCustomerByCustomerId(int customerId)
         {
@@ -74,7 +128,32 @@ namespace JobTrackerDemoProjectAPI.Controllers
             return response;
         }
 
-        // Change this back to httpPost later
+        [HttpGet]
+        [Route("/Customers/GetCreditBalanceByCustomerId")]
+        public Response GetCreditBalanceByCustomerId(int customerId)
+        {
+            Response response = new Response();
+            List<Customer> customers = new List<Customer>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    customers = Customer.GetCreditBalanceByCustomerId(con, customerId);
+                }
+                response.result = "success";
+                response.message = $"{customers.Count()} rows selected.";
+                response.customers = customers;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
         [HttpPost]
         [Route("/Customers/InsertCustomer")]
         public Response InsertCustomer([FromBody] Customer customer)
@@ -116,20 +195,23 @@ namespace JobTrackerDemoProjectAPI.Controllers
             return response;
         }
 
-        [HttpGet]
-        [Route("/Customers/DeleteCustomer")]
-        public Response DeleteCustomer(int customerId)
+        [HttpPost]
+        [Route("/Customers/InactivateCustomer")]
+        public Response InactivateCustomer([FromBody] Customer customer)
         {
             Response response = new Response();
             int rowsDeleted = 0;
             List<Customer> customers = new List<Customer>();
+
+            int customerId = customer.CustomerId;
+            string comments = customer.Comments;
 
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    rowsDeleted = Customer.DeleteCustomer(con, customerId);
+                    rowsDeleted = Customer.InactivateCustomer(con, customer);
                     customers = Customer.GetCustomers(con);
                 }
 
@@ -190,6 +272,75 @@ namespace JobTrackerDemoProjectAPI.Controllers
 
             return response;
         }
+
+        [HttpPost]
+        [Route("/Customers/MergeCustomers")]
+        public Response MergeCustomers([FromBody] Customer customer)
+        {
+            Response response = new Response();
+            int rowsUpdated = 0;
+            List<Customer> customers = new List<Customer>();
+
+            int customerIdKeep = customer.CustomerIdKeep;
+            int customerIdMerge = customer.CustomerIdMerge;
+            
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    rowsUpdated = Customer.MergeCustomers(con, customer);
+                    customers = Customer.GetCustomers(con);
+                }
+
+                response.result = "success";
+                response.message = $"{rowsUpdated} rows updated.";
+                response.customers = customers;
+            }
+            catch (Exception ex)
+            {
+                response.result = "failure";
+                response.message = ex.Message;
+            }
+
+            return response;
+        }
+
+        [HttpPost]
+        [Route("/Customers/MergeCustomerBalances")]
+        public Response MergeCustomerBalances([FromBody] Customer customer)
+        {
+            Response response = new Response();
+            int rowsUpdated = 0;
+            List<Customer> customers = new List<Customer>();
+
+            int customerIdKeep = customer.CustomerIdKeep;
+            int customerIdMerge = customer.CustomerIdMerge;
+            
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    rowsUpdated = Customer.MergeCustomerBalances(con, customer);
+                    customers = Customer.GetCustomers(con);
+                }
+
+                response.result = "success";
+                response.message = $"{rowsUpdated} rows updated.";
+                response.customers = customers;
+            }
+            catch (Exception ex)
+            {
+                response.result = "failure";
+                response.message = ex.Message;
+            }
+
+            return response;
+        }
+
     }
 }
 

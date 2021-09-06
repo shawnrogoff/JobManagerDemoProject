@@ -1,10 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "/EH2eLUyNgFigVSnusJ07iuHtRmcs0X6Md53PZtmB8CSkDbhdks3EtaplLStMEQ7Gw/3hyOpfXNvIN2znpxp/w==",
+  "dgSpecHash": "e1YyF1+uYUd+Dv0BKiDq86YspU65lXh4P7TJ649u6+hUcpUwTbLwhAUdtp0qaHvDdBYDe5+zUWSYS01zfXnORw==",
   "success": true,
   "projectFilePath": "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProject\\JobTrackerDemoProject.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\S Money\\.nuget\\packages\\bcrypt.net\\0.1.0\\bcrypt.net.0.1.0.nupkg.sha512",
     "C:\\Users\\S Money\\.nuget\\packages\\bootstrap\\5.0.2\\bootstrap.5.0.2.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'BCrypt.Net 0.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "BCrypt.Net",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
 }

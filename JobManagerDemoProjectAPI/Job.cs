@@ -26,6 +26,8 @@ namespace JobTrackerDemoProjectAPI
         public int Age { get;set; }
         public int TextNotifications { get; set; }
         public int EmailNotifications { get; set; }
+        public int CustomerIdKeep { get; set; }
+        public int CustomerIdMerge { get; set; }
 
         // Select
         public static List<Job> GetJobs(SqlConnection con)
@@ -59,9 +61,21 @@ namespace JobTrackerDemoProjectAPI
 
                 DateTime jobDateReceived = DateTime.Parse(job.Received);
                 DateTime currentDate = DateTime.Now;
-                int jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
-                job.Age = jobAge;
 
+                if (job.Status == "in-progress")
+                {
+                    int jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                    job.Age = jobAge;
+                } else if (job.Status == "complete" || job.Status == "delivered")
+                {
+                    DateTime jobDateCompleted = DateTime.Parse(job.Completed);
+                    int jobAge = Convert.ToInt32((jobDateCompleted - jobDateReceived).TotalDays);
+                    job.Age = jobAge;
+                } else if (job.Status == "inactive")
+                {
+                    job.Age = 0;
+                }
+                
                 jobs.Add(job);
             }
 
@@ -390,6 +404,25 @@ namespace JobTrackerDemoProjectAPI
 
             return rowsUpdated;
         }
+
+        public static int MergeCustomersJobs(SqlConnection con, Job job)
+        {
+            int rowsUpdated = 0;
+
+            // SqlCommand cmd = new SqlCommand("UPDATE job SET customerId = @CustomerId, job_type = @JobType, status = @Status, received = @Received, completed = @Completed, delivered = @Delivered, details = @Details, estimate = @Estimate, final_price = @FinalPrice, comments = @Comments, envelope_number = @EnvelopeNumber, text_notifcations = @TextNotifications, email_notifications = @EmailNotifications WHERE jobId = @JobId", con);
+            SqlCommand cmd = new SqlCommand("UPDATE job SET customerId = @CustomerIdKeep WHERE customerId = @CustomerIdMerge", con);
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            cmd.Parameters.Add("@CustomerIdKeep", System.Data.SqlDbType.Int);
+            cmd.Parameters.Add("@CustomerIdMerge", System.Data.SqlDbType.Int);
+            
+            cmd.Parameters["@CustomerIdKeep"].Value = job.CustomerIdKeep;
+            cmd.Parameters["@CustomerIdMerge"].Value = job.CustomerIdMerge;
+
+            rowsUpdated = cmd.ExecuteNonQuery();
+
+            return rowsUpdated;
+        }
         
         public static int MarkJobComplete(SqlConnection con, Job job)
         {
@@ -442,16 +475,16 @@ namespace JobTrackerDemoProjectAPI
             int rowsUpdated = 0;
 
             // SqlCommand cmd = new SqlCommand("UPDATE job SET customerId = @CustomerId, job_type = @JobType, status = @Status, received = @Received, completed = @Completed, delivered = @Delivered, details = @Details, estimate = @Estimate, final_price = @FinalPrice, comments = @Comments, envelope_number = @EnvelopeNumber, text_notifcations = @TextNotifications, email_notifications = @EmailNotifications WHERE jobId = @JobId", con);
-            SqlCommand cmd = new SqlCommand("UPDATE job SET status = @Status, details = @Details WHERE jobId = @JobId", con);
+            SqlCommand cmd = new SqlCommand("UPDATE job SET status = @Status, comments = @Comments WHERE jobId = @JobId", con);
             cmd.CommandType = System.Data.CommandType.Text;
 
             cmd.Parameters.Add("@JobId", System.Data.SqlDbType.Int);
             cmd.Parameters.Add("@Status", System.Data.SqlDbType.VarChar);
-            cmd.Parameters.Add("@Details", System.Data.SqlDbType.VarChar);
+            cmd.Parameters.Add("@Comments", System.Data.SqlDbType.VarChar);
             
             cmd.Parameters["@JobId"].Value = job.JobId;
             cmd.Parameters["@Status"].Value = job.Status;
-            cmd.Parameters["@Details"].Value = job.Details;
+            cmd.Parameters["@Comments"].Value = job.Comments;
 
             rowsUpdated = cmd.ExecuteNonQuery();
 

@@ -2,6 +2,27 @@
   "version": 3,
   "targets": {
     "net5.0": {
+      "BCrypt.Net/0.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/net35/BCrypt.Net.dll": {}
+        },
+        "runtime": {
+          "lib/net35/BCrypt.Net.dll": {}
+        }
+      },
+      "Identity/1.0.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Tokens": "5.4.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Identity.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Identity.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -1352,6 +1373,31 @@
     }
   },
   "libraries": {
+    "BCrypt.Net/0.1.0": {
+      "sha512": "sST2w361Dxt9GGMfpOTiK50wXGV64Ybb1hiX3xjEWnhVYZNF43NuySGwADJa7X1R+bA53NsFR+tuDxcYiJeIOA==",
+      "type": "package",
+      "path": "bcrypt.net/0.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bcrypt.net.0.1.0.nupkg.sha512",
+        "bcrypt.net.nuspec",
+        "lib/net35/BCrypt.Net.XML",
+        "lib/net35/BCrypt.Net.dll"
+      ]
+    },
+    "Identity/1.0.3": {
+      "sha512": "GG+rj9dqnsM908P2a2bu8m2s6obKLvkN5vXFiOyWphsdHidmcgY0QdedOcjQtN+WmvJHWD3VNcCDAo/dYehysg==",
+      "type": "package",
+      "path": "identity/1.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "identity.1.0.3.nupkg.sha512",
+        "identity.nuspec",
+        "lib/netstandard2.0/Identity.dll"
+      ]
+    },
     "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
       "sha512": "VloMLDJMf3n/9ic5lCBOa42IBYJgyB1JhzLsL68Zqg+2bEPWfGBj/xCJy/LrKTArN0coOcZp3wyVTZlx0y9pHQ==",
       "type": "package",
@@ -4794,6 +4840,8 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "BCrypt.Net >= *",
+      "Identity >= 1.0.3",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.1",
       "Microsoft.AspNetCore.Authentication.OpenIdConnect >= 5.0.1",
       "Microsoft.AspNetCore.Mvc.Cors >= 2.2.0",
@@ -4845,6 +4893,14 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "BCrypt.Net": {
+            "target": "Package",
+            "version": "[*, )"
+          },
+          "Identity": {
+            "target": "Package",
+            "version": "[1.0.3, )"
+          },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[5.0.1, )",
@@ -4893,5 +4949,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'BCrypt.Net 0.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "BCrypt.Net",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
 }

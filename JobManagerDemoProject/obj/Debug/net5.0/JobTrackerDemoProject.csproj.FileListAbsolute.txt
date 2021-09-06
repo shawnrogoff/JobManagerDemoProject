@@ -21,3 +21,5 @@ C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProject\obj\
 C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProject\obj\Debug\net5.0\ref\JobTrackerDemoProject.dll
 C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProject\obj\Debug\net5.0\JobTrackerDemoProject.pdb
 C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProject\obj\Debug\net5.0\JobTrackerDemoProject.genruntimeconfig.cache
+C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProject\bin\Debug\net5.0\BCrypt.Net.dll
+C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProject\obj\Debug\net5.0\JobTrackerDemoProject.csproj.CopyComplete

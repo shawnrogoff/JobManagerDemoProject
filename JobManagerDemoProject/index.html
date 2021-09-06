@@ -24,11 +24,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
     <!-- JQuery DataTables -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     <link rel="stylesheet" href="css/datatable.css">
-</head>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <!-- Kanban styling -->
+    <link rel="stylesheet" href="/css/jkanban.css">
+    <link rel="stylesheet" href="/css/jkanban.min.css">
+  </head>
 
-<body getJobs() class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100">
     <section id="navbarSection">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container">
@@ -40,7 +45,17 @@
                 <div class="d-flex m-2 m-md-0">
                       <button id="showJobsBtn" type="button" class="btn btn-light btn-lg ms-1 me-2">Jobs</button>
                       <button id="showCustomersBtn" type="button" class="btn btn-outline-light btn-lg me-2">Customers</button>
-                      <button id="accountBtn" title="Account" type="button" class="btn btn-outline-light btn-lg me-2"><i class="fas fa-user"></i></button>
+                      <button id="showToolsBtn" type="button" title="Tools" class="btn btn-outline-light btn-lg me-2"><i class="fas fa-tools"></i></button>
+
+                      <li class="nav-item dropdown">
+                          <button id="userPanelBtn" title="userPanel" type="button" class="nav-item dropdown-toggle btn btn-outline-light btn-lg me-2" data-bs-toggle="dropdown"><i class="fas fa-user"></i></button>
+                          <ul class="dropdown-menu" aria-labelledby="userPanelDropdown">
+                              <li><a class="dropdown-item" href="#">List Item 1</a></li>
+                              <li><a class="dropdown-item" href="#">List Item 2</a></li>
+                              <li><a class="dropdown-item" href="#">List Item 3</a></li>
+                              <li><a class="dropdown-item" href="#">List Item 4</a></li>
+                          </ul>
+                      </li>
                       <button id="signOutBtn" title="Sign Out" type="button" class="btn btn-outline-light btn-lg me-2"><i class="fas fa-sign-out"></i></button>
                 </div>
               </div>
@@ -124,11 +139,11 @@
                           </form>
                       </div>
                       <!-- === Buttons Here === -->
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-primary">Credit History</button>
+                      <div class="modal-footer justify-content-center">
+                        <button id="openCreditTransactionModalBtn" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#showAddCreditTransactionModal">Add Credit Transaction</button>
+                        <button id="creditHistoryBtn" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#showCreditHistoryModal">Credit History</button>
                         <button id="jobHistoryBtn" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#showJobHistoryModal">Job History</button>
                         <!-- <button id="openEditModalFromCustomerDetails" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customerEditModal">Edit</button> -->
-                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                       </div>
                   </div>
               </div>
@@ -392,6 +407,95 @@
                   </div>
               </div>
           </div>
+        </section>
+        <section id="inactivateCustomerSection" class="">          
+          <!-- Modal -->
+          <div class="modal fade" id="inactivateCustomerModal" tabindex="-1" aria-labelledby="inactivateCustomerModal" aria-hidden="true">
+              <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Remove Customer</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="col">
+                          <label class="form-label">Customer Id:</label>
+                          <input id="inactivateCustomerId" type="text" name="customerId" class="form-control" placeholder="Customer Id"
+                              aria-label="Customer Id" required disabled>
+                      </div>
+                      <div class="col">
+                          <label class="form-label">Comments:</label>
+                          <textarea id="inactivateCustomerComments" class="form-control" rows="2"></textarea>
+                      </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button id="inactivateCustomerBtn" type="button" data-bs-dismiss="modal" class="btn btn-primary">Remove Customer</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+        </section>
+        <section id="mergeCustomersSection" class="">
+          <div class="modal fade" id="mergeCustomersModal" style="z-index: 9990;" tabindex="-1" aria-labelledby="mergeCustomersModal" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-lg">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <div class="col">
+                              <h5 class="modal-title">Merge Customers</h5>
+                          </div>
+                          <div class="d-flex col justify-content-end">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                      </div>
+                      <div class="modal-body">
+                          <div class="row">
+                            <div class="col">
+                              <label class="form-label">Customer To Keep:</label>
+                              <input id="mergeCustomerKeepCustomerId" type="text" name="" class="form-control" placeholder=""
+                                  aria-label="keepCustomerId" required disabled>
+                          </div>
+                          <div class="col">
+                              <label class="form-label">Customer To Merge:</label>
+                              <input id="mergeCustomerMergeCustomerId" type="text" name="" class="form-control" placeholder=""
+                                  aria-label="mergeCustomerId" required disabled>
+                          </div>
+                          </div>
+                          <!-- Merge Customer Table -->
+                          <div id="dynamicMerge" class="container max-width: 70% mt-4 text-center" style="height:auto; overflow:auto;">
+                            <!-- dynamic table generated here -->
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button id="mergeCustomersBtn" type="button" class="btn btn-primary px-4 m-2 " data-bs-toggle="modal" data-bs-target="#mergeCustomersConfirmationModal">
+                            Merge Customers
+                          </button>
+                        </div>
+                  </div>
+              </div>
+          </div>
+          <!-- Merging Confirmation Modal -->
+          <div class="modal fade" id="mergeCustomersConfirmationModal" style="z-index: 9991;" tabindex="-1" aria-labelledby="mergeCustomersConfirmationModal" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Merge Customers</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="col">
+                          <h4 id="mergeConfirmationText" class="text-center">Are you sure you want to merge CustomerId 1002 into CustomerId 1001?</h4>
+                      </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button id="mergeCustomersConfirmedBtn" type="button" data-bs-dismiss="modal" class="btn btn-primary">Yes, Merge</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         </section>
         <section id="jobDetailsSection" class="">           
           <!-- Job Details Modal -->
@@ -690,7 +794,7 @@
                           </form>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button"  class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                         <button id="addJobButton" data-bs-dismiss="modal" type="submit" class="btn btn-primary">Add New Job</button>
                       </div>
                   </div>
@@ -768,8 +872,8 @@
                               aria-label="Job Id" required disabled>
                       </div>
                       <div class="col">
-                          <label class="form-label">Details:</label>
-                          <textarea id="removeJobDetails" class="form-control" rows="2"></textarea>
+                          <label class="form-label">Comments:</label>
+                          <textarea id="removeJobComments" class="form-control" rows="2"></textarea>
                       </div>
                       </div>
                       <div class="modal-footer">
@@ -799,7 +903,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-dark btn-lg px-4 m-2 " data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#addCustomerModal">
+                            <button type="button" class="btn btn-dark btn-lg px-4 m-2 " data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#addCustomerModalForAddJob">
                               Add Customer
                             </button>
                             <button type="button" class="btn btn-outline-dark btn-lg" data-bs-dismiss="modal">Close</button>
@@ -807,6 +911,131 @@
                     </div>
                 </div>
             </div>
+        </section>
+        <section id="addCustomerSectionForAddJob" class="">           
+          <!-- Customer Details Modal -->
+          <div class="modal fade" id="addCustomerModalForAddJob" style="z-index: 9996;" tabindex="-1" aria-labelledby="addCustomerLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="addCustomerModalLabel">Add New Customer</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          <form action="#">
+                              <div class="row mb-1">
+                                  <div class="col">
+                                      <label class="form-label">First Name</label>
+                                      <input id="addCustomerFirstNameAddJob" type="text" name="firstName" class="form-control" placeholder="First name"
+                                          aria-label="First name" required>
+                                  </div>
+                                  <div class="col">
+                                      <label class="form-label">Last Name</label>
+                                      <input id="addCustomerLastNameAddJob" type="text" name="lastName" class="form-control" placeholder="Last name"
+                                          aria-label="Last name" required>
+                                  </div>
+                              </div>
+                              <div class="row mb-1">
+                                <div class="col">
+                                  <label class="form-label">Phone</label>
+                                  <input id="addCustomerPhoneAddJob" type="text" name="phone" class="form-control" placeholder="Phone"
+                                      aria-label="Phone">
+                                </div>  
+                                <div class="col">
+                                      <label class="form-label">Email</label>
+                                      <input id="addCustomerEmailAddJob" type="email" name="email" class="form-control" placeholder="Email"
+                                          aria-label="Email" required>
+                                  </div>
+                              </div>
+                              <div class="row mb-1">
+                                <div class="col">
+                                    <label class="form-label">Address</label>
+                                    <input id="addCustomerAddress1AddJob" type="text" name="address-primary" class="form-control" placeholder="Address"
+                                        aria-label="Address primary" required>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label">Apartment/Suite/Etc.</label>
+                                    <input id="addCustomerAddress2AddJob" type="text" name="address-secondary" class="form-control" placeholder="Address"
+                                        aria-label="Address secondary" required>
+                                </div>
+                              </div>
+                              <div class="row mb-1">
+                                <div class="col">
+                                    <label class="form-label">City</label>
+                                    <input id="addCustomerCityAddJob" type="text" name="city" class="form-control" placeholder="City"
+                                        aria-label="City" required>
+                                </div>
+                                <div class="col">
+                                  <label class="form-label">State</label>
+                                  <select  id="addCustomerStateSelectionAddJob" class="form-select" aria-label="State Selection">
+                                      <option selected>Select State</option>
+                                      <option>Alabama</option>
+                                      <option>Alaska</option>
+                                      <option>Arizona</option>
+                                      <option>Arkansas</option>
+                                      <option>California</option>
+                                      <option>Colorado</option>
+                                      <option>Connecticut</option>
+                                      <option>Delaware</option>
+                                      <option>Florida</option>
+                                      <option>Georgia</option>
+                                      <option>Hawaii</option>
+                                      <option>Idaho</option>
+                                      <option>Illinois</option>
+                                      <option>Indiana</option>
+                                      <option>Iowa</option>
+                                      <option>Kansas</option>
+                                      <option>Kentucky</option>
+                                      <option>Louisiana</option>
+                                      <option>Maine</option>
+                                      <option>Maryland</option>
+                                      <option>Massachusetts</option>
+                                      <option>Michigan</option>
+                                      <option>Minnesota</option>
+                                      <option>Mississippi</option>
+                                      <option>Missouri</option>
+                                      <option>Montana</option>
+                                      <option>Nebraska</option>
+                                      <option>Nevada</option>
+                                      <option>New Hampshire</option>
+                                      <option>New Jersey</option>
+                                      <option>New Mexico</option>
+                                      <option>New York</option>
+                                      <option>North Carolina</option>
+                                      <option>North Dakota</option>
+                                      <option>Ohio</option>
+                                      <option>Oklahoma</option>
+                                      <option>Oregon</option>
+                                      <option>Pennsylvania</option>
+                                      <option>Rhode Island</option>
+                                      <option>South Carolina</option>
+                                      <option>South Dakota</option>
+                                      <option>Tennessee</option>
+                                      <option>Texas</option>
+                                      <option>Utah</option>
+                                      <option>Vermont</option>
+                                      <option>Virginia</option>
+                                      <option>Washington</option>
+                                      <option>West Virginia</option>
+                                      <option>Wisconsin</option>
+                                      <option>Wyoming</option>
+                                  </select>
+                                </div>
+                                <div class="col">
+                                  <label class="form-label">Zipcode</label>
+                                  <input id="addCustomerZipcodeAddJob" type="text" name="zipcode" class="form-control" placeholder="Zipcode"
+                                      aria-label="Zipcode" required>
+                                </div>
+                              </div>
+                          </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                        <button id="addNewCustomerBtnAddJob" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Add New Customer</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
         </section>
         <section id="showJobHistory" class="">
             <div class="modal fade" id="showJobHistoryModal" style="z-index: 9997;" tabindex="-1" aria-labelledby="showJobHistoryModal" aria-hidden="true">
@@ -835,12 +1064,71 @@
                 </div>
             </div>
         </section>
+        <section id="addCreditTransaction">
+            <div class="modal fade" id="showAddCreditTransactionModal" style="z-index: 9999;" tabindex="-1" aria-labelledby="showAddCreditTransactionModal" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="showAddCreditTransactionModal">Add New Credit Transaction</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col">
+                                <label class="form-label">Customer Id:</label>
+                                <input id="addCreditTransationCustomerId" type="text" name="jobId" class="form-control" placeholder="Customer Id"
+                                    aria-label="Customer Id" required disabled>
+                            </div>
+                            <div class="col">
+                                <label class="form-label">Amount:</label>
+                                <input id="addCreditTransactionAmount" type="text" name="transaction amount" class="form-control" placeholder="0"
+                                    aria-label="Credit Amount" required>
+                            </div>
+                            <div class="col">
+                              <label class="form-label">Details:</label>
+                              <textarea id="addCreditTransactionDetails" class="form-control" id="transaction details" rows="2"></textarea>
+                          </div>
+                        </div>
+                        <div class="modal-footer align-content-center justify-content-center">
+                            <button id="removeAmountFromBalanceBtn" type="button" data-bs-dismiss="modal" class="btn btn-outline-danger">Remove Amount From Balance</button>
+                            <button id="addAmountToBalanceBtn" type="button" data-bs-dismiss="modal" class="btn btn-success">Add Amount To Balance</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="showCreditHistory" class="">
+          <div class="modal fade" id="showCreditHistoryModal" style="z-index: 9997;" tabindex="-1" aria-labelledby="showCreditHistoryModal" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-lg">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <div class="col">
+                              <h5 class="modal-title">Credit History</h5>
+                          </div>
+                          <div class="d-flex col justify-content-center">
+                              <h5 id="showCreditHistoryCustomerName">Sample</h5>
+                          </div>
+                          <div class="d-flex col justify-content-end">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                      </div>
+                      <div class="modal-body">
+                          <div id="dynamicCreditHistoryTable">
+                            <!-- Insert Dynamic Table Here -->
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </section>
         <section id="jobsPage" class="" style="margin-top: 100px;">
             <!-- Buttons -->
             <div class="container">
                 <div class="row row-cols-1 row-cols-md-3">
                     <div class="col">
-                        <select id="jobStatusSelection" class="form-select m-2" aria-label="Job Status Selection">
+                        <select id="jobStatusSelection" class="form-select m-2 btn-lg" aria-label="Job Status Selection">
                           <option value="all">All</option>
                           <option value="in-progress" selected>In-Progress</option>
                           <option value="complete">Complete</option>
@@ -852,7 +1140,10 @@
 
                     </div>
                     <div class="d-flex col justify-content-end">
-                      <button type="button" class="btn btn-dark btn-large m-2 " data-bs-toggle="modal" data-bs-target="#addJobModal">
+                      <button id="viewCustomsBtn" type="button" class="btn btn-dark btn-lg m-2 ">
+                        View Custom Jobs
+                      </button>
+                      <button type="button" class="btn btn-dark btn-lg m-2 " data-bs-toggle="modal" data-bs-target="#addJobModal">
                         Add Job
                       </button>
                     </div>
@@ -864,18 +1155,18 @@
                 <table id="jobTable" class="display">
                   <thead>
                       <tr>
-                          <th>Column 1</th>
-                          <th>Column 2</th>
+                          <th>---</th>
+                          <th>---</th>
                       </tr>
                   </thead>
                   <tbody>
                       <tr>
-                          <td>Row 1 Data 1</td>
-                          <td>Row 1 Data 2</td>
+                          <td>---</td>
+                          <td>---</td>
                       </tr>
                       <tr>
-                          <td>Row 2 Data 1</td>
-                          <td>Row 2 Data 2</td>
+                          <td>---</td>
+                          <td>---</td>
                       </tr>
                   </tbody>
               </table>
@@ -884,43 +1175,681 @@
         <section id="customersPage" class="invisible" style="margin-top: 100px;">
           <!-- Buttons -->
           <div class="container">
-            <div class="row row-cols-1 row-cols-md-3">
-                <div class="col">
-                    
+            <div class="row">
+                  <div class="col-4">
+                    <select id="customerStatusSelection" class="form-select m-2 btn-lg" aria-label="Job Status Selection">
+                      <option value="all">All</option>
+                      <option value="active" selected>Active</option>
+                      <option value="inactive">Inactive</option>
+                    </select>
                 </div>
-                <div class="col">
-
-                </div>
-                <div class="d-flex col justify-content-end">
+                <div class="d-flex col-8 justify-content-end">
+                  <button id="mergeCustomersModalBtn" type="button" class="btn btn-dark btn-lg px-4 m-2 " data-bs-toggle="modal" data-bs-target="#mergeCustomersModal">
+                    Merge Customers
+                  </button>
                   <button type="button" class="btn btn-dark btn-lg px-4 m-2 " data-bs-toggle="modal" data-bs-target="#addCustomerModal">
                     Add Customer
                   </button>
                 </div>
-
             </div>
           </div>
           <!-- Customer Table -->
           <div id="dynamic1" class="container max-width: 70% mt-4 text-center" style="height:auto; overflow:auto;">
               <!-- dynamic table generated here -->
-              <table id="customerTable" class="display">
-                <thead>
-                    <tr>
-                        <th>Column 1</th>
-                        <th>Column 2</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Row 1 Data 1</td>
-                        <td>Row 1 Data 2</td>
-                    </tr>
-                    <tr>
-                        <td>Row 2 Data 1</td>
-                        <td>Row 2 Data 2</td>
-                    </tr>
-                </tbody>
-            </table>
-              <!-- <table id="customerTable"></table> -->
+          </div>
+        </section>
+        <section id="toolsPage" class="invisible" style="margin-top: 100px;">
+          <div class="container">
+              <div class="row row-cols-1 row-cols-md-3">
+                  <div class="col">
+                    <div class="card text-center">
+                      <div class="card-body">
+                        <h2 class="card-title">Custom Job Estimator</h2>
+                        <h4 class="card-subtitle mb-2 text-muted">Price Custom Work</h4>
+                        <p class="card-text">Put together an estimate for custom jewelry work by answering a few simple questions.</p>
+                        <div class="d-flex justify-content-center">
+                          <button id="customJobEstimatorBtn" type="button" class="btn btn-outline-dark btn-lg px-4 m-2">
+                            Custom Jewelry Pricing
+                          </button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card text-center">
+                      <div class="card-body">
+                        <h2 class="card-title">Gold Credit Calculator</h2>
+                        <h4 class="card-subtitle mb-2 text-muted">Card subtitle</h4>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <div class="d-flex justify-content-center">
+                          <button id="customGoldCreditCalculatorBtn" type="button" class="btn btn-outline-dark btn-lg px-4 m-2" data-bs-toggle="modal" data-bs-target="#">
+                            Gold Credit Calculator
+                          </button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card text-center">
+                      <div class="card-body">
+                        <h2 class="card-title">Diamond Center Pricing</h2>
+                        <h4 class="card-subtitle mb-2 text-muted">Card subtitle</h4>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <div class="d-flex justify-content-center">
+                            <button id="customDiamondCenterPricingBtn" type="button" class="btn btn-outline-dark btn-lg px-4 m-2" data-bs-toggle="modal" data-bs-target="#">
+                              Diamond Center Pricing
+                            </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>  
+          </div>  
+        </section>
+        <section id="customJewelryPricingTool" class="invisible">
+          <div class="container mt-5">
+            <div id="config" class="d-flex row row-cols-1 row-cols-md-2">
+                <div class="d-flex col-4 col-md-2">
+                    <div class="justify-content-start">
+                        <button id="btnToggleConfig" title="Show configuration options" type="button" class="btn btn-dark btn-lg" ><i class="fas fa-cog"></i></button>
+                    </div>
+                </div>
+                <div class="col-4 col-md-8">
+                </div>
+                <div class="d-flex col-4 col-md-2 justify-content-end">
+                    <div>
+                        <button id="btnToggleMeleePricing" title="Show melee pricing" type="button" class="btn btn-dark btn-lg" ><i class="fas fa-gem"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- === Config Menu === -->
+            <div id="configMenu" class="col-12 col-md-6 m-2 invisible">
+                <form>
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="input-group mb-2 mt-1">
+                                <span class="input-group-text">melee prong setting</span>
+                                <input id="meleeProngSettingFee" type="text" class="form-control text-end" placeholder="5" aria-label="melee prong setting fee" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text">melee channel setting</span>
+                                <input id="meleeChannelBezelSettingFee" type="text" class="form-control text-end" placeholder="8" aria-label="melee channel setting fee" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-text">melee flat setting</span>
+                                <input id="meleeFlatSettingFee" type="text" class="form-control text-end" placeholder="10" aria-label="melee flat setting fee" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-2 mt-1">
+                                <span class="input-group-text">rhodium plating</span>
+                                <input id="rhodiumPlatingFee" type="text" class="form-control text-end" placeholder="35" aria-label="melee prong setting fee" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text">3D scan ring</span>
+                                <input id="ringScanFee" type="text" class="form-control text-end" placeholder="100" aria-label="scan ring" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-text">3D scan stone</span>
+                                <input id="stoneScanFee" type="text" class="form-control text-end" placeholder="70" aria-label="scan stone" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex align-content-center justify-content-center justify-content-md-end">
+                            <button id="btnCloseConfig" type="button" class="btn btn-outline-danger mt-2 mb-2">Close</button>
+                            <button id="btnResetSettingsConfig" type="button" class="btn btn-outline-primary mt-2 mb-2 mx-3">Reset</button>
+                            <button id="btnUseSettingsConfig" type="button" class="btn btn-primary mt-2 mb-2 btnPrimaryBG">Use Settings</button>
+                        </div>
+                    </div>                                
+                </form>  
+            </div>
+          </div>
+          <!-- === Diamond Melee Pricing Guide === -->
+          <div class="container">  
+            <div id="meleeDiamondPricingGuide" class="row invisible">
+              <h1 class="text-center">Round Diamond Melee Pricing</h1>
+              <div class="row row-cols-1 row-cols-md-2">
+                  <div class="col-md-2"></div>
+                  <div class="col col-md-4 justify-content-center text-center mt-2">
+                      <h2>Stones Option 1</h2>
+                          <label class="form-label">Number Melee Stones</label>
+                          <input id="meleePriceGuideNumMeleeStones1" type="number" name="Number Melee Stones Pricing Guide" class="form-control" placeholder="0"
+                              aria-label="Number Melee Stones One" required>
+                              <label class="form-label">Stone Diameter (mm)</label>
+                          <select id="meleeDiameterSelection1" class="form-select " aria-label="3D Scan Selction">
+                              <option selected value="0">None</option>
+                              <option>0.9</option>
+                              <option>1.0</option>
+                              <option>1.1</option>
+                              <option>1.2</option>
+                              <option>1.3</option>
+                              <option>1.4</option>
+                              <option>1.5</option>
+                              <option>1.7</option>
+                              <option>1.8</option>
+                              <option>2.0</option>
+                              <option>2.2</option>
+                              <option>2.4</option>
+                              <option>2.5</option>
+                              <option>2.7</option>
+                              <option>2.8</option>
+                              <option>3.0</option>
+                              <option>3.2</option>
+                          </select>
+                          <label class="form-label">Melee Quality</label>
+                          <select id="meleeQualitySelection1" class="form-select" aria-label="3D Scan Selction">
+                              <option selected>I1-SI2 Clarity G Color</option>
+                              <option>SI1 Clarity G-H Color</option>
+                              <option>VS Clarity F Color</option>
+                              <option>Lab Grown (CVD VS/ F)</option>
+                          </select>
+                  </div>
+                  <div class="col-md-4 justify-content-center text-center mt-2">
+                      <h2>Stones Option 2</h2>
+                      <label class="form-label">Number Melee Stones</label>
+                      <input id="meleePriceGuideNumMeleeStones2" type="number" name="Number Melee Stones Pricing Guide" class="form-control" placeholder="0"
+                          aria-label="Number Melee Stones One" required>
+                          <label class="form-label">Stone Diameter (mm)</label>
+                      <select id="meleeDiameterSelection2" class="form-select " aria-label="3D Scan Selction">
+                          <option selected value="0">None</option>
+                          <option>0.9</option>
+                          <option>1.0</option>
+                          <option>1.1</option>
+                          <option>1.2</option>
+                          <option>1.3</option>
+                          <option>1.4</option>
+                          <option>1.5</option>
+                          <option>1.7</option>
+                          <option>1.8</option>
+                          <option>2.0</option>
+                          <option>2.2</option>
+                          <option>2.4</option>
+                          <option>2.5</option>
+                          <option>2.7</option>
+                          <option>2.8</option>
+                          <option>3.0</option>
+                          <option>3.2</option>
+                      </select>
+                      <label class="form-label">Melee Quality</label>
+                      <select id="meleeQualitySelection2" class="form-select" aria-label="3D Scan Selction">
+                          <option selected>I1-SI2 Clarity G Color</option>
+                          <option>SI1 Clarity G-H Color</option>
+                          <option>VS Clarity F Color</option>
+                          <option>Lab Grown (CVD VS/ F)</option>
+                      </select>
+                  </div>
+                  <!-- hidden element -->
+                  <div class="col-md-2">
+                      <p id="totalNumberMeleeStonesFromPricingGuide" style="display:none;"></p>
+                  </div>
+                  <!-- hidden element -->
+              </div>
+              <div class="row">
+                  <div class="col d-flex justify-content-center mt-3">
+                      <button id="btnGetMeleePrice" title="Get Price" type="button" class="btn btn-success btn-lg btnPrimaryBG" >Get Price</i></button>
+                  </div>
+              </div>
+              <div class="row mt-2">
+                  <div class="col text-center">
+                      <div class="row">
+                          <h4 id="stoneOption1TotalWeight">Weight: 0.00ctw</h4>
+                      </div>
+                      <div class="row">
+                          <h4 id="stoneOption1TotalPrice">Price: $0.00</h4>
+                      </div>
+                  </div>
+                  <div class="col text-center">
+                      <div class="row">
+                          <h4 id="stoneOption2TotalWeight">Weight: 0.00ctw</h4>
+                      </div>
+                      <div class="row">
+                          <h4 id="stoneOption2TotalPrice">Price: $0.00</h4>
+                      </div>
+                  </div>
+              </div>
+              <div class="row text-center">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6 p-3 bg-light">
+                      <h2>Total Weight: </h2><h2 id="totalWeightMeleePricingGuide"></h2>
+                      <h2>Total Price:</h2><h2 id="totalPriceMeleePricingGuide"></h2>
+                  </div>
+                  <div class="col-md-3"></div>
+              </div>
+              <!-- buttons -->
+              <div class="row">
+                  <div class="col d-flex justify-content-center mt-3">
+                      <button id="btnCloseMeleePricing" title="Close Melee Pricing Window" type="button" class="btn btn-outline-danger btn-lg me-3" >Close</i></button>
+                      <button id="btnResetMeleePricingForm" title="Reset Melee Pricing Fields" type="button" class="btn btn-outline-primary btn-lg me-3" >Reset</i></button>
+                      <button id="btnUseMeleePrice" title="Use Melee Price" type="button" class="btn btn-primary btn-lg btnPrimaryBG" >Use Price</i></button>                      
+                  </div>
+              </div>
+            </div>
+          </div>
+          <hr class="bg-danger border-2 border-top border-primary">
+          <!-- === Pricing Section === -->
+          <div class="container">
+            <h1 class="text-center mb-3">Price Estimator</h1>
+            <form action="#">
+                <div class="row mb-1">
+                    <div class="col">
+                        <label class="form-label">Metal Selection</label>
+                        <select id="metalSelection" class="form-select" aria-label="Metal Selection">
+                            <option value="10k White Gold">10k White Gold</option>
+                            <option value="10k Yellow Gold">10k Yellow Gold</option>
+                            <option value="10k Rose Gold">10k Rose Gold</option>
+                            <option selected value="14k White Gold">14k White Gold</option>
+                            <option value="14k Yellow Gold">14k Yellow Gold</option>
+                            <option value="14k Rose Gold">14k Rose Gold</option>
+                            <option value="18k White Gold">18k White Gold</option>
+                            <option value="18k Yellow Gold">18k Yellow Gold</option>
+                            <option value="18k Rose Gold">18k Rose Gold</option>
+                            <option value="Platinum">Platinum</option>
+                            <option value="Sterling Silver">Sterling Silver</option>
+                            </select>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Metal Spot Price</label>
+                        <input id="metalSpotPrice" type="number" name="spotPrice" class="form-control" placeholder="1850"
+                            aria-label="metal spot price" required>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col">
+                        <label class="form-label">Metal Weight</label>
+                        <input id="metalWeight" type="number" name="metal weight" class="form-control" placeholder="5.0"
+                            aria-label="metal weight" required>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Num of Pieces</label>
+                        <input id="numberOfPieces" type="number" name="numberOfPieces" title="Number of pieces" class="form-control" placeholder="1"
+                            aria-label="number of pieces">
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col">
+                        <label class="form-label">Num melee stones</label>
+                        <input id="numberMeleeStones" type="number" name="melee stone count" title="Number of melee stones" class="form-control" placeholder="0"
+                            aria-label="melee stone count" required>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Melee Setting Style</label>
+                        <select id="meleeSettingStyle" class="form-select" title="Melee setting style" aria-label="Melee Setting Style">
+                            <option selected value="prong">prong</option>
+                            <option value="channel/bezel/bar">channel/bezel/bar</option>
+                            <option value="flat">flat</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col">
+                        <label class="form-label">Center Weight</label>
+                        <input id="centerStoneWeight" type="number" name="centerWeight" title="Carat weight of center stone" class="form-control" placeholder="0.00"
+                            aria-label="Center Weight" required>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Num Large Accents</label>
+                        <input id="numberLargeAccents" type="number" name="numberOfAccents" title="Number of Large Accent Stones" class="form-control" placeholder="0"
+                            aria-label="number of accents">
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col">
+                        <label class="form-label">Assembly Fees</label>
+                        <input id="assemblyFees" type="number" name="assemblyFees" class="form-control" placeholder="0"
+                            aria-label="assembly fees" required>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Accent Carat Each</label>
+                        <input id="accentsWeightEach" type="number" name="accentWeightEach" title="Carat weight of each large accent stone" class="form-control" placeholder="0.00"
+                            aria-label="accent stones weight">
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col">
+                        <label class="form-label">Customer Stones</label>
+                        <select id="customerStonesFee" class="form-select" title="Are customer stones being used" aria-label="Default select example">
+                            <option selected value="0">No</option>
+                            <option value="30">Yes</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Parts Cost</label>
+                        <input id="partsCost" type="number" name="partsCost" class="form-control" placeholder="0"
+                            aria-label="parts cost">
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col">
+                        <label class="form-label">Design Type</label>
+                        <select id="designType" class="form-select" aria-label="Default select example">
+                            <option value="0">No Charge</option>
+                            <option selected value="325">$325 Regular Ring</option>
+                            <option value="450"> $450 Intricate Ring</option>
+                            <option value="600"> $600 Complex Ring</option>
+                            <option value="125"> $125 Regular Band</option>
+                            <option value="300"> $300 Intricate Band</option>
+                            <option value="200"> $200 Shadow Band</option>
+                            <option value="200"> $200 Regular Pendant</option>
+                            <option value="325"> $325 Intricate Pendant</option>
+                            <option value="400"> $400 Complex Pendant</option>
+                            <option value="200"> $200 Regular Earrings</option>
+                            <option value="325"> $325 Intricate Earrings</option>
+                            <option value="200"> $200 Imprint Band</option>
+                            <option value="45"> $45 Mold</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">3D Scan</label>
+                        <select id="scanSelection" class="form-select" title="Does the project require a 3D scan" aria-label="3D Scan Selction">
+                            <option selected value="0">None</option>
+                            <option>Scan Ring</option>
+                            <option>Scan Stone</option>
+                            <option>Scan Ring & Stone</option>
+                        </select>
+                    </div>
+                </div>
+                <hr class="bg-danger border-3 border-top border-primary">
+                
+                <!-- === Stones Section === -->
+                <div class="row mb-1">
+                    <div class="col">
+                        <label class="form-label">Melee Price</label>
+                        <input id="meleePrice" type="number" name="meleePrice" class="form-control" placeholder="0"
+                            aria-label="melee stones price" required>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Accents Price</label>
+                        <input id="accentsPrice" type="number" name="accentsPrice" class="form-control" placeholder="0"
+                            aria-label="accent stones price">
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col">
+                        <label class="form-label">Center Price</label>
+                        <input id="centerPrice" type="number" name="centerPrice" class="form-control" placeholder="0"
+                            aria-label="center stone price" required>
+                    </div>
+                    <div class="col">
+                        <div class="d-flex justify-content-center mt-3">
+                            <button id="btnQuote" type="button" class="btn btn-primary btn-lg btnPrimaryBG justify-content-end">Get Quote</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <hr class="bg-danger border-3 border-top border-primary">
+            <!-- === Display Results === -->
+            <div class="alert alert-danger fade show invisible" id="alert" role="alert">
+                <h4 id="alertHeading" class="alert-heading">
+                    <div class="row row-cols-1 row-cols-md-2 mb-2">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div class=" row ">
+                                <div class="d-flex col justify-content-end">
+                                    <label for="mountTotal" class="col-form-label">Mount Total</label>
+                                </div>
+                                <div class="col">
+                                    <h3 id="mountTotal" class="col-form-label resultsText">548</h3>
+                                </div>
+                                </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="d-flex col justify-content-end">
+                                    <label for="stonesTotal" class="col-form-label">Stones Total</label>
+                                </div>
+                                <div class="col">
+                                    <h3 id="stonesTotal" class="col-form-label">548</h3>
+                                </div>
+                                </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="d-flex col justify-content-end">
+                                    <label for="quoteTotal" class="col-form-label">Quote Total</label>
+                                </div>
+                                <div class="col">
+                                    <h3 id="quoteTotal" class="col-form-label resultsText">548</h3>
+                                </div>
+                                </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </h4>
+                <hr>
+                <p class="mb-0" id="message">
+                    <!-- Insert message with javascript here -->
+                </p>
+                <div class="row">
+                    <div class="d-flex col justify-content-center">
+                        <button id="btnReset" type="button" class="btn btn-outline-danger btn-lg mt-2">Reset</button> 
+                    </div>
+                </div>
+            </div>
+          </div>
+        </section>
+        <section id="customGoldCreditCalculatorTool" class="invisible">
+            <div class="container">
+                <h1 class="text-center mb-3">Gold Credit Calculator</h1>
+                <form>
+                    <div class="row row-cols-1 row-cols-md-2 mb-1">
+                        <div class="col">
+                            <label class="form-label">Metal</label>
+                            <select id="goldCreditMetalSelection1" class="form-select" aria-label="Gold Credit Metal Selection">
+                              <option value="10k">10k Gold</option>
+                              <option value="14k" selected>14k Gold</option>
+                              <option value="18k">18k Gold</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Spot Price</label>
+                            <input id="metalSpotPrice1" type="text" name="spotPrice" class="form-control" placeholder="0"
+                                aria-label="Spot Price 1" required>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-md-3 mb-1">
+                        <div class="col-md-6">
+                            <label class="form-label">Metal Weight(g)</label>
+                            <input id="creditMetalWeight1" type="text" name="metalWeight" class="form-control" placeholder="0"
+                                aria-label="metal weight" required>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="form-label">Credit Percentage</label>
+                            <input id="creditPercentage1Slider" type="range" name="Credit Percentage 1" class="form-range" min="0" max="100" step="5" value="70"
+                                aria-label="credit percentage">
+                        </div>
+                        <div class="col-md-1">
+                          <label class="form-label"></label>
+                          <input id="creditPercentage1Value" type="number" name="metalWeight" class="form-control text-center" value="70"
+                              aria-label="metal weight" required>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-md-3 mb-1">
+                        <div class="col-4">
+                          <!-- placeholder -->
+                        </div>
+                        <div class="col-4 text-center">
+                          <h5 id="creditAmount1" class="mt-3">Credit Amount:</h5>
+                        </div>
+                        <div class="col-4">
+                          <!-- placeholder -->
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row row-cols-1 row-cols-md-2 mb-1">
+                        <div class="col">
+                            <label class="form-label">Metal</label>
+                            <select id="goldCreditMetalSelection2" class="form-select" aria-label="Gold Credit Metal Selection">
+                              <option value="10k">10k Gold</option>
+                              <option value="14k" selected>14k Gold</option>
+                              <option value="18k">18k Gold</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Spot Price</label>
+                            <input id="metalSpotPrice2" type="text" name="spotPrice" class="form-control" placeholder="0"
+                                aria-label="Spot Price 2" required>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-md-3 mb-1">
+                        <div class="col-md-6">
+                            <label class="form-label">Metal Weight(g)</label>
+                            <input id="creditMetalWeight2" type="text" name="metalWeight" class="form-control" placeholder="0"
+                                aria-label="metal weight" required>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="form-label">Credit Percentage</label>
+                            <input id="creditPercentage2Slider" type="range" name="Credit Percentage 1" class="form-range" min="0" max="100" step="5" value="70"
+                                aria-label="credit percentage">
+                        </div>
+                        <div class="col-md-1">
+                          <label class="form-label"></label>
+                          <input id="creditPercentage2Value" type="number" name="metalWeight" class="form-control text-center" value="70"
+                              aria-label="metal weight" required>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-md-3 mb-1">
+                        <div class="col-4">
+                          <!-- placeholder -->
+                        </div>
+                        <div class="col-4 text-center">
+                            <h5 id="creditAmount2" class="mt-3">Credit Amount:</h5>
+                        </div>
+                        <div class="col-4">
+                          <!-- placeholder -->
+                        </div>
+                    </div>
+
+                    <hr>
+
+                </form>
+                <!-- buttons for form -->
+                <div class="row">
+                  <div class="col">
+                      <!-- placeholder -->
+                  </div>
+                  <div class="d-flex col justify-content-center">
+                      <button id="resetGoldCreditFormBtn" class="btn btn-outline-dark mt-2 me-5">Reset Form</button>
+                      <button id="calculateGoldCreditBtn" class="btn btn-dark mt-2">Calculate Credit</button>
+                  </div>
+                  <div class="col">
+                      <!-- placeholder -->
+                  </div>
+              </div>
+
+              <hr>
+
+              <div class="row text-center mt-3">
+                  <!-- <h1 id="goldCreditResultsText" class="mt-3 invisible"></h1> -->
+                  <div class="alert alert-danger fade show" id="goldCreditResultsTextAlert" role="alert">
+                    <h2 id="goldCreditResultsText" class="alert-heading">
+                        
+                    </h2>
+                  </div>
+            </div>
+        </section>
+        <section id="customDiamondCenterPricingTool" class="invisible">
+          <div class="container">
+            <h1 class="text-center mb-3">Diamond Center Pricing</h1>
+            <div class="row row-cols-1 row-cols-md-3">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <p class="text-center">The genuine diamond prices listed reflect well cut diamonds with GIA reports. Lab grown diamond pricing is for CVD diamonds. Stones not of this nature may fall out of these ranges.</p>
+                </div>
+                <div class="col-3"></div>
+            </div>
+            <hr>
+            <form id="diamondCenterPriceCalculatorForm">
+                <div class="row row-cols-1 row-cols-md-4 mb-1">
+                  <div class="col-3">
+                    <!-- placeholder -->
+                  </div>  
+                  <div class="col-md-4">
+                        <label class="form-label">Diamond Center Weight</label>
+                        <input id="diamondCenterWeightSlider" type="range" name="center weight" class="form-range" min="0.50" max="2.99" step="0.01" value="1.00"
+                            aria-label="center weight">
+                    </div>
+                    <div class="col-md-2">
+                      <label class="form-label"></label>
+                      <input id="diamondCenterWeightSliderValue" type="number" name="centerWeightValue" class="form-control text-center" min="0.50" max="2.99" step="0.01" value="1.00"
+                          aria-label="center weight value" required>
+                    </div>
+                    <div class="col-3">
+                      <!-- placeholder -->
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-5 mb-1">
+                    <div class="col"></div>
+                    <div class="col">
+                        <label class="form-label">Shape</label>
+                        <select id="centerShapeSelection" class="form-select" aria-label="Gold Credit Metal Selection">
+                          <option value="round"selected>Round</option>
+                          <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                      <label class="form-label">Clarity</label>
+                      <select id="centerClaritySelection" class="form-select" aria-label="Gold Credit Metal Selection">
+                        <option value="IF"selected>Internally Flawless</option>
+                        <option value="VVS1">VVS1</option>
+                        <option value="VVS2">VVS2</option>
+                        <option value="VS1">VS1</option>
+                        <option value="VS2">VS2</option>
+                        <option value="SI1">SI1</option>
+                        <option value="SI2">SI2</option>
+                        <option value="I1">I1</option>
+                        <option value="I2">I2</option>
+                        <option value="I3">I3</option>
+                      </select>
+                  </div>
+                  <div class="col">
+                    <label class="form-label">Color</label>
+                    <select id="centerColorSelection" class="form-select" aria-label="Gold Credit Metal Selection">
+                      <option value="D"selected>D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
+                      <option value="G">G</option>
+                      <option value="H">H</option>
+                      <option value="I">I</option>
+                      <option value="J">J</option>
+                      <option value="K">K</option>
+                      <option value="L">L</option>
+                      <option value="M">M</option>
+                    </select>
+                  </div>
+                  <div class="col"></div>
+                </div>
+                <hr>
+            </form>
+            <!-- buttons for form -->
+            <div class="row">
+              <div class="col">
+                  <!-- placeholder -->
+              </div>
+              <div class="d-flex col justify-content-center">
+                  <button id="resetDiamondPriceFormBtn" class="btn btn-outline-dark mt-2 me-5">Reset Form</button>
+                  <button id="getDiamondPriceRangeBtn" class="btn btn-dark mt-2">Get Price Range</button>
+              </div>
+              <div class="col">
+                  <!-- placeholder -->
+              </div>
+          </div>
+          <hr>
+          <div class="row text-center mt-3 invisible" id="diamondPriceResultsTextAlert">
+              <div class="alert alert-danger fade show" role="alert">
+                <h2 id="genuineDiamondPriceResults" class="alert-heading"></h2>
+                <h2 id="labDiamondPriceResults" class="alert-heading"></h2>
+              </div>
           </div>
       </section>
     </main>
@@ -950,20 +1879,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> 
     
     <script src="/js/site.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
- 
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
- 
-    <script>
-      $(document).ready(function () {
-        $("#jobTable").DataTable();
-      });
-    </script>
-    <script>
-      $(document).ready(function () {
-        $("#customerTable").DataTable();
-      });
-    </script>
+    <script src="js/customJewelryPricing.js"></script>
+    <script src="js/goldCreditCalculator.js"></script>
+    <script src="js/diamondCenterPricing.js"></script>
+    <script src="/js/jkanban.js"></script>
+    <script src="/js/jkanban.min.js"></script>
 </body>
 
 </html>

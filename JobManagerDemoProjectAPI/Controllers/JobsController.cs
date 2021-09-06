@@ -345,7 +345,7 @@ namespace JobTrackerDemoProjectAPI.Controllers
 
         [HttpPost]
         [Route("/Jobs/InactivateJob")]
-        public Response UpdateJoInactivateJobbDelivered([FromBody] Job job)
+        public Response UpdateJoInactivateJobDelivered([FromBody] Job job)
         {
             Response response = new Response();
             int rowsUpdated = 0;
@@ -357,6 +357,39 @@ namespace JobTrackerDemoProjectAPI.Controllers
                 {
                     con.Open();
                     rowsUpdated = Job.InactivateJob(con, job);
+                    jobs = Job.GetJobs(con);
+                }
+
+                response.result = "success";
+                response.message = $"{rowsUpdated} rows updated.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "failure";
+                response.message = ex.Message;
+            }
+
+            return response;
+        }
+
+        [HttpPost]
+        [Route("/Jobs/MergeCustomerJobs")]
+        public Response MergeCustomersJobs([FromBody] Job job)
+        {
+            Response response = new Response();
+            int rowsUpdated = 0;
+            List<Job> jobs = new List<Job>();
+
+            int customerIdKeep = job.CustomerIdKeep;
+            int customerIdMerge = job.CustomerIdMerge;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    rowsUpdated = Job.MergeCustomersJobs(con, job);
                     jobs = Job.GetJobs(con);
                 }
 

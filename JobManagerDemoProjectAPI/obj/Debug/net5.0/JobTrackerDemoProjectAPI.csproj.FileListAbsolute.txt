@@ -44,3 +44,4 @@ C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProjectAPI\o
 C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProjectAPI\bin\Debug\net5.0\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProjectAPI\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProjectAPI\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerDemoProjectAPI\bin\Debug\net5.0\BCrypt.Net.dll

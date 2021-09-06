@@ -4,5 +4,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="5.0.2"/>
+    <PackageReference Include="BCrypt.Net" Version="*"/>
   </ItemGroup>
 </Project>

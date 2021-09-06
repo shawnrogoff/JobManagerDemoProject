@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj": {}
+    "c:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj": {
+    "c:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj",
+        "projectUniqueName": "c:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj",
         "projectName": "JobTrackerDemoProjectAPI",
-        "projectPath": "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj",
+        "projectPath": "c:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj",
         "packagesPath": "C:\\Users\\S Money\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\obj\\",
+        "outputPath": "c:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -44,6 +44,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "BCrypt.Net": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "Identity": {
+              "target": "Package",
+              "version": "[1.0.3, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[5.0.1, )",

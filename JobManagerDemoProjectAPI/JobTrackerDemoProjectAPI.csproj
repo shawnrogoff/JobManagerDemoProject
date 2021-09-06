@@ -8,5 +8,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3"/>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2"/>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Cors" Version="2.2.0"/>
+    <PackageReference Include="BCrypt.Net" Version="*"/>
+    <PackageReference Include="Identity" Version="1.0.3"/>
   </ItemGroup>
 </Project>
