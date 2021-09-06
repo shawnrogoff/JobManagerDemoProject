@@ -14,6 +14,7 @@ namespace JobManagerAPI
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -65,11 +66,20 @@ namespace JobManagerAPI
                 options.AddPolicy(
                     "CorsPolicy",
                     builder => builder
-                        .WithOrigins("https://localhost:3001", "http://192.168.0.19:5500")
+                        .WithOrigins("https://localhost:3001", "http://192.168.0.19:5500", "https://shawnrogoff-jobmanager-fullstackproject.netlify.app/")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials()
                 );
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("https://shawnrogoff-jobmanager-fullstackproject.netlify.app/");
+                                  });
             });
         }
 
@@ -91,6 +101,7 @@ namespace JobManagerAPI
             app.UseStaticFiles();
 
             app.UseCors("CorsPolicy");
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseRouting();
 

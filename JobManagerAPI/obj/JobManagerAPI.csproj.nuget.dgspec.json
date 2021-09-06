@@ -85,6 +85,10 @@
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.2, )"
+            },
+            "WebApiContrib.Formatting.Jsonp": {
+              "target": "Package",
+              "version": "[3.0.2, )"
             }
           },
           "imports": [

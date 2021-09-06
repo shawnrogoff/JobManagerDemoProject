@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:26987",
-      "sslPort": 44342
+      "applicationUrl": "https://shawnrogoff-jobmanager-fullstackproject.netlify.app/",
+      "sslPort": 443
     }
   },
   "profiles": {
@@ -19,7 +19,7 @@
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:3001",
+      "applicationUrl": "https://shawnrogoff-jobmanager-fullstackproject.netlify.app/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
