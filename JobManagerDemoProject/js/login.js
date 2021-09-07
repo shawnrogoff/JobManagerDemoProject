@@ -1,4 +1,5 @@
 document.getElementById("btnSubmitLogin").addEventListener("click", AttemptLogin);
+document.getElementById("btnSubmitAdminDemoLogin").addEventListener("click", LoginWithAdminCreds);
 
 function AttemptLogin(){
     var username = document.getElementById("usernameInput").value;
@@ -48,6 +49,53 @@ function CheckForUsernameMatch(username){
 function CheckForUsernameAndPasswordMatch(username, password){
     var username = document.getElementById("usernameInput").value;
     var password = document.getElementById("passwordInput").value;
+            
+    userAccount = {
+        "username": username,
+        "password": password
+    };
+
+    postBody = JSON.stringify(userAccount);
+
+    var baseURL = "https://localhost:5001/Users/CheckForUsernamePasswordMatch";
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = doAfterCheckForUsernameAndPasswordMatch;
+    xhr.open("POST", baseURL, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(postBody);
+
+    function doAfterCheckForUsernameAndPasswordMatch() {
+
+        if (xhr.readyState === 4) { //done
+            if (xhr.status === 200) { //ok
+                //alert(xhr.responseText);
+
+                var response = JSON.parse(xhr.responseText);
+
+                if (response.result === "success") {
+                    var matchStatus = response.message;
+                    // If there is a match, then redirect to the index.html, otherwise report a failure
+                    if (matchStatus == "match"){
+                        window.location = "index.html";
+                    }
+                    else if (matchStatus == "noMatch") {
+                        alert("Login Error")
+                    }
+                } else {
+                    alert("API Error: " + response.message);
+                }
+
+            } else {
+                alert("Server Error: " + xhr.statusText);
+            }
+        }
+    }
+}
+
+function LoginWithAdminCreds(){
+    var username = admin;
+    var password = adminpassword123;
             
     userAccount = {
         "username": username,
