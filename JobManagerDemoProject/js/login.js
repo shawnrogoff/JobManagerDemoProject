@@ -75,10 +75,10 @@ function CheckForUsernameAndPasswordMatch(username, password){
                 if (response.result === "success") {
                     var matchStatus = response.message;
                     // If there is a match, then redirect to the index.html, otherwise report a failure
-                    if (matchStatus === "match"){
+                    if (matchStatus == "match"){
                         window.location = "index.html";
                     }
-                    else {
+                    else if (matchStatus == "noMatch") {
                         alert("Login Error")
                     }
                 } else {
