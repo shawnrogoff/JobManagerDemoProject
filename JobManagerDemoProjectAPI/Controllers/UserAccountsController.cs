@@ -126,7 +126,6 @@ namespace JobTrackerDemoProjectAPI.Controllers
                     
                 }
                 response.result = "success";
-                System.Web.
                 response.message = UserAccount.PasswordValidation(username, password, correctPassword);
                 response.userAccounts = userAccounts;
             }

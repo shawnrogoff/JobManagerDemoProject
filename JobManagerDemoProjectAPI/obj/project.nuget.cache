@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wTjF6XTjwL9wo73uW40aSQvGZWaAKFLiReroTetzry4iTATM4BxGblOM/Bzwf9lJZCyMcl0Rlkihw3+zrLkYFg==",
+  "dgSpecHash": "51bDcalu+IObbRuk1a3zGc9m7ZXRCCKTv07hNHnP+bwufNjasx8Xp6ZFnNFhWRFtF8U0WI7ty2LmRtQ1bOw1ig==",
   "success": true,
-  "projectFilePath": "c:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj",
+  "projectFilePath": "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\S Money\\.nuget\\packages\\bcrypt.net\\0.1.0\\bcrypt.net.0.1.0.nupkg.sha512",
     "C:\\Users\\S Money\\.nuget\\packages\\identity\\1.0.3\\identity.1.0.3.nupkg.sha512",

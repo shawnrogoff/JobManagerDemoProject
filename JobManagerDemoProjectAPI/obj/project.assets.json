@@ -4879,11 +4879,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj",
+      "projectUniqueName": "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj",
       "projectName": "JobTrackerDemoProjectAPI",
-      "projectPath": "c:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj",
+      "projectPath": "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj",
       "packagesPath": "C:\\Users\\S Money\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\obj\\",
+      "outputPath": "C:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
