@@ -73,8 +73,13 @@ function CheckForUsernameAndPasswordMatch(username, password){
                 var response = JSON.parse(xhr.responseText);
 
                 if (response.result === "success") {
-                    window.location = "index.html"; 
-                    
+                    var matchStatus = response.message;
+                    if (matchStatus === "match"){
+                        window.location = "index.html";
+                    }
+                    else {
+                        alert("Login Error")
+                    }
                 } else {
                     alert("API Error: " + response.message);
                 }

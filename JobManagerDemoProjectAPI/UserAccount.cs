@@ -87,12 +87,12 @@ namespace JobTrackerDemoProjectAPI
 
             if (validLogin == true)
             {
-                string messageString = $"There IS a username and password match!";
+                string messageString = "match";
                 return messageString;
             }
             else
             {
-                string messageString = $"No username and password match found.";
+                string messageString = "noMatch";
                 return messageString;
             }            
         }
