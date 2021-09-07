@@ -53,6 +53,12 @@ function resetMeleePricingForm(){
     document.getElementById("meleeDiameterSelection2").value = "0";
     document.getElementById("meleeQualitySelection1").value = "I1-SI2 Clarity G Color";
     document.getElementById("meleeQualitySelection2").value = "I1-SI2 Clarity G Color";
+    document.getElementById("stoneOption1TotalWeight").innerHTML="Weight: 0.00ctw";
+    document.getElementById("stoneOption1TotalPrice").innerHTML="Price: $0.00";
+    document.getElementById("stoneOption2TotalWeight").innerHTML="Weight: 0.00ctw";
+    document.getElementById("stoneOption2TotalPrice").innerHTML="Price: $0.00";
+    document.getElementById("totalWeightMeleePricingGuide").innerHTML="";
+    document.getElementById("totalPriceMeleePricingGuide").innerHTML="";
 }
 // use melee pricing guide to calculate melee price
 // not done
