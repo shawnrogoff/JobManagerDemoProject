@@ -33,7 +33,8 @@ namespace JobTrackerDemoProjectAPI
                 options.AddPolicy(
                     "CorsPolicy",
                     builder => builder
-                        .WithOrigins("https://localhost:3001", "http://192.168.0.19:5500")
+                        .SetIsOriginAllowed(origin => true)
+                        //.WithOrigins("https://localhost:3001", "http://192.168.0.19:5500", "https://shawnrogoff-jobmanager-fullstackproject.netlify.app/")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials()

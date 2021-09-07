@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "+H2SLx8CeX93nEJ5GbLDdV0dIafFO4exmE2Ll08kHCt/MU63P9KfqGgi//P70laT1u4Ow7UlRROuRtHjFeksnA==",
+  "dgSpecHash": "wTjF6XTjwL9wo73uW40aSQvGZWaAKFLiReroTetzry4iTATM4BxGblOM/Bzwf9lJZCyMcl0Rlkihw3+zrLkYFg==",
   "success": true,
   "projectFilePath": "c:\\Users\\S Money\\Documents\\code\\JobManagerDemoProject\\JobManagerDemoProjectAPI\\JobTrackerDemoProjectAPI.csproj",
   "expectedPackageFiles": [
@@ -102,6 +102,7 @@
     "C:\\Users\\S Money\\.nuget\\packages\\system.threading\\4.0.11\\system.threading.4.0.11.nupkg.sha512",
     "C:\\Users\\S Money\\.nuget\\packages\\system.threading.tasks\\4.0.11\\system.threading.tasks.4.0.11.nupkg.sha512",
     "C:\\Users\\S Money\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.1\\system.threading.tasks.extensions.4.5.1.nupkg.sha512",
+    "C:\\Users\\S Money\\.nuget\\packages\\system.web.http.common\\4.0.20126.16343\\system.web.http.common.4.0.20126.16343.nupkg.sha512",
     "C:\\Users\\S Money\\.nuget\\packages\\system.xml.readerwriter\\4.0.11\\system.xml.readerwriter.4.0.11.nupkg.sha512",
     "C:\\Users\\S Money\\.nuget\\packages\\system.xml.xdocument\\4.0.11\\system.xml.xdocument.4.0.11.nupkg.sha512"
   ],
@@ -112,6 +113,16 @@
       "warningLevel": 1,
       "message": "Package 'BCrypt.Net 0.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
       "libraryId": "BCrypt.Net",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Web.Http.Common 4.0.20126.16343' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "System.Web.Http.Common",
       "targetGraphs": [
         "net5.0"
       ]

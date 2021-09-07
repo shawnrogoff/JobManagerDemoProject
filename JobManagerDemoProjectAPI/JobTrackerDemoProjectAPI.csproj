@@ -10,5 +10,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Cors" Version="2.2.0"/>
     <PackageReference Include="BCrypt.Net" Version="*"/>
     <PackageReference Include="Identity" Version="1.0.3"/>
+    <PackageReference Include="System.Web.Http.Common" Version="4.0.20126.16343"/>
   </ItemGroup>
 </Project>
