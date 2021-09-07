@@ -5,6 +5,10 @@
         OpenJobsPage;
     }
 
+    function SignOut(){
+        window.location = "Login.html";
+    }
+
     // Hide Login Page && Show Jobs Page
     function OpenJobsPage(){
         getJobsBasedOnSelectBox();
@@ -2090,6 +2094,7 @@
     document.getElementById("showCustomersBtn").addEventListener("click", OpenCustomersPage);
     document.getElementById("showToolsBtn").addEventListener("click", OpenToolsPage);
     document.getElementById("addNewCustomerBtn").addEventListener("click", insertCustomer);
+    document.getElementById("signOutBtn").addEventListener("click", SignOut);
     // document.getElementById("addNewCustomerBtnAddJob").addEventListener("click", handleNewCustomerForAddJob);
     document.getElementById("updateCustomerBtn").addEventListener("click", updateCustomer);
     document.getElementById("inactivateCustomerBtn").addEventListener("click", inactivateCustomer);
