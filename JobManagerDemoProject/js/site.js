@@ -957,6 +957,8 @@
     }
    
     function injectStringIntoMergeCustomersConfirmationModal(){
+        getCreditBalanceKeep();
+        getCreditBalanceMerge();
         var customerIdKeep = document.getElementById("mergeCustomerKeepCustomerId").value;
         var customerIdMerge = document.getElementById("mergeCustomerMergeCustomerId").value;
         var insertString = `Are you sure you want to merge CustomerId ${customerIdMerge} into CustomerId ${customerIdKeep}?`
@@ -964,15 +966,24 @@
     }
 
     function callMergeCustomerFunctions(){
-        // mergeTwoCustomers();
-        // mergeCustomersJobs();
-        // mergeCustomersTransactions();
-        getCreditBalanceKeep();
-        getCreditBalanceMerge();
-        // mergeCustomersBalances();
+        mergeTwoCustomers();
+        mergeCustomersJobs();
+        mergeCustomersTransactions();
+
+        var customerIdKeep = document.getElementById("mergeCustomerKeepCustomerId").value;
+        var customerIdMerge = document.getElementById("mergeCustomerMergeCustomerId").value;
+        var keepCreditBalance = parseFloat(document.getElementById("keepCreditBalance").innerHTML);
+        var mergeCreditBalance = parseFloat(document.getElementById("mergeCreditBalance").innerHTML);
+
+        var newKeepBalance = parseFloat(keepCreditBalance + mergeCreditBalance);
+        var newMergeBalance = 0;
+
+        updateCustomerBalance(customerIdKeep, newKeepBalance);
+        updateCustomerBalance(customerIdMerge, newMergeBalance);
+        
         OpenCustomersPage();
-        // document.getElementById("mergeCustomerKeepCustomerId").value = "";
-        // document.getElementById("mergeCustomerMergeCustomerId").value = "";
+        document.getElementById("mergeCustomerKeepCustomerId").value = "";
+        document.getElementById("mergeCustomerMergeCustomerId").value = "";
     }
 
     function mergeTwoCustomers(){
@@ -1103,26 +1114,23 @@
         // e.preventDefault();
     }
 
-    function mergeCustomerBalances(){
-        var customerIdKeep = document.getElementById("mergeCustomerKeepCustomerId");
-        var customerIdMerge = document.getElementById("mergeCustomerMergeCustomerId");
-        
-        transaction = {
-            "customerIdKeep": Number(customerIdKeep.value),
-            "customerIdMerge": Number(customerIdMerge.value),
+    function updateCustomerBalance(customerId, newBalance){
+        customer = {
+            "customerId": customerId,
+            "creditBalance": newBalance
         };
 
-        postBody = JSON.stringify(transaction);
+        postBody = JSON.stringify(customer);
 
-        var baseURL = "https://localhost:5001/Customers/MergeCustomerBalances";
+        var baseURL = "https://localhost:5001/Customers/UpdateCustomerBalanceMerge";
 
         var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = doAftermergeCustomerBalances;
+        xhr.onreadystatechange = updateCustomerBalance;
         xhr.open("POST", baseURL, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(postBody);
 
-        function doAftermergeCustomerBalances() {
+        function updateCustomerBalance() {
 
             if (xhr.readyState === 4) { //done
                 if (xhr.status === 200) { //ok
@@ -1131,8 +1139,7 @@
                     var response = JSON.parse(xhr.responseText);
 
                     if (response.result === "success") {
-                        // var transations = response.transations;
-                        // refreshCustomerTable(customers);
+                        alert(response.message);
                     } else {
                         alert("API Error: " + response.message);
                     }
@@ -1142,11 +1149,10 @@
                 }
             }
         }
-        // e.preventDefault();
     }
 
     function getCreditBalanceKeep(){
-        var customerIdKeep = document.getElementById("mergeCustomerKeepCustomerId");
+        var customerIdKeep = document.getElementById("mergeCustomerKeepCustomerId").value;
         
         var baseURL = "https://localhost:5001/Customers/GetCreditBalanceByCustomerId";
         var queryString = "?customerId=" + customerIdKeep;
@@ -1166,13 +1172,11 @@
                     var response = JSON.parse(xhr.responseText);
 
                     if (response.result === "success") {
-                        var customers = response.customers;
-                        var customer = customers[0];
-                        return customer.creditBalance;
+                        var creditBalanceKeep = response.balance;
+                        document.getElementById("keepCreditBalance").innerHTML = creditBalanceKeep;
                     } else {
                         alert("API Error: " + response.message);
                     }
-
                 } else {
                     alert("Server Error: " + xhr.statusText);
                 }
@@ -1181,7 +1185,7 @@
     }
 
     function getCreditBalanceMerge(){
-        var customerIdMerge = document.getElementById("mergeCustomerMergeCustomerId");
+        var customerIdMerge = document.getElementById("mergeCustomerMergeCustomerId").value;
 
         var baseURL = "https://localhost:5001/Customers/GetCreditBalanceByCustomerId";
         var queryString = "?customerId=" + customerIdMerge;
@@ -1201,9 +1205,8 @@
                     var response = JSON.parse(xhr.responseText);
 
                     if (response.result === "success") {
-                        var customers = response.customers;
-                        var customer = customers[0];
-                        return customer.creditBalance;
+                        var creditBalanceMerge = response.balance;
+                        document.getElementById("mergeCreditBalance").innerHTML = creditBalanceMerge;
                     } else {
                         alert("API Error: " + response.message);
                     }

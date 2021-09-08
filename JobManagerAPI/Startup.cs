@@ -66,7 +66,7 @@ namespace JobManagerAPI
                 options.AddPolicy(
                     "CorsPolicy",
                     builder => builder
-                        .WithOrigins("https://localhost:3001", "http://192.168.0.19:5500", "https://shawnrogoff-jobmanager-fullstackproject.netlify.app/")
+                        .WithOrigins("https://localhost:3001", "http://192.168.0.19:5500")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials()

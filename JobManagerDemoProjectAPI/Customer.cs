@@ -170,10 +170,11 @@ namespace JobTrackerDemoProjectAPI
             return customers;
         }
 
-        public static List<Customer> GetCreditBalanceByCustomerId(SqlConnection con, int customerId)
+        public static decimal GetCreditBalanceByCustomerId(SqlConnection con, int customerId)
         {
             // Create a list of customer objects
-            List<Customer> customers = new List<Customer>();
+            // List<Customer> customers = new List<Customer>();
+            decimal creditBalance = 0;
 
             SqlCommand cmd = new SqlCommand("SELECT credit_balance FROM customer WHERE customerId = @CustomerId", con);
             cmd.CommandType = System.Data.CommandType.Text;
@@ -186,14 +187,15 @@ namespace JobTrackerDemoProjectAPI
             while (rdr.Read())
             {
                 // Create a new customer object to store properties inside
-                Customer customer = new Customer();
+                // Customer customer = new Customer();
 
-                customer.CreditBalance = Convert.ToDecimal(rdr["credit_balance"]);
+                // customer.CreditBalance = Convert.ToDecimal(rdr["credit_balance"]);
 
-                customers.Add(customer);
+                // customers.Add(customer);
+                creditBalance = Convert.ToDecimal(rdr["credit_balance"]);
             }
 
-            return customers;
+            return creditBalance;
         }
 
         // Insert
@@ -305,6 +307,24 @@ namespace JobTrackerDemoProjectAPI
 
             cmd.Parameters["@CustomerId"].Value = transaction.CustomerId;
             cmd.Parameters["@CreditBalance"].Value = newBalance;
+
+            rowsUpdated = cmd.ExecuteNonQuery();
+
+            return rowsUpdated;
+        }
+        
+        public static int UpdateCustomerBalanceMerge(SqlConnection con, Customer customer)
+        {
+            int rowsUpdated = 0;
+
+            SqlCommand cmd = new SqlCommand("UPDATE customer SET credit_balance = @CreditBalance WHERE customerId = @CustomerId", con);
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            cmd.Parameters.Add("@CustomerId", System.Data.SqlDbType.Int);
+            cmd.Parameters.Add("@CreditBalance", System.Data.SqlDbType.Decimal);
+
+            cmd.Parameters["@CustomerId"].Value = customer.CustomerId;
+            cmd.Parameters["@CreditBalance"].Value = customer.CreditBalance;
 
             rowsUpdated = cmd.ExecuteNonQuery();
 

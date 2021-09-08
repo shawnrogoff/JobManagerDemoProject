@@ -399,3 +399,6 @@ C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerAPI\obj\Debug\ne
 C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerAPI\obj\Debug\net5.0\JobManagerAPI.genruntimeconfig.cache
 C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerAPI\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerAPI\bin\Debug\net5.0\System.Net.Http.Formatting.dll
+C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerAPI\bin\Debug\net5.0\System.Web.Http.dll
+C:\Users\S Money\Documents\code\JobManagerDemoProject\JobManagerAPI\bin\Debug\net5.0\WebApiContrib.Formatting.Jsonp.dll

@@ -13,5 +13,6 @@ namespace JobTrackerDemoProjectAPI
         public List<DiamondCenter> diamondCenters { get; set; }
         public List<UserAccount> userAccounts {get;set;}
         public int numberResults {get; set;}
+        public decimal balance { get; set; }
     }
 }

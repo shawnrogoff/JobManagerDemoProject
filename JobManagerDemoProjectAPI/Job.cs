@@ -153,7 +153,16 @@ namespace JobTrackerDemoProjectAPI
 
                 DateTime jobDateReceived = DateTime.Parse(job.Received);
                 DateTime currentDate = DateTime.Now;
-                int jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                int jobAge;
+
+                if (job.Completed != "")
+                {
+                    DateTime jobDateCompleted = DateTime.Parse(job.Completed);
+                    jobAge = Convert.ToInt32((jobDateCompleted - jobDateReceived).TotalDays);
+                } else
+                {
+                    jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                }
                 job.Age = jobAge;
 
                 jobs.Add(job);
@@ -193,7 +202,16 @@ namespace JobTrackerDemoProjectAPI
 
                 DateTime jobDateReceived = DateTime.Parse(job.Received);
                 DateTime currentDate = DateTime.Now;
-                int jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                int jobAge;
+
+                if (job.Completed != "")
+                {
+                    DateTime jobDateCompleted = DateTime.Parse(job.Completed);
+                    jobAge = Convert.ToInt32((jobDateCompleted - jobDateReceived).TotalDays);
+                } else
+                {
+                    jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                }
                 job.Age = jobAge;
 
                 jobs.Add(job);
@@ -233,7 +251,16 @@ namespace JobTrackerDemoProjectAPI
 
                 DateTime jobDateReceived = DateTime.Parse(job.Received);
                 DateTime currentDate = DateTime.Now;
-                int jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                int jobAge;
+
+                if (job.Completed != "")
+                {
+                    DateTime jobDateCompleted = DateTime.Parse(job.Completed);
+                    jobAge = Convert.ToInt32((jobDateCompleted - jobDateReceived).TotalDays);
+                } else
+                {
+                    jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                }
                 job.Age = jobAge;
 
                 jobs.Add(job);
@@ -277,7 +304,16 @@ namespace JobTrackerDemoProjectAPI
 
                 DateTime jobDateReceived = DateTime.Parse(job.Received);
                 DateTime currentDate = DateTime.Now;
-                int jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                int jobAge;
+
+                if (job.Completed != "")
+                {
+                    DateTime jobDateCompleted = DateTime.Parse(job.Completed);
+                    jobAge = Convert.ToInt32((jobDateCompleted - jobDateReceived).TotalDays);
+                } else
+                {
+                    jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                }
                 job.Age = jobAge;
 
                 jobs.Add(job);
@@ -322,7 +358,16 @@ namespace JobTrackerDemoProjectAPI
 
                 DateTime jobDateReceived = DateTime.Parse(job.Received);
                 DateTime currentDate = DateTime.Now;
-                int jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                int jobAge;
+
+                if (job.Completed != "")
+                {
+                    DateTime jobDateCompleted = DateTime.Parse(job.Completed);
+                    jobAge = Convert.ToInt32((jobDateCompleted - jobDateReceived).TotalDays);
+                } else
+                {
+                    jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                }
                 job.Age = jobAge;
 
                 jobs.Add(job);

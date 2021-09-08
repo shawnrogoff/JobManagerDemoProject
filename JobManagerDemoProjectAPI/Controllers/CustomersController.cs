@@ -133,18 +133,19 @@ namespace JobTrackerDemoProjectAPI.Controllers
         public Response GetCreditBalanceByCustomerId(int customerId)
         {
             Response response = new Response();
-            List<Customer> customers = new List<Customer>();
+            // List<Customer> customers = new List<Customer>();
+            decimal creditBalance;
 
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    customers = Customer.GetCreditBalanceByCustomerId(con, customerId);
+                    creditBalance = Customer.GetCreditBalanceByCustomerId(con, customerId);
                 }
                 response.result = "success";
-                response.message = $"{customers.Count()} rows selected.";
-                response.customers = customers;
+                response.message = $"{creditBalance} balance.";
+                response.balance = creditBalance;
             }
             catch (Exception ex)
             {
@@ -308,23 +309,22 @@ namespace JobTrackerDemoProjectAPI.Controllers
         }
 
         [HttpPost]
-        [Route("/Customers/MergeCustomerBalances")]
-        public Response MergeCustomerBalances([FromBody] Customer customer)
+        [Route("/Customers/UpdateCustomerBalanceMerge")]
+        public Response UpdateCustomerBalanceMerge([FromBody] Customer customer)
         {
             Response response = new Response();
             int rowsUpdated = 0;
             List<Customer> customers = new List<Customer>();
 
-            int customerIdKeep = customer.CustomerIdKeep;
-            int customerIdMerge = customer.CustomerIdMerge;
-            
+            int customerId = customer.CustomerId;
+            decimal creditBalance = customer.CreditBalance;
 
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    rowsUpdated = Customer.MergeCustomerBalances(con, customer);
+                    rowsUpdated = Customer.UpdateCustomerBalanceMerge(con, customer);
                     customers = Customer.GetCustomers(con);
                 }
 
