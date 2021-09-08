@@ -16,6 +16,7 @@
         document.getElementById("customersPage").classList.add("invisible");
         document.getElementById("jobsPage").classList.remove("invisible");
         document.getElementById("toolsPage").classList.add("invisible");
+        document.getElementById("customJobKanBan").classList.add("invisible");
         document.getElementById("customJewelryPricingTool").classList.add("invisible");
         document.getElementById("customGoldCreditCalculatorTool").classList.add("invisible");
         document.getElementById("customDiamondCenterPricingTool").classList.add("invisible");
@@ -34,6 +35,7 @@
         document.getElementById("jobsPage").classList.add("invisible");
         document.getElementById("customersPage").classList.remove("invisible");
         document.getElementById("toolsPage").classList.add("invisible");
+        document.getElementById("customJobKanBan").classList.add("invisible");
         document.getElementById("customJewelryPricingTool").classList.add("invisible");
         document.getElementById("customGoldCreditCalculatorTool").classList.add("invisible");
         document.getElementById("customDiamondCenterPricingTool").classList.add("invisible");
@@ -52,6 +54,7 @@
         document.getElementById("jobsPage").classList.add("invisible");
         document.getElementById("customersPage").classList.add("invisible");
         document.getElementById("toolsPage").classList.remove("invisible");
+        document.getElementById("customJobKanBan").classList.add("invisible");
         document.getElementById("customJewelryPricingTool").classList.add("invisible");
         document.getElementById("customGoldCreditCalculatorTool").classList.add("invisible");
         document.getElementById("customDiamondCenterPricingTool").classList.add("invisible");
@@ -69,6 +72,7 @@
         document.getElementById("jobsPage").classList.add("invisible");
         document.getElementById("customersPage").classList.add("invisible");
         document.getElementById("toolsPage").classList.remove("invisible");
+        document.getElementById("customJobKanBan").classList.add("invisible");
         document.getElementById("customGoldCreditCalculatorTool").classList.add("invisible");
         document.getElementById("customDiamondCenterPricingTool").classList.add("invisible");
         
@@ -106,6 +110,7 @@
         document.getElementById("jobsPage").classList.add("invisible");
         document.getElementById("customersPage").classList.add("invisible");
         document.getElementById("toolsPage").classList.remove("invisible");
+        document.getElementById("customJobKanBan").classList.add("invisible");
         document.getElementById("customJewelryPricingTool").classList.add("invisible");
         document.getElementById("customDiamondCenterPricingTool").classList.add("invisible");
         
@@ -143,6 +148,7 @@
         document.getElementById("jobsPage").classList.add("invisible");
         document.getElementById("customersPage").classList.add("invisible");
         document.getElementById("toolsPage").classList.remove("invisible");
+        document.getElementById("customJobKanBan").classList.add("invisible");
         document.getElementById("customJewelryPricingTool").classList.add("invisible");
         document.getElementById("customGoldCreditCalculatorTool").classList.add("invisible");
         
@@ -175,6 +181,28 @@
             document.getElementById("customDiamondCenterPricingBtn").classList.remove("btn-dark");
         }
     }
+
+    function showKanbanBoard(){
+        getJobsBasedOnSelectBox();
+
+        document.getElementById("customersPage").classList.add("invisible");
+        document.getElementById("jobsPage").classList.add("invisible");
+        document.getElementById("customJobKanBan").classList.remove("invisible");
+        document.getElementById("toolsPage").classList.add("invisible");
+        document.getElementById("customJewelryPricingTool").classList.add("invisible");
+        document.getElementById("customGoldCreditCalculatorTool").classList.add("invisible");
+        document.getElementById("customDiamondCenterPricingTool").classList.add("invisible");
+        // Swap active button appearance
+        document.getElementById("showJobsBtn").classList.remove("btn-outline-light");
+        document.getElementById("showJobsBtn").classList.add("btn-light");
+        document.getElementById("showCustomersBtn").classList.remove("btn-light");
+        document.getElementById("showCustomersBtn").classList.add("btn-outline-light");
+        document.getElementById("showToolsBtn").classList.remove("btn-light");
+        document.getElementById("showToolsBtn").classList.add("btn-outline-light");
+    }
+
+
+
 
     function getCustomers() {
         var baseURL = "https://localhost:5001/Customers/GetCustomers";
@@ -1678,11 +1706,15 @@
         var jobId = document.getElementById("removeJobJobId");
         var status = "inactive";
         var comments = document.getElementById("removeJobComments");
+        var todayDate = new Date().toISOString().slice(0, 10);
+        var completed = todayDate;
         
         job = {
             "jobId": jobId.value,
             "status": status,
-            "comments": comments.value
+            "comments": comments.value,
+            "completed": completed,
+            "delivered": completed
         };
 
         postBody = JSON.stringify(job);
@@ -2134,6 +2166,8 @@
     document.getElementById("customJobEstimatorBtn").addEventListener("click", showCustomJewelryPricingTool);
     document.getElementById("customGoldCreditCalculatorBtn").addEventListener("click", showGoldCreditCalculatorTool);
     document.getElementById("customDiamondCenterPricingBtn").addEventListener("click", showDiamondCenterPricingTool);
+
+    document.getElementById("viewCustomsBtn").addEventListener("click", showKanbanBoard);
 
     // document.getElementById("").addEventListener("click", function);
     

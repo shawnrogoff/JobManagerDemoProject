@@ -29,8 +29,7 @@
     <link rel="stylesheet" href="css/datatable.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
     <!-- Kanban styling -->
-    <link rel="stylesheet" href="/css/jkanban.css">
-    <link rel="stylesheet" href="/css/jkanban.min.css">
+    <link rel="stylesheet" href="/css/kanban.css">
   </head>
 
 <body class="d-flex flex-column h-100">
@@ -1855,6 +1854,226 @@
               </div>
           </div>
       </section>
+      <section id="customJobKanBan" class="invisible" style="margin-top: 100px;">
+          <div class="container">
+              <div id="myKanban">
+                  <div class="main-container">
+                    <ul class="columns">
+                        <div class="row">
+                            <div class="col">
+                                <li class="column quote-column">
+                                    <div class="column-header text-center">
+                                      <h2>Quote</h2>
+                                    </div>
+                                    <ul class="task-list" id="customJobsInQuoting">
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                  </li>
+                            </div>
+                            <div class="col">
+                                <li class="column cad-column">
+                                    <div class="column-header text-center">
+                                      <h2>CAD</h2>
+                                    </div>
+                                    <ul class="task-list" id="customJobsInCAD">
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                  </li>
+                            </div>
+                            <div class="col">
+                                <li class="column approval-column">
+                                    <div class="column-header text-center">
+                                      <h2>Approval</h2>
+                                    </div>
+                                    <ul class="task-list" id="customJobsInApproval">
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                  </li>
+                            </div>
+                            <div class="col">
+                                <li class="column printing-column">
+                                    <div class="column-header text-center">
+                                      <h2>Printing</h2>
+                                    </div>
+                                    <ul class="task-list" id="customJobsInPrinting">
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                  </li>
+                            </div>
+                            <div class="col">
+                                <li class="column casting-column">
+                                    <div class="column-header text-center">
+                                      <h2>Casting</h2>
+                                    </div>
+                                    <ul class="task-list" id="customJobsInCasting">
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                  </li>
+                            </div>
+                            <div class="col">
+                                <li class="column setting-column">
+                                    <div class="column-header text-center">
+                                      <h2>Setting</h2>
+                                    </div>
+                                    <ul class="task-list" id="customJobsInSetting">
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card text-center bg-light my-2 border-dark">
+                                                <div class="card-body" style="border: 2px;">
+                                                    <h5 id="jobIdKanban" class="card-title text-dark">10023</h5>
+                                                    <h5 id="customerNameKanban" class="card-text text-dark">John Smith</h5>
+                                                    <h5 id="envelopeKanban" class="card-text text-dark">#1234</h5>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                  </li>
+                            </div>
+
+                        </div>
+                    </ul>
+                  </div>
+              </div>
+          </div>
+      </section>
     </main>
 
     <footer class="footer mt-auto py-3 bg-dark">
@@ -1885,8 +2104,7 @@
     <script src="js/customJewelryPricing.js"></script>
     <script src="js/goldCreditCalculator.js"></script>
     <script src="js/diamondCenterPricing.js"></script>
-    <script src="/js/jkanban.js"></script>
-    <script src="/js/jkanban.min.js"></script>
+    <script src="/js/kanban.js"></script>
 </body>
 
 </html>
