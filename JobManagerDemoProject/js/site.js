@@ -1343,7 +1343,7 @@
     // === Job Code === //
 
     function getJobs() {
-        var baseURL = "https://localhost:5001/Jobs/GetJobs";
+        var baseURL = "https://192.168.0.19:5001/Jobs/GetJobs";
         var queryString = "";
 
         var xhr = new XMLHttpRequest();
@@ -1376,7 +1376,7 @@
     }
 
     function getJobsInProgress() {
-        var baseURL = "https://localhost:5001/Jobs/GetJobsInProgress";
+        var baseURL = "https://192.168.0.19:5001/Jobs/GetJobsInProgress";
         var queryString = "";
 
         var xhr = new XMLHttpRequest();
@@ -1409,7 +1409,7 @@
     }
 
     function getJobsComplete() {
-        var baseURL = "https://localhost:5001/Jobs/GetJobsComplete";
+        var baseURL = "https://192.168.0.19:5001/Jobs/GetJobsComplete";
         var queryString = "";
 
         var xhr = new XMLHttpRequest();
@@ -1442,7 +1442,7 @@
     }
 
     function getJobsDelivered() {
-        var baseURL = "https://localhost:5001/Jobs/GetJobsDelivered";
+        var baseURL = "https://192.168.0.19:5001/Jobs/GetJobsDelivered";
         var queryString = "";
 
         var xhr = new XMLHttpRequest();
@@ -1475,7 +1475,7 @@
     }
 
     function getJobsInactive() {
-        var baseURL = "https://localhost:5001/Jobs/GetJobsInactive";
+        var baseURL = "https://192.168.0.19:5001/Jobs/GetJobsInactive";
         var queryString = "";
 
         var xhr = new XMLHttpRequest();
