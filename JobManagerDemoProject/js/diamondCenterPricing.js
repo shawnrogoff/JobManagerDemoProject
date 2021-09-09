@@ -27,7 +27,7 @@ function getDiamondPricePerCarat(){
         var centerWeightRange = 2.00;
     }
 
-    var baseURL = "https://localhost:5001/DiamondCenters/GetCenterPricePerCarat";
+    var baseURL = "https://66.158.188.108:5001/DiamondCenters/GetCenterPricePerCarat";
     var queryString = "?shape=" + shape + "&clarity=" + clarity + "&color=" + color + "&weight=" + centerWeightRange;
 
     var xhr = new XMLHttpRequest();
