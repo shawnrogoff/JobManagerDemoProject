@@ -205,7 +205,7 @@
 
 
     function getCustomers() {
-        var baseURL = "https://localhost:5001/Customers/GetCustomers";
+        var baseURL = "https://66.158.188.108:5001/Customers/GetCustomers";
         var queryString = "";
 
         var xhr = new XMLHttpRequest();
@@ -307,7 +307,7 @@
     }
 
     function getActiveCustomers() {
-        var baseURL = "https://localhost:5001/Customers/GetActiveCustomers";
+        var baseURL = "https://66.158.188.108:5001/Customers/GetActiveCustomers";
         var queryString = "";
 
         var xhr = new XMLHttpRequest();
@@ -340,7 +340,7 @@
     }
 
     function getInactiveCustomers() {
-        var baseURL = "https://localhost:5001/Customers/GetInactiveCustomers";
+        var baseURL = "https://66.158.188.108:5001/Customers/GetInactiveCustomers";
         var queryString = "";
 
         var xhr = new XMLHttpRequest();
@@ -417,7 +417,7 @@
 
         postBody = JSON.stringify(customer);
 
-        var baseURL = "https://localhost:5001/Customers/InsertCustomer";
+        var baseURL = "https://66.158.188.108:5001/Customers/InsertCustomer";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = doAfterInsertCustomer;
@@ -463,7 +463,7 @@
 
         postBody = JSON.stringify(job);
 
-        var baseURL = "https://localhost:5001/Customers/InactivateCustomer";
+        var baseURL = "https://66.158.188.108:5001/Customers/InactivateCustomer";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = doAfterInactivateCustomer;
@@ -495,7 +495,7 @@
     }
 
     function getCustomerByCustomerIdForDetails(customerId){
-        var baseURL = "https://localhost:5001/Customers/GetCustomerByCustomerId";
+        var baseURL = "https://66.158.188.108:5001/Customers/GetCustomerByCustomerId";
         var queryString = "?customerId=" + customerId;
 
         var xhr = new XMLHttpRequest();
@@ -560,7 +560,7 @@
     }
 
     function getCustomerByCustomerIdForEdit(customerId){
-        var baseURL = "https://localhost:5001/Customers/GetCustomerByCustomerId";
+        var baseURL = "https://66.158.188.108:5001/Customers/GetCustomerByCustomerId";
         var queryString = "?customerId=" + customerId;
 
         var xhr = new XMLHttpRequest();
@@ -658,7 +658,7 @@
 
         postBody = JSON.stringify(customer);
 
-        var baseURL = "https://localhost:5001/Customers/UpdateCustomer";
+        var baseURL = "https://66.158.188.108:5001/Customers/UpdateCustomer";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = doAfterUpdateCustomer;
@@ -697,7 +697,7 @@
     }
 
     function getJobsByCustomerId(customerId){
-        var baseURL = "https://localhost:5001/Jobs/GetJobsByCustomerId";
+        var baseURL = "https://66.158.188.108:5001/Jobs/GetJobsByCustomerId";
         var queryString = "?customerId=" + customerId;
 
         var xhr = new XMLHttpRequest();
@@ -805,7 +805,7 @@
 
         postBody = JSON.stringify(transaction);
 
-        var baseURL = "https://localhost:5001/CreditTransactions/InsertTransaction";
+        var baseURL = "https://66.158.188.108:5001/CreditTransactions/InsertTransaction";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = doAfterCreditTransactionAdd();
@@ -860,7 +860,7 @@
 
         postBody = JSON.stringify(transaction);
 
-        var baseURL = "https://localhost:5001/CreditTransactions/InsertTransaction";
+        var baseURL = "https://66.158.188.108:5001/CreditTransactions/InsertTransaction";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = doAfterCreditTransactionAdd();
@@ -893,7 +893,7 @@
 
     // These functions help deal with getting customers for merging
     function getCustomersForMerge() {
-        var baseURL = "https://localhost:5001/Customers/GetActiveCustomers";
+        var baseURL = "https://66.158.188.108:5001/Customers/GetActiveCustomers";
         var queryString = "";
 
         var xhr = new XMLHttpRequest();
@@ -1026,7 +1026,7 @@
 
         postBody = JSON.stringify(customer);
 
-        var baseURL = "https://localhost:5001/Customers/MergeCustomers";
+        var baseURL = "https://66.158.188.108:5001/Customers/MergeCustomers";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = doAfterMergeCustomers;
@@ -1069,7 +1069,7 @@
 
         postBody = JSON.stringify(job);
 
-        var baseURL = "https://localhost:5001/Jobs/MergeCustomerJobs";
+        var baseURL = "https://66.158.188.108:5001/Jobs/MergeCustomerJobs";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = doAfterMergeCustomers;
@@ -1111,7 +1111,7 @@
 
         postBody = JSON.stringify(transaction);
 
-        var baseURL = "https://localhost:5001/CreditTransactions/MergeCustomerTransactions";
+        var baseURL = "https://66.158.188.108:5001/CreditTransactions/MergeCustomerTransactions";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = doAfterMergeCustomerTransactions;
@@ -1150,7 +1150,7 @@
 
         postBody = JSON.stringify(customer);
 
-        var baseURL = "https://localhost:5001/Customers/UpdateCustomerBalanceMerge";
+        var baseURL = "https://66.158.188.108:5001/Customers/UpdateCustomerBalanceMerge";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = updateCustomerBalance;
@@ -1182,7 +1182,7 @@
     function getCreditBalanceKeep(){
         var customerIdKeep = document.getElementById("mergeCustomerKeepCustomerId").value;
         
-        var baseURL = "https://localhost:5001/Customers/GetCreditBalanceByCustomerId";
+        var baseURL = "https://66.158.188.108:5001/Customers/GetCreditBalanceByCustomerId";
         var queryString = "?customerId=" + customerIdKeep;
 
         var xhr = new XMLHttpRequest();
@@ -1215,7 +1215,7 @@
     function getCreditBalanceMerge(){
         var customerIdMerge = document.getElementById("mergeCustomerMergeCustomerId").value;
 
-        var baseURL = "https://localhost:5001/Customers/GetCreditBalanceByCustomerId";
+        var baseURL = "https://66.158.188.108:5001/Customers/GetCreditBalanceByCustomerId";
         var queryString = "?customerId=" + customerIdMerge;
 
         var xhr = new XMLHttpRequest();
@@ -1258,7 +1258,7 @@
     }
 
     function getTransactionsByCustomerId(customerId){
-        var baseURL = "https://localhost:5001/Transactions/GetTransactionsByCustomerId";
+        var baseURL = "https://66.158.188.108:5001/Transactions/GetTransactionsByCustomerId";
         var queryString = "?customerId=" + customerId;
 
         var xhr = new XMLHttpRequest();
@@ -1671,7 +1671,7 @@
 
         postBody = JSON.stringify(job);
 
-        var baseURL = "https://localhost:5001/Jobs/InsertJob";
+        var baseURL = "https://66.158.188.108:5001/Jobs/InsertJob";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = doAfterInsertJob;
@@ -1719,7 +1719,7 @@
 
         postBody = JSON.stringify(job);
 
-        var baseURL = "https://localhost:5001/Jobs/InactivateJob";
+        var baseURL = "https://66.158.188.108:5001/Jobs/InactivateJob";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = doAfterInactivateJob;
@@ -1750,7 +1750,7 @@
     }
 
     function getJobByJobIdForDetails(jobId) {
-        var baseURL = "https://localhost:5001/Jobs/GetJobByJobId";
+        var baseURL = "https://66.158.188.108:5001/Jobs/GetJobByJobId";
         var queryString = "?jobId=" + jobId;
 
         var xhr = new XMLHttpRequest();
@@ -1812,7 +1812,7 @@
     }
 
     function getJobByJobIdForEdit(jobId) {
-        var baseURL = "https://localhost:5001/Jobs/GetJobByJobId";
+        var baseURL = "https://66.158.188.108:5001/Jobs/GetJobByJobId";
         var queryString = "?jobId=" + jobId;
 
         var xhr = new XMLHttpRequest();
@@ -1904,7 +1904,7 @@
 
         postBody = JSON.stringify(job);
 
-        var baseURL = "https://localhost:5001/Jobs/UpdateJob";
+        var baseURL = "https://66.158.188.108:5001/Jobs/UpdateJob";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = doAfterUpdateJob;
@@ -1953,7 +1953,7 @@
 
         postBody = JSON.stringify(job);
 
-        var baseURL = "https://localhost:5001/Jobs/UpdateJobComplete";
+        var baseURL = "https://66.158.188.108:5001/Jobs/UpdateJobComplete";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = doAfterMarkJobComplete;
@@ -1997,7 +1997,7 @@
 
         postBody = JSON.stringify(job);
 
-        var baseURL = "https://localhost:5001/Jobs/UpdateJobDelivered";
+        var baseURL = "https://66.158.188.108:5001/Jobs/UpdateJobDelivered";
 
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = doAfterMarkJobDelivered;
@@ -2033,7 +2033,7 @@
         document.getElementById("addJobCustomerId").value = "";
         document.getElementById("addJobCustomer").value = "";
         
-        var baseURL = "https://localhost:5001/Customers/GetCustomers";
+        var baseURL = "https://66.158.188.108:5001/Customers/GetCustomers";
         var queryString = "";
 
         var xhr = new XMLHttpRequest();
