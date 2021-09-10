@@ -9,7 +9,7 @@ function AttemptLogin(){
 }
 
 function CheckForUsernameMatch(username){
-    var baseURL = "https://localhost:5001/Users/CheckForUsername";
+    var baseURL = "https://66.158.188.108:5001/Users/CheckForUsername";
     var queryString = "?username=" + username;
 
     var xhr = new XMLHttpRequest();
@@ -57,7 +57,7 @@ function CheckForUsernameAndPasswordMatch(username, password){
 
     postBody = JSON.stringify(userAccount);
 
-    var baseURL = "https://localhost:5001/Users/CheckForUsernamePasswordMatch";
+    var baseURL = "https://66.158.188.108:5001/Users/CheckForUsernamePasswordMatch";
 
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = doAfterCheckForUsernameAndPasswordMatch;
@@ -104,7 +104,7 @@ function LoginWithAdminCreds(){
 
     postBody = JSON.stringify(userAccount);
 
-    var baseURL = "https://localhost:5001/Users/CheckForUsernamePasswordMatch";
+    var baseURL = "https://66.158.188.108:5001/Users/CheckForUsernamePasswordMatch";
 
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = doAfterCheckForUsernameAndPasswordMatch;
