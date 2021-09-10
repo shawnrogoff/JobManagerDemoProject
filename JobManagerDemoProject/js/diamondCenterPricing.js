@@ -1,5 +1,6 @@
 function resetDiamondCenterPricingForm(){
     document.getElementById("diamondCenterPriceCalculatorForm").reset();
+    document.getElementById("diamondPriceResultsTextAlert").classList.add("invisible");
 }
 
 function populateDiamondWeightInput(){

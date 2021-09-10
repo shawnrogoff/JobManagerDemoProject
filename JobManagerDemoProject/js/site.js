@@ -784,7 +784,7 @@
     function createCreditTransactionAdd(e){
         $('#customerDetailsModal').modal('hide');
         var customerId = document.getElementById("addCreditTransationCustomerId");
-        var amount = document.getElementById("addCreditTransactionAmount");
+        var amount = parseFloat(document.getElementById("addCreditTransactionAmount").value);
         var todaysDate = new Date().toISOString().slice(0, 10);
         var date = todaysDate;
         var type = "add";
@@ -795,7 +795,7 @@
         transaction = {
             "transactionId": 0,
             "customerId": customerId.value,
-            "amount": amount.value,
+            "amount": amount,
             "date": date,
             "type": type,
             "user": user,
