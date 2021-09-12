@@ -42,8 +42,31 @@
               </button>
               <a class="navbar-brand logoFont"><img src="/img/ShawnRogoffMark2Light.png" class="d-inline-block align-text-top mx-2" width="30" height="24"> Job Manager</a>
               <div class="collapse navbar-collapse justify-content-md-end" id="navbarTogglerDemo01">
-                <div class="d-flex m-2 m-md-0">
-                      <button id="showJobsBtn" type="button" class="btn btn-light btn-lg ms-1 me-2">Jobs</button>
+                <div class="row row-cols-1 row-cols-md-5 my-2 m-md-0">
+                    <div class="col">
+                        <button id="showJobsBtn" type="button" class="btn btn-light btn-lg ms-1 me-2">Jobs</button>
+                    </div>
+                    <div class="col">
+                        <button id="showCustomersBtn" type="button" class="btn btn-outline-light btn-lg me-2">Customers</button>
+                    </div>
+                    <div class="col">
+                        <button id="showToolsBtn" type="button" title="Tools" class="btn btn-outline-light btn-lg me-2"><i class="fas fa-tools"></i></button>
+                    </div>
+                    <div class="col">
+                        <li class="nav-item dropdown">
+                            <button id="userPanelBtn" title="userPanel" type="button" class="nav-item dropdown-toggle btn btn-outline-light btn-lg me-2" data-bs-toggle="dropdown"><i class="fas fa-user"></i></button>
+                            <ul class="dropdown-menu" aria-labelledby="userPanelDropdown">
+                                <li><a class="dropdown-item" href="#">List Item 1</a></li>
+                                <li><a class="dropdown-item" href="#">List Item 2</a></li>
+                                <li><a class="dropdown-item" href="#">List Item 3</a></li>
+                                <li><a class="dropdown-item" href="#">List Item 4</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                    <div class="col">
+                        <button id="signOutBtn" title="Sign Out" type="button" class="btn btn-outline-light btn-lg me-2"><i class="fas fa-sign-out"></i></button>
+                    </div>
+                      <!-- <button id="showJobsBtn" type="button" class="btn btn-light btn-lg ms-1 me-2">Jobs</button>
                       <button id="showCustomersBtn" type="button" class="btn btn-outline-light btn-lg me-2">Customers</button>
                       <button id="showToolsBtn" type="button" title="Tools" class="btn btn-outline-light btn-lg me-2"><i class="fas fa-tools"></i></button>
 
@@ -56,7 +79,7 @@
                               <li><a class="dropdown-item" href="#">List Item 4</a></li>
                           </ul>
                       </li>
-                      <button id="signOutBtn" title="Sign Out" type="button" class="btn btn-outline-light btn-lg me-2"><i class="fas fa-sign-out"></i></button>
+                      <button id="signOutBtn" title="Sign Out" type="button" class="btn btn-outline-light btn-lg me-2"><i class="fas fa-sign-out"></i></button> -->
                 </div>
               </div>
             </div>
