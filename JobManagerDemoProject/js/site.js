@@ -2086,7 +2086,7 @@
         for (var i = 0; i < customers.length; i++) {
             customer = customers[i];
             html = html + "<tr>" +
-                "<td data-field='select'><button id='selectCustomerBtn' title='select' type='button' data-action='select' onclick='populateAddJobModalWithCustomerId(" + `${customer.customerId}, ${customer.firstName}, ${customer.lastName}` + ")' ' data-customerid=" + customer.customerId + " data-customerfirstname=" + customer.firstName + " data-customerlastname=" + customer.lastName + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#AddJobSelectCustomerModal'><i class='fas fa-check-square'></i></button></td>" +
+                "<td data-field='select'><button id='selectCustomerBtn' title='select' type='button' data-action='select' onclick='populateAddJobModalWithCustomerId(\"" + customer.customerId + "\", \"" + customer.firstName + "\", \"" + customer.lastName + "\")' ' data-customerid=" + customer.customerId + " data-customerfirstname=" + customer.firstName + " data-customerlastname=" + customer.lastName + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#AddJobSelectCustomerModal'><i class='fas fa-check-square'></i></button></td>" +
                 "<td data-field='customerId'>" + customer.customerId + "</td>" +    
                 "<th scope='row' data-field='customer'>" + customer.firstName + " " + customer.lastName + "</th>" +
                 "<td data-field='phone'>" + customer.phone + "</td>" +
@@ -2115,14 +2115,14 @@
 
     function populateAddJobModalWithCustomerId(customerId, firstName, lastName){
         document.getElementById("addJobCustomerId").value = customerId;
-        alert(`${firstName} ${lastName}`);
+        populateAddJobModalWithCustomer(firstName, lastName);
     }
 
-    // function populateAddJobModalWithCustomer(firstName, lastName){
-    //     var customer = `${firstName} ${lastName}`;
+    function populateAddJobModalWithCustomer(firstName, lastName){
+        var customer = `${firstName} ${lastName}`;
 
-    //     document.getElementById("addJobCustomer").value = customer;
-    // }
+        document.getElementById("addJobCustomer").value = customer;
+    }
 
     
     // Event listeners for button clicks NOT in dynamic tables
@@ -2169,6 +2169,8 @@
     document.getElementById("customDiamondCenterPricingBtn").addEventListener("click", showDiamondCenterPricingTool);
 
     document.getElementById("viewCustomsBtn").addEventListener("click", showKanbanBoard);
+    
+    
 
     // document.getElementById("").addEventListener("click", function);
     
