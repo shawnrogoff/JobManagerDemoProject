@@ -1513,7 +1513,7 @@
         var selectedValue = selectBox.options[selectBox.selectedIndex].value;
         
         refreshKanbanLanes();
-        
+
         switch (selectedValue){
             case 'all':
                 getJobs();
@@ -2097,7 +2097,7 @@
                             "<h5 class='card-text text-dark'>" + job.envelopeNumber + "</h5>" +
                             "<div class='row'>" +
                                 "<div class='col-12 justify-content-center'>" +
-                                    "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>"
+                                    "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>" +
                                 "</div>" +
                             "</div>" +
                             "<div class='row row-cols-4'>" +
@@ -2178,7 +2178,7 @@
                                 "<h5 class='card-text text-dark'>" + job.envelopeNumber + "</h5>" +
                                 "<div class='row'>" +
                                     "<div class='col-12 justify-content-center'>" +
-                                        "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>"
+                                        "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>" +
                                     "</div>" +
                                 "</div>" +
                                 "<div class='row row-cols-4'>" +
@@ -2259,7 +2259,7 @@
                         "<h5 class='card-text text-dark'>" + job.envelopeNumber + "</h5>" +
                         "<div class='row'>" +
                             "<div class='col-12 justify-content-center'>" +
-                                "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>"
+                                "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>" +
                             "</div>" +
                         "</div>" +
                         "<div class='row row-cols-4'>" +
@@ -2340,7 +2340,7 @@
                         "<h5 class='card-text text-dark'>" + job.envelopeNumber + "</h5>" +
                         "<div class='row'>" +
                             "<div class='col-12 justify-content-center'>" +
-                                "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>"
+                                "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>" +
                             "</div>" +
                         "</div>" +
                         "<div class='row row-cols-4'>" +
@@ -2420,7 +2420,7 @@
                         "<h5 class='card-text text-dark'>" + job.envelopeNumber + "</h5>" +
                         "<div class='row'>" +
                             "<div class='col-12 justify-content-center'>" +
-                                "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>"
+                                "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>" +
                             "</div>" +
                         "</div>" +
                         "<div class='row row-cols-4'>" +
@@ -2500,7 +2500,7 @@
                         "<h5 class='card-text text-dark'>" + job.envelopeNumber + "</h5>" +
                         "<div class='row'>" +
                             "<div class='col-12 justify-content-center'>" +
-                                "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>"
+                                "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>" +
                             "</div>" +
                         "</div>" +
                         "<div class='row row-cols-4'>" +
