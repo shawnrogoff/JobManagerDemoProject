@@ -1511,6 +1511,9 @@
     function getJobsBasedOnSelectBox(){
         var selectBox = document.getElementById("jobStatusSelection");
         var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+        
+        refreshKanbanLanes();
+        
         switch (selectedValue){
             case 'all':
                 getJobs();
@@ -1935,6 +1938,7 @@
             }
         }
         e.preventDefault();
+
     }
 
     function markJobComplete(jobId){
