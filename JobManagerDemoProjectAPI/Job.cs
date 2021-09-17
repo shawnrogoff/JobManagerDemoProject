@@ -87,7 +87,7 @@ namespace JobTrackerDemoProjectAPI
             // Create a list of job objects
             List<Job> jobs = new List<Job>();
 
-            SqlCommand cmd = new SqlCommand("SELECT j.jobId,j.customerId,j.job_type,j.status,j.received,j.completed,j.delivered,j.details,j.estimate,j.final_price,j.comments,j.envelope_number,(c.first_name + ' ' + c.last_name) as 'customer' FROM job j JOIN customer c ON j.customerId = c.customerId WHERE j.status = 'in-progress';", con);
+            SqlCommand cmd = new SqlCommand("SELECT j.jobId,j.customerId,j.job_type,j.status,j.received,j.completed,j.delivered,j.details,j.estimate,j.final_price,j.comments,j.envelope_number,(c.first_name + ' ' + c.last_name) as 'customer' FROM job j JOIN customer c ON j.customerId = c.customerId WHERE j.status in ('in-progress','quote','CAD','approval','printing','casting','setting');", con);
             cmd.CommandType = System.Data.CommandType.Text;
 
             SqlDataReader rdr = cmd.ExecuteReader();
@@ -541,6 +541,302 @@ namespace JobTrackerDemoProjectAPI
             rowsUpdated = cmd.ExecuteNonQuery();
 
             return rowsUpdated;
+        }
+
+        // This section is for Kanban board
+
+        public static List<Job> GetJobsWithQuoteStatus(SqlConnection con)
+        {
+            // Create a list of job objects
+            List<Job> jobs = new List<Job>();
+
+            SqlCommand cmd = new SqlCommand("SELECT j.jobId,j.customerId,j.job_type,j.status,j.received,j.completed,j.delivered,j.details,j.estimate,j.final_price,j.comments,j.envelope_number,(c.first_name + ' ' + c.last_name) as 'customer' FROM job j JOIN customer c ON j.customerId = c.customerId WHERE j.status = 'quote';", con);
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                // Create a new job object to store properties inside
+                Job job = new Job();
+
+                job.JobId = Convert.ToInt32(rdr["jobId"]);
+                job.CustomerId = Convert.ToInt32(rdr["customerId"]);
+                job.JobType = rdr["job_type"].ToString();
+                job.Status = rdr["status"].ToString();
+                job.Received = rdr["received"].ToString();
+                job.Completed = rdr["completed"].ToString();
+                job.Delivered = rdr["delivered"].ToString();
+                job.Details = rdr["details"].ToString();
+                job.Estimate = Convert.ToDecimal(rdr["estimate"]);
+                job.FinalPrice = rdr["final_price"].ToString() == "" ? 0 : Convert.ToDecimal(rdr["final_price"]);
+                job.Comments = rdr["comments"].ToString();
+                job.EnvelopeNumber = Convert.ToInt32(rdr["envelope_number"]);
+                job.Customer = rdr["customer"].ToString();
+
+                DateTime jobDateReceived = DateTime.Parse(job.Received);
+                DateTime currentDate = DateTime.Now;
+                int jobAge;
+
+                if (job.Completed != "")
+                {
+                    DateTime jobDateCompleted = DateTime.Parse(job.Completed);
+                    jobAge = Convert.ToInt32((jobDateCompleted - jobDateReceived).TotalDays);
+                } else
+                {
+                    jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                }
+                job.Age = jobAge;
+
+                jobs.Add(job);
+            }
+
+            return jobs;
+        }
+
+        public static List<Job> GetJobsWithCADStatus(SqlConnection con)
+        {
+            // Create a list of job objects
+            List<Job> jobs = new List<Job>();
+
+            SqlCommand cmd = new SqlCommand("SELECT j.jobId,j.customerId,j.job_type,j.status,j.received,j.completed,j.delivered,j.details,j.estimate,j.final_price,j.comments,j.envelope_number,(c.first_name + ' ' + c.last_name) as 'customer' FROM job j JOIN customer c ON j.customerId = c.customerId WHERE j.status = 'CAD';", con);
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                // Create a new job object to store properties inside
+                Job job = new Job();
+
+                job.JobId = Convert.ToInt32(rdr["jobId"]);
+                job.CustomerId = Convert.ToInt32(rdr["customerId"]);
+                job.JobType = rdr["job_type"].ToString();
+                job.Status = rdr["status"].ToString();
+                job.Received = rdr["received"].ToString();
+                job.Completed = rdr["completed"].ToString();
+                job.Delivered = rdr["delivered"].ToString();
+                job.Details = rdr["details"].ToString();
+                job.Estimate = Convert.ToDecimal(rdr["estimate"]);
+                job.FinalPrice = rdr["final_price"].ToString() == "" ? 0 : Convert.ToDecimal(rdr["final_price"]);
+                job.Comments = rdr["comments"].ToString();
+                job.EnvelopeNumber = Convert.ToInt32(rdr["envelope_number"]);
+                job.Customer = rdr["customer"].ToString();
+
+                DateTime jobDateReceived = DateTime.Parse(job.Received);
+                DateTime currentDate = DateTime.Now;
+                int jobAge;
+
+                if (job.Completed != "")
+                {
+                    DateTime jobDateCompleted = DateTime.Parse(job.Completed);
+                    jobAge = Convert.ToInt32((jobDateCompleted - jobDateReceived).TotalDays);
+                } else
+                {
+                    jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                }
+                job.Age = jobAge;
+
+                jobs.Add(job);
+            }
+
+            return jobs;
+        }
+
+        public static List<Job> GetJobsWithApprovalStatus(SqlConnection con)
+        {
+            // Create a list of job objects
+            List<Job> jobs = new List<Job>();
+
+            SqlCommand cmd = new SqlCommand("SELECT j.jobId,j.customerId,j.job_type,j.status,j.received,j.completed,j.delivered,j.details,j.estimate,j.final_price,j.comments,j.envelope_number,(c.first_name + ' ' + c.last_name) as 'customer' FROM job j JOIN customer c ON j.customerId = c.customerId WHERE j.status = 'approval';", con);
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                // Create a new job object to store properties inside
+                Job job = new Job();
+
+                job.JobId = Convert.ToInt32(rdr["jobId"]);
+                job.CustomerId = Convert.ToInt32(rdr["customerId"]);
+                job.JobType = rdr["job_type"].ToString();
+                job.Status = rdr["status"].ToString();
+                job.Received = rdr["received"].ToString();
+                job.Completed = rdr["completed"].ToString();
+                job.Delivered = rdr["delivered"].ToString();
+                job.Details = rdr["details"].ToString();
+                job.Estimate = Convert.ToDecimal(rdr["estimate"]);
+                job.FinalPrice = rdr["final_price"].ToString() == "" ? 0 : Convert.ToDecimal(rdr["final_price"]);
+                job.Comments = rdr["comments"].ToString();
+                job.EnvelopeNumber = Convert.ToInt32(rdr["envelope_number"]);
+                job.Customer = rdr["customer"].ToString();
+
+                DateTime jobDateReceived = DateTime.Parse(job.Received);
+                DateTime currentDate = DateTime.Now;
+                int jobAge;
+
+                if (job.Completed != "")
+                {
+                    DateTime jobDateCompleted = DateTime.Parse(job.Completed);
+                    jobAge = Convert.ToInt32((jobDateCompleted - jobDateReceived).TotalDays);
+                } else
+                {
+                    jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                }
+                job.Age = jobAge;
+
+                jobs.Add(job);
+            }
+
+            return jobs;
+        }
+
+        public static List<Job> GetJobsWithPrintingStatus(SqlConnection con)
+        {
+            // Create a list of job objects
+            List<Job> jobs = new List<Job>();
+
+            SqlCommand cmd = new SqlCommand("SELECT j.jobId,j.customerId,j.job_type,j.status,j.received,j.completed,j.delivered,j.details,j.estimate,j.final_price,j.comments,j.envelope_number,(c.first_name + ' ' + c.last_name) as 'customer' FROM job j JOIN customer c ON j.customerId = c.customerId WHERE j.status = 'printing';", con);
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                // Create a new job object to store properties inside
+                Job job = new Job();
+
+                job.JobId = Convert.ToInt32(rdr["jobId"]);
+                job.CustomerId = Convert.ToInt32(rdr["customerId"]);
+                job.JobType = rdr["job_type"].ToString();
+                job.Status = rdr["status"].ToString();
+                job.Received = rdr["received"].ToString();
+                job.Completed = rdr["completed"].ToString();
+                job.Delivered = rdr["delivered"].ToString();
+                job.Details = rdr["details"].ToString();
+                job.Estimate = Convert.ToDecimal(rdr["estimate"]);
+                job.FinalPrice = rdr["final_price"].ToString() == "" ? 0 : Convert.ToDecimal(rdr["final_price"]);
+                job.Comments = rdr["comments"].ToString();
+                job.EnvelopeNumber = Convert.ToInt32(rdr["envelope_number"]);
+                job.Customer = rdr["customer"].ToString();
+
+                DateTime jobDateReceived = DateTime.Parse(job.Received);
+                DateTime currentDate = DateTime.Now;
+                int jobAge;
+
+                if (job.Completed != "")
+                {
+                    DateTime jobDateCompleted = DateTime.Parse(job.Completed);
+                    jobAge = Convert.ToInt32((jobDateCompleted - jobDateReceived).TotalDays);
+                } else
+                {
+                    jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                }
+                job.Age = jobAge;
+
+                jobs.Add(job);
+            }
+
+            return jobs;
+        }
+
+        public static List<Job> GetJobsWithCastingStatus(SqlConnection con)
+        {
+            // Create a list of job objects
+            List<Job> jobs = new List<Job>();
+
+            SqlCommand cmd = new SqlCommand("SELECT j.jobId,j.customerId,j.job_type,j.status,j.received,j.completed,j.delivered,j.details,j.estimate,j.final_price,j.comments,j.envelope_number,(c.first_name + ' ' + c.last_name) as 'customer' FROM job j JOIN customer c ON j.customerId = c.customerId WHERE j.status = 'casting';", con);
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                // Create a new job object to store properties inside
+                Job job = new Job();
+
+                job.JobId = Convert.ToInt32(rdr["jobId"]);
+                job.CustomerId = Convert.ToInt32(rdr["customerId"]);
+                job.JobType = rdr["job_type"].ToString();
+                job.Status = rdr["status"].ToString();
+                job.Received = rdr["received"].ToString();
+                job.Completed = rdr["completed"].ToString();
+                job.Delivered = rdr["delivered"].ToString();
+                job.Details = rdr["details"].ToString();
+                job.Estimate = Convert.ToDecimal(rdr["estimate"]);
+                job.FinalPrice = rdr["final_price"].ToString() == "" ? 0 : Convert.ToDecimal(rdr["final_price"]);
+                job.Comments = rdr["comments"].ToString();
+                job.EnvelopeNumber = Convert.ToInt32(rdr["envelope_number"]);
+                job.Customer = rdr["customer"].ToString();
+
+                DateTime jobDateReceived = DateTime.Parse(job.Received);
+                DateTime currentDate = DateTime.Now;
+                int jobAge;
+
+                if (job.Completed != "")
+                {
+                    DateTime jobDateCompleted = DateTime.Parse(job.Completed);
+                    jobAge = Convert.ToInt32((jobDateCompleted - jobDateReceived).TotalDays);
+                } else
+                {
+                    jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                }
+                job.Age = jobAge;
+
+                jobs.Add(job);
+            }
+
+            return jobs;
+        }
+
+        public static List<Job> GetJobsWithSettingStatus(SqlConnection con)
+        {
+            // Create a list of job objects
+            List<Job> jobs = new List<Job>();
+
+            SqlCommand cmd = new SqlCommand("SELECT j.jobId,j.customerId,j.job_type,j.status,j.received,j.completed,j.delivered,j.details,j.estimate,j.final_price,j.comments,j.envelope_number,(c.first_name + ' ' + c.last_name) as 'customer' FROM job j JOIN customer c ON j.customerId = c.customerId WHERE j.status = 'setting';", con);
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                // Create a new job object to store properties inside
+                Job job = new Job();
+
+                job.JobId = Convert.ToInt32(rdr["jobId"]);
+                job.CustomerId = Convert.ToInt32(rdr["customerId"]);
+                job.JobType = rdr["job_type"].ToString();
+                job.Status = rdr["status"].ToString();
+                job.Received = rdr["received"].ToString();
+                job.Completed = rdr["completed"].ToString();
+                job.Delivered = rdr["delivered"].ToString();
+                job.Details = rdr["details"].ToString();
+                job.Estimate = Convert.ToDecimal(rdr["estimate"]);
+                job.FinalPrice = rdr["final_price"].ToString() == "" ? 0 : Convert.ToDecimal(rdr["final_price"]);
+                job.Comments = rdr["comments"].ToString();
+                job.EnvelopeNumber = Convert.ToInt32(rdr["envelope_number"]);
+                job.Customer = rdr["customer"].ToString();
+
+                DateTime jobDateReceived = DateTime.Parse(job.Received);
+                DateTime currentDate = DateTime.Now;
+                int jobAge;
+
+                if (job.Completed != "")
+                {
+                    DateTime jobDateCompleted = DateTime.Parse(job.Completed);
+                    jobAge = Convert.ToInt32((jobDateCompleted - jobDateReceived).TotalDays);
+                } else
+                {
+                    jobAge = Convert.ToInt32((currentDate - jobDateReceived).TotalDays);
+                }
+                job.Age = jobAge;
+
+                jobs.Add(job);
+            }
+
+            return jobs;
         }
     }
 }

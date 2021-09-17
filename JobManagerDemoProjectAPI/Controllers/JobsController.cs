@@ -405,8 +405,169 @@ namespace JobTrackerDemoProjectAPI.Controllers
 
             return response;
         }
+
+        // This section is for the Kanban Board
+
+        [HttpGet]
+        [Route("/Jobs/GetJobsWithQuoteStatus")]
+
+        public Response GetJobsWithQuoteStatus()
+        {
+            Response response = new Response();
+            List<Job> jobs = new List<Job>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    jobs = Job.GetJobsWithQuoteStatus(con);
+                }
+                response.result = "success";
+                response.message = $"{jobs.Count()} rows selected.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("/Jobs/GetJobsWithCADStatus")]
+
+        public Response GetJobsWithCADStatus()
+        {
+            Response response = new Response();
+            List<Job> jobs = new List<Job>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    jobs = Job.GetJobsWithCADStatus(con);
+                }
+                response.result = "success";
+                response.message = $"{jobs.Count()} rows selected.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("/Jobs/GetJobsWithApprovalStatus")]
+
+        public Response GetJobsWithApprovalStatus()
+        {
+            Response response = new Response();
+            List<Job> jobs = new List<Job>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    jobs = Job.GetJobsWithApprovalStatus(con);
+                }
+                response.result = "success";
+                response.message = $"{jobs.Count()} rows selected.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("/Jobs/GetJobsWithPrintingStatus")]
+
+        public Response GetJobsWithPrintingStatus()
+        {
+            Response response = new Response();
+            List<Job> jobs = new List<Job>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    jobs = Job.GetJobsWithPrintingStatus(con);
+                }
+                response.result = "success";
+                response.message = $"{jobs.Count()} rows selected.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("/Jobs/GetJobsWithCastingStatus")]
+
+        public Response GetJobsWithCastingStatus()
+        {
+            Response response = new Response();
+            List<Job> jobs = new List<Job>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    jobs = Job.GetJobsWithCastingStatus(con);
+                }
+                response.result = "success";
+                response.message = $"{jobs.Count()} rows selected.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("/Jobs/GetJobsWithSettingStatus")]
+
+        public Response GetJobsWithSettingStatus()
+        {
+            Response response = new Response();
+            List<Job> jobs = new List<Job>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    jobs = Job.GetJobsWithSettingStatus(con);
+                }
+                response.result = "success";
+                response.message = $"{jobs.Count()} rows selected.";
+                response.jobs = jobs;
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return response;
+        }
     }
 }
-
-
-

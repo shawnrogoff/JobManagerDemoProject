@@ -183,8 +183,7 @@
     }
 
     function showKanbanBoard(){
-        getJobsBasedOnSelectBox();
-
+        
         document.getElementById("customersPage").classList.add("invisible");
         document.getElementById("jobsPage").classList.add("invisible");
         document.getElementById("customJobKanBan").classList.remove("invisible");
@@ -199,6 +198,8 @@
         document.getElementById("showCustomersBtn").classList.add("btn-outline-light");
         document.getElementById("showToolsBtn").classList.remove("btn-light");
         document.getElementById("showToolsBtn").classList.add("btn-outline-light");
+
+        refreshKanbanLanes();
     }
 
 
@@ -1612,7 +1613,6 @@
         document.getElementById("markDeliveredJobId").value = jobId;
     }
 
-    
     function insertJob(e) {
         var customerId = document.getElementById("addJobCustomerId");
         var jobType = document.getElementById("addJobJobType");
@@ -2026,7 +2026,508 @@
             }
         }   
     }
+
+    // Kanban board stuff
+
+    function refreshKanbanLanes(){
+        getJobsWithQuoteStatus();
+        getJobsWithCADStatus();
+        getJobsWithApprovalStatus();
+        getJobsWithPrintingStatus();
+        getJobsWithCastingStatus();
+        getJobsWithSettingStatus();
+      }
+      
+    // Quote Kanban Lane
+
+    function getJobsWithQuoteStatus(){
+        var baseURL = "https://66.158.188.108:5001/Jobs/GetJobsWithQuoteStatus";
+        var queryString = "";
+        
+        var xhr = new XMLHttpRequest();
+        
+        xhr.onreadystatechange = doAfterGetJobsWithQuoteStatus;
+        
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+        
+        function doAfterGetJobsWithQuoteStatus() {
+        
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+        
+                    var response = JSON.parse(xhr.responseText);
+        
+                    if (response.result === "success") {
+                        var jobs = response.jobs;
+                        loadQuoteLane(jobs);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+        
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
     
+    function loadQuoteLane(jobs){
+        var html;
+            var dynamic;
+            var job;
+    
+            //Build an html table of the customers.
+            html = "";
+                        
+            for (var i = 0; i < jobs.length; i++) {
+                job = jobs[i];
+    
+                html = html + 
+                "<li>" +
+                    "<div class='card text-center bg-light my-2 border-dark'>" +
+                        "<div class='card-body' style='border: 2px;'>" +
+                            "<h5 class='card-title text-dark'>" + job.jobId + "</h5>" +
+                            "<h5 class='card-text text-dark'>" + job.customer + "</h5>" +
+                            "<h5 class='card-text text-dark'>" + job.envelopeNumber + "</h5>" +
+                            "<div class='row'>" +
+                                "<div class='col-12 justify-content-center'>" +
+                                    "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>"
+                                "</div>" +
+                            "</div>" +
+                            "<div class='row row-cols-4'>" +
+                                "<div class='col justify-content-center'>" +
+                                    "<button title='Inactivate Job' type='button' onclick='inactivateJob(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-times'></i></button>" +
+                                "</div>" +
+                                "<div class='col justify-content-center'>" +
+                                    "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-left'></i></button>" +
+                                "</div>" +
+                                "<div class='col justify-content-center'>" +
+                                    "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-right'></i></button>" +
+                                "</div>" +
+                                "<div class='col justify-content-center'>" +
+                                    "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                "</li>"  
+            }
+    
+            //Inject the new html into the DOM.
+            dynamic = document.getElementById("customJobsInQuoting");
+            dynamic.innerHTML = html;
+    }
+
+    // CAD Kanban Lane
+   
+    function getJobsWithCADStatus(){
+        var baseURL = "https://66.158.188.108:5001/Jobs/GetJobsWithCADStatus";
+        var queryString = "";
+        
+        var xhr = new XMLHttpRequest();
+        
+        xhr.onreadystatechange = doAfterGetJobsWithCADStatus;
+        
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+        
+        function doAfterGetJobsWithCADStatus() {
+        
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+        
+                    var response = JSON.parse(xhr.responseText);
+        
+                    if (response.result === "success") {
+                        var jobs = response.jobs;
+                        loadCADLane(jobs);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+        
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+        
+    function loadCADLane(jobs){
+        var html;
+                var dynamic;
+                var job;
+        
+                html = "";
+                            
+                for (var i = 0; i < jobs.length; i++) {
+                    job = jobs[i];
+        
+                    html = html + 
+                    "<li>" +
+                        "<div class='card text-center bg-light my-2 border-dark'>" +
+                            "<div class='card-body' style='border: 2px;'>" +
+                                "<h5 class='card-title text-dark'>" + job.jobId + "</h5>" +
+                                "<h5 class='card-text text-dark'>" + job.customer + "</h5>" +
+                                "<h5 class='card-text text-dark'>" + job.envelopeNumber + "</h5>" +
+                                "<div class='row'>" +
+                                    "<div class='col-12 justify-content-center'>" +
+                                        "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>"
+                                    "</div>" +
+                                "</div>" +
+                                "<div class='row row-cols-4'>" +
+                                    "<div class='col justify-content-center'>" +
+                                        "<button title='Inactivate Job' type='button' onclick='inactivateJob(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
+                                    "</div>" +
+                                    "<div class='col justify-content-center'>" +
+                                        "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-left'></i></button>" +
+                                    "</div>" +
+                                    "<div class='col justify-content-center'>" +
+                                        "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-right'></i></button>" +
+                                    "</div>" +
+                                    "<div class='col justify-content-center'>" +
+                                        "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
+                                    "</div>" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>" +
+                    "</li>"  
+                }
+        
+                // Inject the new html into the DOM.
+                dynamic = document.getElementById("customJobsInCAD");
+                dynamic.innerHTML = html;
+    }
+
+    // Approval Kanban Lane
+  
+    function getJobsWithApprovalStatus(){
+        var baseURL = "https://66.158.188.108:5001/Jobs/GetJobsWithApprovalStatus";
+        var queryString = "";
+        
+        var xhr = new XMLHttpRequest();
+        
+        xhr.onreadystatechange = doAfterGetJobsWithApprovalStatus;
+        
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+        
+        function doAfterGetJobsWithApprovalStatus() {
+        
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+        
+                    var response = JSON.parse(xhr.responseText);
+        
+                    if (response.result === "success") {
+                        var jobs = response.jobs;
+                        loadApprovalLane(jobs);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+        
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+        
+    function loadApprovalLane(jobs){
+        var html;
+        var dynamic;
+        var job;
+
+        html = "";
+                    
+        for (var i = 0; i < jobs.length; i++) {
+            job = jobs[i];
+
+            html = html + 
+            "<li>" +
+                "<div class='card text-center bg-light my-2 border-dark'>" +
+                    "<div class='card-body' style='border: 2px;'>" +
+                        "<h5 class='card-title text-dark'>" + job.jobId + "</h5>" +
+                        "<h5 class='card-text text-dark'>" + job.customer + "</h5>" +
+                        "<h5 class='card-text text-dark'>" + job.envelopeNumber + "</h5>" +
+                        "<div class='row'>" +
+                            "<div class='col-12 justify-content-center'>" +
+                                "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>"
+                            "</div>" +
+                        "</div>" +
+                        "<div class='row row-cols-4'>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Inactivate Job' type='button' onclick='inactivateJob(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
+                            "</div>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-left'></i></button>" +
+                            "</div>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-right'></i></button>" +
+                            "</div>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+            "</li>"  
+        }
+
+        // Inject the new html into the DOM.
+        dynamic = document.getElementById("customJobsInApproval");
+        dynamic.innerHTML = html;
+    }
+
+    // Printing Kanban Lane
+        
+    function getJobsWithPrintingStatus(){
+        var baseURL = "https://66.158.188.108:5001/Jobs/GetJobsWithPrintingStatus";
+        var queryString = "";
+        
+        var xhr = new XMLHttpRequest();
+        
+        xhr.onreadystatechange = doAfterGetJobsWithPrintingStatus;
+        
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+        
+        function doAfterGetJobsWithPrintingStatus() {
+        
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+        
+                    var response = JSON.parse(xhr.responseText);
+        
+                    if (response.result === "success") {
+                        var jobs = response.jobs;
+                        loadPrintingLane(jobs);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+        
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+        
+    function loadPrintingLane(jobs){
+        var html;
+        var dynamic;
+        var job;
+
+        html = "";
+                    
+        for (var i = 0; i < jobs.length; i++) {
+            job = jobs[i];
+
+            html = html + 
+            "<li>" +
+                "<div class='card text-center bg-light my-2 border-dark'>" +
+                    "<div class='card-body' style='border: 2px;'>" +
+                        "<h5 class='card-title text-dark'>" + job.jobId + "</h5>" +
+                        "<h5 class='card-text text-dark'>" + job.customer + "</h5>" +
+                        "<h5 class='card-text text-dark'>" + job.envelopeNumber + "</h5>" +
+                        "<div class='row'>" +
+                            "<div class='col-12 justify-content-center'>" +
+                                "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>"
+                            "</div>" +
+                        "</div>" +
+                        "<div class='row row-cols-4'>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Inactivate Job' type='button' onclick='inactivateJob(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
+                            "</div>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-left'></i></button>" +
+                            "</div>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-right'></i></button>" +
+                            "</div>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+            "</li>"  
+        }
+
+        // Inject the new html into the DOM.
+        dynamic = document.getElementById("customJobsInPrinting");
+        dynamic.innerHTML = html;
+    }
+
+    // Casting Kanban Lane
+    function getJobsWithCastingStatus(){
+        var baseURL = "https://66.158.188.108:5001/Jobs/GetJobsWithCastingStatus";
+        var queryString = "";
+        
+        var xhr = new XMLHttpRequest();
+        
+        xhr.onreadystatechange = doAfterGetJobsWithCastingStatus;
+        
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+        
+        function doAfterGetJobsWithCastingStatus() {
+        
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+        
+                    var response = JSON.parse(xhr.responseText);
+        
+                    if (response.result === "success") {
+                        var jobs = response.jobs;
+                        loadCastingLane(jobs);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+        
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+        
+    function loadCastingLane(jobs){
+        var html;
+        var dynamic;
+        var job;
+
+        html = "";
+                    
+        for (var i = 0; i < jobs.length; i++) {
+            job = jobs[i];
+
+            html = html + 
+            "<li>" +
+                "<div class='card text-center bg-light my-2 border-dark'>" +
+                    "<div class='card-body' style='border: 2px;'>" +
+                        "<h5 class='card-title text-dark'>" + job.jobId + "</h5>" +
+                        "<h5 class='card-text text-dark'>" + job.customer + "</h5>" +
+                        "<h5 class='card-text text-dark'>" + job.envelopeNumber + "</h5>" +
+                        "<div class='row'>" +
+                            "<div class='col-12 justify-content-center'>" +
+                                "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>"
+                            "</div>" +
+                        "</div>" +
+                        "<div class='row row-cols-4'>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Inactivate Job' type='button' onclick='inactivateJob(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
+                            "</div>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-left'></i></button>" +
+                            "</div>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-right'></i></button>" +
+                            "</div>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+            "</li>"  
+        }
+
+        // Inject the new html into the DOM.
+        dynamic = document.getElementById("customJobsInCasting");
+        dynamic.innerHTML = html;
+    }
+
+    // Setting Kanban Lane
+    function getJobsWithSettingStatus(){
+        var baseURL = "https://66.158.188.108:5001/Jobs/GetJobsWithSettingStatus";
+        var queryString = "";
+        
+        var xhr = new XMLHttpRequest();
+        
+        xhr.onreadystatechange = doAfterGetJobsWithSettingStatus;
+        
+        xhr.open("GET", baseURL + queryString, true);
+        xhr.send();
+        
+        function doAfterGetJobsWithSettingStatus() {
+        
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+        
+                    var response = JSON.parse(xhr.responseText);
+        
+                    if (response.result === "success") {
+                        var jobs = response.jobs;
+                        loadSettingLane(jobs);
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+        
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+    }
+        
+    function loadSettingLane(jobs){
+        var html;
+        var dynamic;
+        var job;
+
+        html = "";
+                    
+        for (var i = 0; i < jobs.length; i++) {
+            job = jobs[i];
+
+            html = html + 
+            "<li>" +
+                "<div class='card text-center bg-light my-2 border-dark'>" +
+                    "<div class='card-body' style='border: 2px;'>" +
+                        "<h5 class='card-title text-dark'>" + job.jobId + "</h5>" +
+                        "<h5 class='card-text text-dark'>" + job.customer + "</h5>" +
+                        "<h5 class='card-text text-dark'>" + job.envelopeNumber + "</h5>" +
+                        "<div class='row'>" +
+                            "<div class='col-12 justify-content-center'>" +
+                                "<button title='Job Details' type='button' onclick='populateDetailsAndEditModals(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info'></i></button>"
+                            "</div>" +
+                        "</div>" +
+                        "<div class='row row-cols-4'>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Inactivate Job' type='button' onclick='inactivateJob(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
+                            "</div>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-left'></i></button>" +
+                            "</div>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-right'></i></button>" +
+                            "</div>" +
+                            "<div class='col justify-content-center'>" +
+                                "<button title='Mark Job complete' type='button' onclick='markJobComplete(" + job.jobId + ")'class='btn btn-light btn-sm '><i class='fas fa-check'></i></button>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+            "</li>"  
+        }
+
+        // Inject the new html into the DOM.
+        dynamic = document.getElementById("customJobsInSetting");
+        dynamic.innerHTML = html;
+    }
+     
+    
+
+
+
+
 
     // These functions help deal with getting a customer selected for the new job being added to db
     function getCustomersForAddJob() {

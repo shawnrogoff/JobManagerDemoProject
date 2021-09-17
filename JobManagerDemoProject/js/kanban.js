@@ -29,9 +29,3 @@ function addTask() {
   /* Clear task text from input after adding task */
   document.getElementById("taskText").value = "";
 }
-
-/* Vanilla JS to delete tasks in 'Trash' column */
-function emptyTrash() {
-  /* Clear tasks from 'Trash' column */
-  document.getElementById("trash").innerHTML = "";
-}
