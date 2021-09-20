@@ -493,6 +493,25 @@ namespace JobTrackerDemoProjectAPI
             return rowsUpdated;
         }
 
+        public static int UpdateJobStatus(SqlConnection con, Job job)
+        {
+            int rowsUpdated = 0;
+
+            // SqlCommand cmd = new SqlCommand("UPDATE job SET customerId = @CustomerId, job_type = @JobType, status = @Status, received = @Received, completed = @Completed, delivered = @Delivered, details = @Details, estimate = @Estimate, final_price = @FinalPrice, comments = @Comments, envelope_number = @EnvelopeNumber, text_notifcations = @TextNotifications, email_notifications = @EmailNotifications WHERE jobId = @JobId", con);
+            SqlCommand cmd = new SqlCommand("UPDATE job SET status = @Status WHERE jobId = @JobId", con);
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            cmd.Parameters.Add("@JobId", System.Data.SqlDbType.Int);
+            cmd.Parameters.Add("@Status", System.Data.SqlDbType.VarChar);            
+            
+            cmd.Parameters["@JobId"].Value = job.JobId;
+            cmd.Parameters["@Status"].Value = job.Status;
+
+            rowsUpdated = cmd.ExecuteNonQuery();
+
+            return rowsUpdated;
+        }
+
         public static int MarkJobDelivered(SqlConnection con, Job job)
         {
             int rowsUpdated = 0;

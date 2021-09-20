@@ -2031,6 +2031,49 @@
         }   
     }
 
+    // For Kanban board specifically
+    function updateJobStatus(jobId, jobStatus){
+        
+        job = {
+            "jobId": jobId,
+            "status": jobStatus
+        };
+
+        postBody = JSON.stringify(job);
+
+        var baseURL = "https://66.158.188.108:5001/Jobs/UpdateJobStatus";
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = doAfterUpdateJobStatus;
+        xhr.open("POST", baseURL, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(postBody);
+
+
+        function doAfterUpdateJobStatus() {
+
+            if (xhr.readyState === 4) { //done
+                if (xhr.status === 200) { //ok
+                    //alert(xhr.responseText);
+
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.result === "success") {
+                        var jobs = response.jobs;
+                        getJobsBasedOnSelectBox();
+                    } else {
+                        alert("API Error: " + response.message);
+                    }
+
+                } else {
+                    alert("Server Error: " + xhr.statusText);
+                }
+            }
+        }
+        e.preventDefault();
+
+    }
+
     // Kanban board stuff
 
     function refreshKanbanLanes(){
@@ -2102,16 +2145,16 @@
                             "</div>" +
                             "<div class='row row-cols-4'>" +
                                 "<div class='col justify-content-center'>" +
-                                    "<button title='Inactivate Job' type='button' onclick='inactivateJob(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-times'></i></button>" +
+                                    "<button title='Inactivate Job' type='button' onclick='populateRemoveJobModal(" + job.jobId + ")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#removeJobModal'><i class='fas fa-times'></i></button>" +
                                 "</div>" +
                                 "<div class='col justify-content-center'>" +
-                                    "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-left'></i></button>" +
+                                    "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jumpJobStatusModal'><i class='fas fa-angle-double-left'></i></button>" +
                                 "</div>" +
                                 "<div class='col justify-content-center'>" +
-                                    "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-right'></i></button>" +
+                                    "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jumpJobStatusModal'><i class='fas fa-angle-double-right'></i></button>" +
                                 "</div>" +
                                 "<div class='col justify-content-center'>" +
-                                    "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
+                                    "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
                                 "</div>" +
                             "</div>" +
                         "</div>" +
@@ -2183,16 +2226,16 @@
                                 "</div>" +
                                 "<div class='row row-cols-4'>" +
                                     "<div class='col justify-content-center'>" +
-                                        "<button title='Inactivate Job' type='button' onclick='inactivateJob(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
+                                        "<button title='Reverse Job Status' type='button' onclick='reverseJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
                                     "</div>" +
                                     "<div class='col justify-content-center'>" +
-                                        "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-left'></i></button>" +
+                                        "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jumpJobStatusModal'><i class='fas fa-angle-double-left'></i></button>" +
                                     "</div>" +
                                     "<div class='col justify-content-center'>" +
-                                        "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-right'></i></button>" +
+                                        "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jumpJobStatusModal'><i class='fas fa-angle-double-right'></i></button>" +
                                     "</div>" +
                                     "<div class='col justify-content-center'>" +
-                                        "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
+                                        "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
                                     "</div>" +
                                 "</div>" +
                             "</div>" +
@@ -2264,16 +2307,16 @@
                         "</div>" +
                         "<div class='row row-cols-4'>" +
                             "<div class='col justify-content-center'>" +
-                                "<button title='Inactivate Job' type='button' onclick='inactivateJob(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
+                                "<button title='Reverse Job Status' type='button' onclick='reverseJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
                             "</div>" +
                             "<div class='col justify-content-center'>" +
-                                "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-left'></i></button>" +
+                                "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jumpJobStatusModal'><i class='fas fa-angle-double-left'></i></button>" +
                             "</div>" +
                             "<div class='col justify-content-center'>" +
-                                "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-right'></i></button>" +
+                                "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jumpJobStatusModal'><i class='fas fa-angle-double-right'></i></button>" +
                             "</div>" +
                             "<div class='col justify-content-center'>" +
-                                "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
+                                "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
                             "</div>" +
                         "</div>" +
                     "</div>" +
@@ -2344,17 +2387,17 @@
                             "</div>" +
                         "</div>" +
                         "<div class='row row-cols-4'>" +
-                            "<div class='col justify-content-center'>" +
-                                "<button title='Inactivate Job' type='button' onclick='inactivateJob(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
+                        "<div class='col justify-content-center'>" +
+                        "<button title='Reverse Job Status' type='button' onclick='reverseJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
                             "</div>" +
                             "<div class='col justify-content-center'>" +
-                                "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-left'></i></button>" +
+                                "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jumpJobStatusModal'><i class='fas fa-angle-double-left'></i></button>" +
                             "</div>" +
                             "<div class='col justify-content-center'>" +
-                                "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-right'></i></button>" +
+                                "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jumpJobStatusModal'><i class='fas fa-angle-double-right'></i></button>" +
                             "</div>" +
                             "<div class='col justify-content-center'>" +
-                                "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
+                                "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
                             "</div>" +
                         "</div>" +
                     "</div>" +
@@ -2424,17 +2467,17 @@
                             "</div>" +
                         "</div>" +
                         "<div class='row row-cols-4'>" +
-                            "<div class='col justify-content-center'>" +
-                                "<button title='Inactivate Job' type='button' onclick='inactivateJob(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
+                        "<div class='col justify-content-center'>" +
+                        "<button title='Reverse Job Status' type='button' onclick='reverseJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
                             "</div>" +
                             "<div class='col justify-content-center'>" +
-                                "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-left'></i></button>" +
+                                "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm'  data-bs-toggle='modal' data-bs-target='#jumpJobStatusModal'><i class='fas fa-angle-double-left'></i></button>" +
                             "</div>" +
                             "<div class='col justify-content-center'>" +
-                                "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-right'></i></button>" +
+                                "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jumpJobStatusModal'><i class='fas fa-angle-double-right'></i></button>" +
                             "</div>" +
                             "<div class='col justify-content-center'>" +
-                                "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
+                                "<button title='Advance Job Status' type='button' onclick='advanceJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm'><i class='fas fa-angle-right'></i></button>" +
                             "</div>" +
                         "</div>" +
                     "</div>" +
@@ -2505,16 +2548,16 @@
                         "</div>" +
                         "<div class='row row-cols-4'>" +
                             "<div class='col justify-content-center'>" +
-                                "<button title='Inactivate Job' type='button' onclick='inactivateJob(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
+                                "<button title='Reverse Job Status' type='button' onclick='reverseJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm'><i class='fas fa-angle-left'></i></button>" +
                             "</div>" +
                             "<div class='col justify-content-center'>" +
-                                "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-left'></i></button>" +
+                                "<button title='Jump Reverse Job Status' type='button' onclick='jumpJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jumpJobStatusModal'><i class='fas fa-angle-double-left'></i></button>" +
                             "</div>" +
                             "<div class='col justify-content-center'>" +
-                                "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(" + job.jobId + ")' class='btn btn-light btn-sm'><i class='fas fa-angle-double-right'></i></button>" +
+                                "<button title='Jump Advance Job Status' type='button' onclick='jumpJobStatus(\"" + job.jobId + "\", \"" + job.status + "\")' class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#jumpJobStatusModal'><i class='fas fa-angle-double-right'></i></button>" +
                             "</div>" +
                             "<div class='col justify-content-center'>" +
-                                "<button title='Mark Job complete' type='button' onclick='markJobComplete(" + job.jobId + ")'class='btn btn-light btn-sm '><i class='fas fa-check'></i></button>" +
+                                "<button title='Mark Job complete' type='button' onclick='populateCompleteJobModal(" + job.jobId + ")'class='btn btn-light btn-sm' data-bs-toggle='modal' data-bs-target='#MarkJobCompleteModal'><i class='fas fa-check'></i></button>" +
                             "</div>" +
                         "</div>" +
                     "</div>" +
@@ -2527,7 +2570,67 @@
         dynamic.innerHTML = html;
     }
      
-    
+    function advanceJobStatus(jobId, jobStatus){
+        
+        switch (jobStatus) {
+            case "quote":
+                var newJobStatus = "CAD";
+                updateJobStatus(jobId, newJobStatus);
+                break;
+            case "CAD":
+                var newJobStatus = "approval";
+                updateJobStatus(jobId, newJobStatus);
+                break;
+            case "approval":
+                var newJobStatus = "printing";
+                updateJobStatus(jobId, newJobStatus);
+                break;
+            case "printing":
+                var newJobStatus = "casting";
+                updateJobStatus(jobId, newJobStatus);
+                break;
+            case "casting":
+                var newJobStatus = "setting";
+                updateJobStatus(jobId, newJobStatus);
+                break;
+            default:
+                break;
+        }
+    }
+
+    function reverseJobStatus(jobId, jobStatus){
+        
+        switch (jobStatus) {
+            case "quote":
+                break;
+            case "CAD":
+                var newJobStatus = "quote";
+                updateJobStatus(jobId, newJobStatus);
+                break;
+            case "approval":
+                var newJobStatus = "CAD";
+                updateJobStatus(jobId, newJobStatus);
+                break;
+            case "printing":
+                var newJobStatus = "approval";
+                updateJobStatus(jobId, newJobStatus);
+                break;
+            case "casting":
+                var newJobStatus = "printing";
+                updateJobStatus(jobId, newJobStatus);
+                break;
+            case "setting":
+                var newJobStatus = "casting";
+                updateJobStatus(jobId, newJobStatus);
+                break;
+            default:
+                break;
+        }
+    }
+
+    function jumpJobStatus(jobId, jobStatus){
+
+    }
 
 
 
