@@ -2629,8 +2629,31 @@
     }
 
     function jumpJobStatus(jobId, jobStatus){
-
+        document.getElementById("jumpJobStatusModalCurrentStatus").innerHTML = jobStatus;
+        document.getElementById("jumpJobStatusModalJobId").innerHTML = jobId;
     }
+
+    function UpdateJobFromJumpJobStatusModal(buttonDescription){
+        var jobId = document.getElementById("jumpJobStatusModalJobId").innerHTML;
+        var buttonValue = buttonDescription;
+        updateJobStatus(jobId, buttonValue);
+    }
+
+    function MarkJobInactiveFromJobStatusModal(){
+        var jobId = document.getElementById("jumpJobStatusModalJobId").innerHTML;
+        populateRemoveJobModal(jobId);
+    }
+
+    function MarkJobCompleteFromJobStatusModal(){
+        var jobId = document.getElementById("jumpJobStatusModalJobId").innerHTML;
+        populateCompleteJobModal(jobId);
+    }
+
+    function MarkJobDeliveredFromJobStatusModal(){
+        var jobId = document.getElementById("jumpJobStatusModalJobId").innerHTML;
+        populateDeliveredJobModal(jobId);
+    }
+
 
 
 

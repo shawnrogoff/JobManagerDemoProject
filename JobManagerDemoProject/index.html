@@ -1924,13 +1924,19 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Advance Job Status</h5>
+                            <h5 class="modal-title">Update Job Status</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="d-flex col justify-content-center">
-                                    <h5>Current Status: Quote</h5>
+                                    <h5 id="jumpJobStatusModalJobId" style="display:none;"></h5>
+                                    <div class="col">
+                                        <h5 class="text-end me-2">Current Status:</h5>
+                                    </div>
+                                    <div class="col">
+                                        <h5 id="jumpJobStatusModalCurrentStatus">quote</h5>
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -1940,35 +1946,35 @@
                         </div>
                         <div class="row row-cols-3">
                             <div class="col d-grid d-block">
-                                <button id="jumpJobStatusToQuote" type="button" class="btn btn-dark btn-lg my-1 mx-2">Quote</button>
+                                <button id="jumpJobStatusToQuote" onclick="UpdateJobFromJumpJobStatusModal('quote')" type="button" class="btn btn-dark btn-lg m-2" data-bs-dismiss="modal">Quote</button>
                             </div>
                             <div class="col d-grid d-block">
-                                <button id="jumpJobStatusToCAD" type="button" class="btn btn-dark btn-lg my-1 mx-2">CAD</button>
+                                <button id="jumpJobStatusToCAD" onclick="UpdateJobFromJumpJobStatusModal('CAD')" type="button" class="btn btn-dark btn-lg m-2" data-bs-dismiss="modal">CAD</button>
                             </div>
                             <div class="col d-grid d-block">
-                                <button id="jumpJobStatusToApproval" type="button" class="btn btn-dark btn-lg my-1 mx-2">Approval</button>
-                            </div>
-                        </div>
-                        <div class="row row-cols-3">
-                            <div class="col d-grid d-block">
-                                <button id="jumpJobStatusToPrinting" type="button" class="btn btn-dark btn-lg my-1 mx-2">Printing</button>
-                            </div>
-                            <div class="col d-grid d-block">
-                                <button id="jumpJobStatusToCasting" type="button" class="btn btn-dark btn-lg my-1 mx-2">Casting</button>
-                            </div>
-                            <div class="col d-grid d-block">
-                                <button id="jumpJobStatusToSetting" type="button" class="btn btn-dark btn-lg my-1 mx-2">Setting</button>
+                                <button id="jumpJobStatusToApproval" onclick="UpdateJobFromJumpJobStatusModal('approval')" type="button" class="btn btn-dark btn-lg m-2" data-bs-dismiss="modal">Approval</button>
                             </div>
                         </div>
                         <div class="row row-cols-3">
                             <div class="col d-grid d-block">
-                                <button id="jumpJobStatusToInactive" type="button" class="btn btn-dark btn-lg my-1 mx-2">Inactive</button>
+                                <button id="jumpJobStatusToPrinting" onclick="UpdateJobFromJumpJobStatusModal('printing')" type="button" class="btn btn-dark btn-lg m-2" data-bs-dismiss="modal">Printing</button>
                             </div>
                             <div class="col d-grid d-block">
-                                <button id="jumpJobStatusToComplete" type="button" class="btn btn-dark btn-lg my-1 mx-2">Complete</button>
+                                <button id="jumpJobStatusToCasting" onclick="UpdateJobFromJumpJobStatusModal('casting')" type="button" class="btn btn-dark btn-lg m-2" data-bs-dismiss="modal">Casting</button>
                             </div>
                             <div class="col d-grid d-block">
-                                <button id="jumpJobStatusToDelivered" type="button" class="btn btn-dark btn-lg my-1 mx-2">Delivered</button>
+                                <button id="jumpJobStatusToSetting" onclick="UpdateJobFromJumpJobStatusModal('setting')" type="button" class="btn btn-dark btn-lg m-2" data-bs-dismiss="modal">Setting</button>
+                            </div>
+                        </div>
+                        <div class="row row-cols-3">
+                            <div class="col d-grid d-block">
+                                <button id="jumpJobStatusToInactive" onclick="MarkJobInactiveFromJobStatusModal()" type="button" class="btn btn-dark btn-lg m-2" data-bs-dismiss="modal" data-bs-toggle='modal' data-bs-target='#removeJobModal'>Inactive</button>
+                            </div>
+                            <div class="col d-grid d-block">
+                                <button id="jumpJobStatusToComplete" onclick="MarkJobCompleteFromJobStatusModal()" type="button" class="btn btn-dark btn-lg m-2" data-bs-dismiss="modal" data-bs-toggle='modal' data-bs-target='#MarkJobCompleteModal'>Complete</button>
+                            </div>
+                            <div class="col d-grid d-block">
+                                <button id="jumpJobStatusToDelivered" onclick="MarkJobDeliveredFromJobStatusModal()" type="button" class="btn btn-dark btn-lg m-2" data-bs-dismiss="modal" data-bs-toggle='modal' data-bs-target='#MarkJobDeliveredModal'>Delivered</button>
                             </div>
                         </div>
                     </div>
