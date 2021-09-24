@@ -1120,8 +1120,8 @@
         <section id="jobsPage" class="" style="margin-top: 100px;">
             <!-- Buttons -->
             <div class="container">
-                <div class="row row-cols-1 row-cols-md-3">
-                    <div class="col">
+                <div class="d-flex row row-cols-1 row-cols-md-4 justify-content-sm-center">
+                    <div class="col justify-content-sm-center">
                         <select id="jobStatusSelection" class="form-select m-2 btn-lg" aria-label="Job Status Selection">
                           <option value="all">All</option>
                           <option value="in-progress" selected>In-Progress</option>
@@ -1133,14 +1133,16 @@
                     <div class="col">
 
                     </div>
-                    <div class="d-flex col justify-content-end">
+                    <div class="col justify-content-end justify-content-sm-center">
                       <button id="viewCustomsBtn" type="button" class="btn btn-dark btn-lg m-2 ">
                         View Custom Jobs
                       </button>
-                      <button type="button" class="btn btn-dark btn-lg m-2 " data-bs-toggle="modal" data-bs-target="#addJobModal">
-                        Add Job
-                      </button>
                     </div>
+                    <div class="col justify-content-end justify-content-sm-center">
+                        <button type="button" class="btn btn-dark btn-lg m-2 " data-bs-toggle="modal" data-bs-target="#addJobModal">
+                          Add Job
+                        </button>
+                      </div>
                 </div>
             </div>
             <!-- Jobs Table -->
@@ -1167,26 +1169,29 @@
             </div>
         </section>
         <section id="customersPage" class="invisible" style="margin-top: 100px;">
-          <!-- Buttons -->
-          <div class="container">
-            <div class="row">
-                  <div class="col-4">
-                    <select id="customerStatusSelection" class="form-select m-2 btn-lg" aria-label="Job Status Selection">
-                      <option value="all">All</option>
-                      <option value="active" selected>Active</option>
-                      <option value="inactive">Inactive</option>
-                    </select>
-                </div>
-                <div class="d-flex col-8 justify-content-end">
-                  <button id="mergeCustomersModalBtn" type="button" class="btn btn-dark btn-lg px-4 m-2 " data-bs-toggle="modal" data-bs-target="#mergeCustomersModal">
-                    Merge Customers
-                  </button>
-                  <button type="button" class="btn btn-dark btn-lg px-4 m-2 " data-bs-toggle="modal" data-bs-target="#addCustomerModal">
-                    Add Customer
-                  </button>
+            <!-- Buttons -->
+            <div class="container">
+                <div class="d-flex row row-cols-1 row-cols-md-4 justify-content-sm-center">
+                    <div class="col justify-content-sm-center">
+                        <select id="customerStatusSelection" class="form-select m-2 btn-lg" aria-label="Job Status Selection">
+                            <option value="all">All</option>
+                            <option value="active" selected>Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col"></div>
+                    <div class="col justify-content-end justify-content-sm-center">
+                        <button id="mergeCustomersModalBtn" type="button" class="btn btn-dark btn-lg px-4 m-2 " data-bs-toggle="modal" data-bs-target="#mergeCustomersModal">
+                            Merge Customers
+                        </button>
+                    </div>
+                    <div class="col justify-content-end justify-content-sm-center">
+                        <button type="button" class="btn btn-dark btn-lg px-4 m-2 " data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                            Add Customer
+                        </button>
+                    </div>
                 </div>
             </div>
-          </div>
           <!-- Customer Table -->
           <div id="dynamic1" class="container max-width: 70% mt-4 text-center" style="height:auto; overflow:auto;">
               <!-- dynamic table generated here -->
@@ -1928,7 +1933,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="row">
+                            <div class="row row-cols-1">
                                 <div class="d-flex col justify-content-center">
                                     <h5 id="jumpJobStatusModalJobId" style="display:none;"></h5>
                                     <div class="col">
@@ -1944,7 +1949,7 @@
                                 <h6 class="text-center">Please Select New Status:</h6>
                             </div>
                         </div>
-                        <div class="row row-cols-3">
+                        <div class="row row-cols-1 row-cols-md-3">
                             <div class="col d-grid d-block">
                                 <button id="jumpJobStatusToQuote" onclick="UpdateJobFromJumpJobStatusModal('quote')" type="button" class="btn btn-dark btn-lg m-2" data-bs-dismiss="modal">Quote</button>
                             </div>
@@ -1955,7 +1960,7 @@
                                 <button id="jumpJobStatusToApproval" onclick="UpdateJobFromJumpJobStatusModal('approval')" type="button" class="btn btn-dark btn-lg m-2" data-bs-dismiss="modal">Approval</button>
                             </div>
                         </div>
-                        <div class="row row-cols-3">
+                        <div class="row row-cols-1 row-cols-md-3">
                             <div class="col d-grid d-block">
                                 <button id="jumpJobStatusToPrinting" onclick="UpdateJobFromJumpJobStatusModal('printing')" type="button" class="btn btn-dark btn-lg m-2" data-bs-dismiss="modal">Printing</button>
                             </div>
@@ -1966,7 +1971,7 @@
                                 <button id="jumpJobStatusToSetting" onclick="UpdateJobFromJumpJobStatusModal('setting')" type="button" class="btn btn-dark btn-lg m-2" data-bs-dismiss="modal">Setting</button>
                             </div>
                         </div>
-                        <div class="row row-cols-3">
+                        <div class="row row-cols-1 row-cols-md-3">
                             <div class="col d-grid d-block">
                                 <button id="jumpJobStatusToInactive" onclick="MarkJobInactiveFromJobStatusModal()" type="button" class="btn btn-dark btn-lg m-2" data-bs-dismiss="modal" data-bs-toggle='modal' data-bs-target='#removeJobModal'>Inactive</button>
                             </div>
