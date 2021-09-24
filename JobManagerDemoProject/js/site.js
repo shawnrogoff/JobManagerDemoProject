@@ -251,8 +251,6 @@
             "<th scope='col'>Phone</th>" +
             "<th scope='col'>Address</th>" +
             "<th scope='col'></th>" +
-            "<th scope='col'></th>" +
-            "<th scope='col'></th>" +
             "</tr>" +
             "</thead>" +
             "<tbody>";
@@ -263,9 +261,10 @@
                 "<th scope='row' data-field='customer'>" + customer.firstName + " " + customer.lastName + "</th>" +
                 "<td data-field='phone'>" + customer.phone + "</td>" +
                 "<td data-field='address1'>" + customer.address1 + "</td>" +
-                "<td data-field='details'><button id='customerDetailsBtn' title='Details' type='button' data-action='details' onclick='getCustomerByCustomerIdForDetails(" + customer.customerId + ")' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerDetailsModal'><i class='fas fa-info-circle'></i></button></td>" +
-                "<td data-field='edit'><button id='customerBtn' title='Edit' type='button' data-action='edit' onclick='getCustomerByCustomerIdForEdit(" + customer.customerId + ")' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerEditModal'><i class='fas fa-edit'></i></button></td>" +
-                "<td data-field='inactivate'><button id='customerInactivateBtn' title='Inactivate' type='button' data-action='inactivate' onclick='populateInactivateCustomerModal(" + customer.customerId + ")' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#inactivateCustomerModal'><i class='fas fa-minus-square'></i></button></td>" +
+                "<td><div class='btn-group no-sort' role='group'>" + 
+                    "<button id='customerDetailsBtn' title='Details' type='button' data-action='details' onclick='getCustomerByCustomerIdForDetails(" + customer.customerId + ")' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerDetailsModal'><i class='fas fa-info-circle'></i></button>" +
+                    "<button id='customerBtn' title='Edit' type='button' data-action='edit' onclick='getCustomerByCustomerIdForEdit(" + customer.customerId + ")' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#customerEditModal'><i class='fas fa-edit'></i></button>" +
+                    "<button id='customerInactivateBtn' title='Inactivate' type='button' data-action='inactivate' onclick='populateInactivateCustomerModal(" + customer.customerId + ")' data-customerid=" + customer.customerId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#inactivateCustomerModal'><i class='fas fa-minus-square'></i></button></div></td>" +
                 "</tr>";
         }
 
@@ -276,8 +275,6 @@
             "<th scope='col'>Phone</th>" +
             "<th scope='col'>Address</th>" +
             "<th scope='col'></th>" +
-            "<th scope='col'></th>" +
-            "<th scope='col'></th>" +
             "</tr>" +
             "</tfoot>" +
             "</table>";
@@ -286,7 +283,14 @@
         dynamic = document.getElementById("dynamic1");
         dynamic.innerHTML = html;
 
-        $("#customerTable").DataTable();
+        // $("#customerTable").DataTable();
+        $('#customerTable').DataTable( {
+            "order": [],
+            "columnDefs": [ {
+              "targets"  : [3],
+              "orderable": false,
+            }]
+        });
     }
 
     function getCustomersBasedOnSelectBox(){
@@ -974,7 +978,14 @@
         dynamic = document.getElementById("dynamicMerge");
         dynamic.innerHTML = html;
 
-        $("#selectCustomerTableForMerge").DataTable();
+        // $("#selectCustomerTableForMerge").DataTable();
+        $('#selectCustomerTableForMerge').DataTable( {
+            "order": [],
+            "columnDefs": [ {
+              "targets"  : [0,1,5],
+              "orderable": false,
+            }]
+        });
     }
 
     function populateKeepCustomerId(customerId){
@@ -1549,10 +1560,6 @@
             "<th scope='col'>Envelope #</th>" +
             "<th scope='col'>Age</th>" +
             "<th scope='col'></th>" +
-            "<th scope='col'></th>" +
-            "<th scope='col'></th>" +
-            "<th scope='col'></th>" +
-            "<th scope='col'></th>" +
             "</tr>" +
             "</thead>" +
             "<tbody>";
@@ -1563,16 +1570,17 @@
             
 
             html = html + "<tr>" +
-                "<th scope='row' data-field='jobid'>" + job.jobId + "</th>" +
-                "<td data-field='customer'>" + job.customer + "</td>" +
-                "<td data-field='envelope'>" + job.envelopeNumber + "</td>" +
-                "<td data-field='jobAge'>" + job.age + " days" + "</td>" +
-                "<td data-field='details'><button title='Details' type='button' data-action='details' onclick='populateDetailsAndEditModals(" + job.jobId + ")' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info-circle'></i></button></td>" +
-                "<td data-field='edit'><button title='Edit' type='button' data-action='edit' onclick='getJobByJobIdForEdit(" + job.jobId + ")' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobEditModal'><i class='fas fa-edit'></i></button></td>" +
-                "<td data-field='remove'><button title='Remove' type='button' data-action='remove' onclick='populateRemoveJobModal(" + job.jobId + ")' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#removeJobModal'><i class='fas fa-minus-square'></i></i></button></td>" +
-                "<td data-field='markComplete'><button title='Mark Complete' type='button' data-action='complete' onclick='populateCompleteJobModal(" + job.jobId + ")' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#MarkJobCompleteModal'><i class='fas fa-check-square'></i></button></td>" +
-                "<td data-field='markDelivered'><button title='Mark Delivered' type='button' data-action='deliver'  onclick='populateDeliveredJobModal(" + job.jobId + ")' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#MarkJobDeliveredModal'><i class='fas fa-paper-plane'></i></button></td>" +
-                "</tr>";
+            "<th scope='row' data-field='jobid'>" + job.jobId + "</th>" +
+            "<td data-field='customer'>" + job.customer + "</td>" +
+            "<td data-field='envelope'>" + job.envelopeNumber + "</td>" +
+            "<td data-field='jobAge'>" + job.age + " days" + "</td>" +
+            "<td><div class='btn-group' role='group'>" + 
+                "<button title='Details' type='button' data-action='details' onclick='populateDetailsAndEditModals(" + job.jobId + ")' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobDetailsModal'><i class='fas fa-info-circle'></i></button>" +
+                "<button title='Edit' type='button' data-action='edit' onclick='getJobByJobIdForEdit(" + job.jobId + ")' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#jobEditModal'><i class='fas fa-edit'></i></button>" +
+                "<button title='Remove' type='button' data-action='remove' onclick='populateRemoveJobModal(" + job.jobId + ")' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#removeJobModal'><i class='fas fa-minus-square'></i></i></button>" +
+                "<button title='Mark Complete' type='button' data-action='complete' onclick='populateCompleteJobModal(" + job.jobId + ")' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#MarkJobCompleteModal'><i class='fas fa-check-square'></i></button>" +
+                "<button title='Mark Delivered' type='button' data-action='deliver'  onclick='populateDeliveredJobModal(" + job.jobId + ")' data-jobid=" + job.jobId + " class='btn btn-outline-light btn-sm mx-1' data-bs-toggle='modal' data-bs-target='#MarkJobDeliveredModal'><i class='fas fa-paper-plane'></i></button></div></td>" +
+            "</tr>";
         }
 
         html = html + "</tbody>" +
@@ -1583,10 +1591,6 @@
             "<th scope='col'>Envelope #</th>" +
             "<th scope='col'>Age</th>" +
             "<th scope='col'></th>" +
-            "<th scope='col'></th>" +
-            "<th scope='col'></th>" +
-            "<th scope='col'></th>" +
-            "<th scope='col'></th>" +
             "</tr>" +
             "</tfoot>" +
             "</table>";
@@ -1595,7 +1599,14 @@
         dynamic = document.getElementById("dynamic2");
         dynamic.innerHTML = html;
 
-        $("#jobTable").DataTable();
+        // $("#jobTable").DataTable();
+        $('#jobTable').DataTable( {
+            "order": [],
+            "columnDefs": [ {
+              "targets"  : [4],
+              "orderable": false,
+            }]
+        });
         
     }
 
@@ -2741,7 +2752,14 @@
         dynamic = document.getElementById("dynamicSelectCustomerForNewJobTable");
         dynamic.innerHTML = html;
 
-        $("#selectCustomerTableForAddJob").DataTable();
+        // $("#selectCustomerTableForAddJob").DataTable();
+        $('#selectCustomerTableForAddJob').DataTable( {
+            "order": [],
+            "columnDefs": [ {
+              "targets"  : [0,4],
+              "orderable": false,
+            }]
+        });
     }
 
     function populateAddJobModalWithCustomerId(customerId, firstName, lastName){
