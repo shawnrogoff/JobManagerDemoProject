@@ -50,6 +50,24 @@ namespace JobTrackerDemoProjectAPI.Controllers
             return response;
         }
 
+        [HttpGet]
+        [Route("/Users/AcceptSecurity")]
+        public string AcceptSecurity()
+        {
+            Response response = new Response();
+
+            try
+            {
+                response.result = "success";
+            }
+            catch (Exception ex)
+            {
+                response.result = "Failure";
+                response.message = ex.Message;
+            }
+            return "Please return to project, and proceed with demo";
+        }
+
 
         // this is for manual insert of initial admin account
         // [HttpGet]

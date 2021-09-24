@@ -54,11 +54,10 @@
                         </p>                       
                         <div class=" row">
                             <div class="d-flex col justify-content-end">
-                                <!-- <button type="button" class="btn btn-primary btn-lg px-4 mb-2 " title="Demo this project" onclick="window.location = 'index.html';">
+                                <button type="button" class="btn btn-primary btn-lg px-4 mb-2 btnPrimaryBackground" title="Demo this project" data-bs-toggle="modal" data-bs-target="#demoModal">
                                     Demo
-                                </button> -->
-                                <a href="Login.html"><button id="btnOpenLoginPage" type="button" title="Demo this project" class="btn btn-primary btn-lg px-4 me-md-2 mb-md-2 btnPrimaryBackground">Demo</button></a>
-                            </div>
+                                </button>
+                            </div>                           
                             <div class="d-flex col justify-content-start">
                                 <button type="button" class="btn btn-outline-primary btn-lg px-4 mb-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     About
@@ -67,6 +66,28 @@
                         </div>
                     </div>
                     <div class="col-lg-3"></div>
+                </div>
+                
+            </div>
+        </section>
+      
+        <section id="demoModalSection" class="">           
+            <!-- Modal -->
+            <div class="modal fade" id="demoModal" tabindex="-1" aria-labelledby="demoModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="demoModalLabel">Job Manager Project</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h5 class="text-dark">In order to properly demo this project you will need to accect the prompt displayed on the following page before proceeding.</h5>
+                            <div class="d-grid gap-2 mt-4 d-block justify-content-center text-center">
+                                <a href="https://66.158.188.108:5001/Users/AcceptSecurity" target="_blank"><button id="btnOpenLoginPage" type="button" title="Demo this project" class="btn btn-success btn-lg">Accept Security Request</button></a>
+                                <a href="Login.html"><button id="btnOpenLoginPage" type="button" title="Demo this project" class="btn btn-primary btn-lg btnPrimaryBackground">Proceed To Demo</button></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
