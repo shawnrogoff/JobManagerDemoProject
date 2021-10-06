@@ -1630,11 +1630,16 @@
     function insertJob(e) {
         var customerId = document.getElementById("addJobCustomerId");
         var jobType = document.getElementById("addJobJobType");
+        
         // Diverge job status between repairs/other and customs since customs take their own route
-        var jobStatus = "in-progress";
-            if (jobType == "custom"){
-                jobStatus = "quote";
-            }
+        
+        if (jobType.value == "custom"){
+            var jobStatus = "quote";
+        }
+        else{
+            var jobStatus = "in-progress";
+        }
+
         var status = jobStatus;
         // Use the current date as received date:
         var todayDate = new Date().toISOString().slice(0, 10);
