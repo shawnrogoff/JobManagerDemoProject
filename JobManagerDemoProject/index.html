@@ -499,7 +499,7 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                        <form action="#">
+                        <form action="#" id="jobDetailsForm">
                           <div class="row mb-1">
                               <div class="col">
                                   <label class="form-label">Job Id:</label>
@@ -561,7 +561,7 @@
                           </div>
                           <div class="row m-1">
                             <div class="col">
-                                <div class="form-check">
+                                <div class="form-check" style="display: none;">
                                     <input class="form-check-input" value="1" type="checkbox" id="jobDetailsTextNotificationCheck" disabled>
                                     <input  type='hidden' value='0' id='jobDetailsTextNotificationCheckHidden'>
                                     <label class="form-check-label" for="jobDetailsTextNotificationCheck">
@@ -570,7 +570,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="form-check">
+                                <div class="form-check" style="display: none;">
                                     <input class="form-check-input" value="1" type="checkbox" id="jobDetailsEmailNotificationCheck" disabled>
                                     <input  type='hidden' value='0' id='jobDetailsEmailNotificationCheckHidden'>
                                     <label class="form-check-label" for="jobDetailsEmailNotificationCheck">
@@ -584,7 +584,7 @@
                       <!-- === Buttons Here === -->
                       <div class="modal-footer">
                         <button id="jobDetailsEditJobBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jobEditModal">Edit</button>
-                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-outline-danger" onclick="document.getElementById('jobDetailsForm').reset()" data-bs-dismiss="modal">Close</button>
                       </div>
                   </div>
               </div>
@@ -600,7 +600,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="#">
+                        <form action="#" id="jobEditForm">
                           <div class="row mb-1">
                               <div class="col">
                                   <label class="form-label">Job Id:</label>
@@ -680,7 +680,7 @@
                           </div>
                           <div class="row m-1">
                             <div class="col">
-                                <div class="form-check">
+                                <div class="form-check" style="display: none;">
                                     <input class="form-check-input" value="1" type="checkbox" id="jobEditTextNotificationCheck">
                                     <input  type='hidden' value='0' id='jobEditTextNotificationCheckHidden'>
                                     <label class="form-check-label" for="jobEditTextNotificationCheck">
@@ -689,7 +689,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="form-check">
+                                <div class="form-check" style="display: none;">
                                     <input class="form-check-input" value="1" type="checkbox" id="jobEditEmailNotificationCheck">
                                     <input  type='hidden' value='0' id='jobEditEmailNotificationCheckHidden'>
                                     <label class="form-check-label" for="jobEditEmailNotificationCheck">
@@ -703,7 +703,7 @@
                       <!-- === Buttons Here === -->
                       <div class="modal-footer">
                         <button id="updateJobBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jobEditModal">Update</button>
-                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-outline-danger" onclick="document.getElementById('jobEditForm').reset()" data-bs-dismiss="modal">Close</button>
                       </div>
                 </div>
               </div>
@@ -765,7 +765,7 @@
                               </div>
                               <div class="row m-1">
                                   <div class="col">
-                                      <div class="form-check">
+                                      <div class="form-check" style="display: none;">
                                           <input class="form-check-input" value="1" type="checkbox" id="textNotificationCheck">
                                           <input  type='hidden' value='0' id='textNotificationCheckHidden'>
                                           <label class="form-check-label" for="addJobTextNotificationCheck">
@@ -774,7 +774,7 @@
                                       </div>
                                   </div>
                                   <div class="col">
-                                      <div class="form-check">
+                                      <div class="form-check" style="display: none;">
                                           <input class="form-check-input" value="1" type="checkbox" id="emailNotificationCheck">
                                           <input  type='hidden' value='0' id='emailNotificationCheckHidden'>
                                           <label class="form-check-label" for="addJobEmailNotificationCheck">

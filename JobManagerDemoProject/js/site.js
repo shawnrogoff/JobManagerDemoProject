@@ -1326,7 +1326,7 @@
             html = html + "<tr>" +
                 "<th scope='row' data-field='transationid'>" + transaction.transactionId + "</th>" +
                 "<td data-field='amount'>" + transaction.amount + "</td>" +
-                "<td data-field='date'>" + transaction.date + "</td>" +
+                "<td data-field='date'>" + transaction.date.split(" ")[0] + "</td>" +
                 "<td data-field='transactiontype'>" + transaction.type + "</td>" +
                 "<td data-field='details'>" + transaction.details  + "</td>" +
                 "</tr>";
