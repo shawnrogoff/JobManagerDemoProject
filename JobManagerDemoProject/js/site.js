@@ -238,7 +238,8 @@
         }
     }
 
-    function refreshCustomerTable(customers) {
+    function refreshCustomerTable(customers) {      
+        
         var html;
         var dynamic;
         var customer;
@@ -291,6 +292,7 @@
               "orderable": false,
             }]
         });
+
     }
 
     function getCustomersBasedOnSelectBox(){
@@ -555,6 +557,9 @@
 
     function populateCreditTransactionModal(customers){
         var customer;
+
+        document.getElementById("addCreditTransactionAmount").value = "";
+        document.getElementById("addCreditTransactionDetails").value = "";
 
         for (var i = 0; i < customers.length; i++) {
             customer = customers[i];
