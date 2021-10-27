@@ -13,7 +13,7 @@ namespace JobTrackerDemoProjectAPI.Controllers
     [Route("[controller]")]
     public class UserAccountsController : ControllerBase
     {
-        string connectionString = @"Data Source=SQL5102.site4now.net;Initial Catalog=db_a759ac_jobmanagerdb;User Id=db_a759ac_jobmanagerdb_admin;Password=FrogsApplesBug12!";
+        string connectionString = @"Data Source=SQL5102.site4now.net;Initial Catalog=db_a759ac_jobmanagerdb;User Id=db_a759ac_jobmanagerdb_admin;Password=FrogsApplesHog12!";
 
         private readonly ILogger<UserAccountsController> _logger;
 
